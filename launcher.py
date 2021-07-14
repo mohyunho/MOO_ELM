@@ -5,6 +5,8 @@ Hyunho Mo
 hyunho.mo@unitn.it
 '''
 ## Import libraries in python
+import gc
+
 import os
 import json
 import logging
@@ -49,6 +51,8 @@ from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
+from utils.data_preparation import df_all_creator, df_train_creator, df_test_creator, Input_Gen
+
 # import tensorflow.compat.v1 as tf
 # tf.disable_v2_behavior()
 seed = 0
@@ -66,8 +70,6 @@ data_filepath = os.path.join(current_dir, 'N-CMAPSS', 'N-CMAPSS_DS02-006.h5')
 
 
 def main():
-    # Time tracking, Operation time (min):  0.003
-    t = time.process_time()
 
     # Load data
     '''
@@ -79,76 +81,7 @@ def main():
     A: auxiliary data
     '''
 
-    with h5py.File(data_filepath, 'r') as hdf:
-        # Development(training) set
-        W_dev = np.array(hdf.get('W_dev'))  # W
-        X_s_dev = np.array(hdf.get('X_s_dev'))  # X_s
-        X_v_dev = np.array(hdf.get('X_v_dev'))  # X_v
-        T_dev = np.array(hdf.get('T_dev'))  # T
-        Y_dev = np.array(hdf.get('Y_dev'))  # RUL
-        A_dev = np.array(hdf.get('A_dev'))  # Auxiliary
-
-        # Test set
-        W_test = np.array(hdf.get('W_test'))  # W
-        X_s_test = np.array(hdf.get('X_s_test'))  # X_s
-        X_v_test = np.array(hdf.get('X_v_test'))  # X_v
-        T_test = np.array(hdf.get('T_test'))  # T
-        Y_test = np.array(hdf.get('Y_test'))  # RUL
-        A_test = np.array(hdf.get('A_test'))  # Auxiliary
-
-        # Varnams
-        W_var = np.array(hdf.get('W_var'))
-        X_s_var = np.array(hdf.get('X_s_var'))
-        X_v_var = np.array(hdf.get('X_v_var'))
-        T_var = np.array(hdf.get('T_var'))
-        A_var = np.array(hdf.get('A_var'))
-
-        # from np.array to list dtype U4/U5
-        W_var = list(np.array(W_var, dtype='U20'))
-        X_s_var = list(np.array(X_s_var, dtype='U20'))
-        X_v_var = list(np.array(X_v_var, dtype='U20'))
-        T_var = list(np.array(T_var, dtype='U20'))
-        A_var = list(np.array(A_var, dtype='U20'))
-
-
-    W = np.concatenate((W_dev, W_test), axis=0)
-    X_s = np.concatenate((X_s_dev, X_s_test), axis=0)
-    X_v = np.concatenate((X_v_dev, X_v_test), axis=0)
-    T = np.concatenate((T_dev, T_test), axis=0)
-    Y = np.concatenate((Y_dev, Y_test), axis=0)
-    A = np.concatenate((A_dev, A_test), axis=0)
-
-    print('')
-    print("Operation time (min): ", (time.process_time() - t) / 60)
-    print("number of training samples(timestamps): ", Y_dev.shape[0])
-    print("number of training samples(timestamps): ", Y_test.shape[0])
-    print('')
-    print("W shape: " + str(W.shape))
-    print("X_s shape: " + str(X_s.shape))
-    print("X_v shape: " + str(X_v.shape))
-    print("T shape: " + str(T.shape))
-    print("Y shape: " + str(Y.shape))
-    print("A shape: " + str(A.shape))
-
-    '''
-    Illusration of Multivariate time-series of condition monitoring sensors readings for Unit5 (fifth engine)
-
-    W: operative conditions (Scenario descriptors) - ['alt', 'Mach', 'TRA', 'T2']
-    X_s: measured signals - ['T24', 'T30', 'T48', 'T50', 'P15', 'P2', 'P21', 'P24', 'Ps30', 'P40', 'P50', 'Nf', 'Nc', 'Wf']
-    X_v: virtual sensors - ['T40', 'P30', 'P45', 'W21', 'W22', 'W25', 'W31', 'W32', 'W48', 'W50', 'SmFan', 'SmLPC', 'SmHPC', 'phi']
-    T(theta): engine health parameters - ['fan_eff_mod', 'fan_flow_mod', 'LPC_eff_mod', 'LPC_flow_mod', 'HPC_eff_mod', 'HPC_flow_mod', 'HPT_eff_mod', 'HPT_flow_mod', 'LPT_eff_mod', 'LPT_flow_mod']
-    Y: RUL [in cycles]
-    A: auxiliary data - ['unit', 'cycle', 'Fc', 'hs']
-    '''
-    df_W = DataFrame(data=W, columns=W_var)
-    df_Xs = DataFrame(data=X_s, columns=X_s_var)
-    df_Xv = DataFrame(data=X_v, columns=X_v_var)
-    df_T = DataFrame(data=T, columns=T_var)
-    df_Y = DataFrame(data=Y, columns=['RUL'])
-    df_A = DataFrame(data=A, columns=A_var)
-
-    # Merge all the dataframes
-    df_all = pd.concat([df_W, df_Xs, df_Xv, df_T, df_Y, df_A], axis=1)
+    df_all = df_all_creator(data_filepath)
 
     '''
     Split dataframe into Train and Test
@@ -156,29 +89,48 @@ def main():
     Test units: 11, 14, 15
 
     '''
-    units = list(np.unique(df_A['unit']))
+    # units = list(np.unique(df_A['unit']))
     units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
     units_index_test = [11.0, 14.0, 15.0]
-    train_df_lst = []
-    test_df_lst = []
+
     print("units_index_train", units_index_train)
     print("units_index_test", units_index_test)
 
-    for idx in units_index_train:
-        df_train_temp = df_all[df_all['unit'] == np.float64(idx)]
-        train_df_lst.append(df_train_temp)
 
-    df_train = pd.concat(train_df_lst)
-    df_train = df_train.reset_index(drop=True)
+
+    df_train = df_train_creator(df_all, units_index_train)
+    df_test = df_test_creator(df_all, units_index_test)
+
     print(df_train)
-
-    for idx in units_index_test:
-        df_test_temp = df_all[df_all['unit'] == np.float64(idx)]
-        test_df_lst.append(df_test_temp)
-
-    df_test = pd.concat(test_df_lst)
-    df_test = df_test.reset_index(drop=True)
+    print(df_train.columns)
+    print("num of inputs: ", len(df_train.columns) )
     print(df_test)
+    print(df_test.columns)
+    print("num of inputs: ", len(df_test.columns))
+
+
+    del df_all
+    gc.collect()
+    df_all = pd.DataFrame()
+
+
+
+    cols_normalize = df_train.columns.difference(['RUL', 'unit'])
+    sequence_length = 50
+    sequence_cols = df_train.columns.difference(['RUL', 'unit'])
+    print('check0')
+    data_class = Input_Gen (df_train, df_test, cols_normalize, sequence_length, sequence_cols)
+    print ('check1')
+    train_samples, label_array_train, test_samples, truth_array_test = data_class.seq_gen()
+    print('check2')
+    print("truth_array_test.shape", train_samples.shape)
+    print("truth_array_test.shape", label_array_train.shape)
+    print("truth_array_test.shape", test_samples.shape)
+    print("truth_array_test.shape", truth_array_test.shape)
+
+
+
+
 
 
 if __name__ == '__main__':
