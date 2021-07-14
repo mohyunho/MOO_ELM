@@ -249,8 +249,8 @@ def time_window_slicing_temp (input_array, sequence_length, sequence_cols, index
     a = []  # a python list to hold the windows
     # input_temp = input_array[input_array['unit'] == index].values
     # print (input_temp.shape)
-    for i in range(0, input_array.shape[0] - sequence_length + 1):
-        window = input_array[i:i + sequence_length, :]  # each individual window
+    for i in range(0, input_array.values.shape[0] - sequence_length + 1):
+        window = input_array.values[i:i + sequence_length, :]  # each individual window
         a.append(window)
         # print (window.shape)
 
