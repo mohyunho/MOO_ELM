@@ -263,7 +263,7 @@ def time_window_slicing_temp (input_array, sequence_length, sequence_cols, index
     # generate sequences and convert to numpy array
     # sample_array = np.concatenate(list(seq_gen)).astype(np.float32)
 
-    # print("sample_array")
+    print("sample_array.shape", sample_array.shape)
 
 
     return sample_array, label_array
@@ -318,7 +318,7 @@ class Input_Gen(object):
         '''
 
         train_samples, label_array_train = time_window_slicing_temp(self.df_train, self.sequence_length, self.sequence_cols, 2.0)
-        test_samples, truth_array_test = time_window_slicing(self.df_test, self.sequence_length, self.sequence_cols)
+        # test_samples, truth_array_test = time_window_slicing(self.df_test, self.sequence_length, self.sequence_cols)
         # print("truth_array_test.shape", train_samples.shape)
         # print("truth_array_test.shape", label_array_train.shape)
         # print("truth_array_test.shape", test_samples.shape)
