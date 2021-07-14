@@ -130,10 +130,55 @@ def main():
     print("Y shape: " + str(Y.shape))
     print("A shape: " + str(A.shape))
 
+    '''
+    Illusration of Multivariate time-series of condition monitoring sensors readings for Unit5 (fifth engine)
 
+    W: operative conditions (Scenario descriptors) - ['alt', 'Mach', 'TRA', 'T2']
+    X_s: measured signals - ['T24', 'T30', 'T48', 'T50', 'P15', 'P2', 'P21', 'P24', 'Ps30', 'P40', 'P50', 'Nf', 'Nc', 'Wf']
+    X_v: virtual sensors - ['T40', 'P30', 'P45', 'W21', 'W22', 'W25', 'W31', 'W32', 'W48', 'W50', 'SmFan', 'SmLPC', 'SmHPC', 'phi']
+    T(theta): engine health parameters - ['fan_eff_mod', 'fan_flow_mod', 'LPC_eff_mod', 'LPC_flow_mod', 'HPC_eff_mod', 'HPC_flow_mod', 'HPT_eff_mod', 'HPT_flow_mod', 'LPT_eff_mod', 'LPT_flow_mod']
+    Y: RUL [in cycles]
+    A: auxiliary data - ['unit', 'cycle', 'Fc', 'hs']
+    '''
+    df_W = DataFrame(data=W, columns=W_var)
+    df_Xs = DataFrame(data=X_s, columns=X_s_var)
+    df_Xv = DataFrame(data=X_v, columns=X_v_var)
+    df_T = DataFrame(data=T, columns=T_var)
+    df_Y = DataFrame(data=Y, columns=['RUL'])
+    df_A = DataFrame(data=A, columns=A_var)
 
+    # Merge all the dataframes
+    df_all = pd.concat([df_W, df_Xs, df_Xv, df_T, df_Y, df_A], axis=1)
 
+    '''
+    Split dataframe into Train and Test
+    Training units: 2, 5, 10, 16, 18, 20
+    Test units: 11, 14, 15
 
+    '''
+    units = list(np.unique(df_A['unit']))
+    units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
+    units_index_test = [11.0, 14.0, 15.0]
+    train_df_lst = []
+    test_df_lst = []
+    print("units_index_train", units_index_train)
+    print("units_index_test", units_index_test)
+
+    for idx in units_index_train:
+        df_train_temp = df_all[df_all['unit'] == np.float64(idx)]
+        train_df_lst.append(df_train_temp)
+
+    df_train = pd.concat(train_df_lst)
+    df_train = df_train.reset_index(drop=True)
+    print(df_train)
+
+    for idx in units_index_test:
+        df_test_temp = df_all[df_all['unit'] == np.float64(idx)]
+        test_df_lst.append(df_test_temp)
+
+    df_test = pd.concat(test_df_lst)
+    df_test = df_test.reset_index(drop=True)
+    print(df_test)
 
 
 if __name__ == '__main__':
