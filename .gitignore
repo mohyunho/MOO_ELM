@@ -4,6 +4,10 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 
+# Data files
+N-CMAPSS/
+*.h5
+
 # Other files and folders
 .settings/
 
