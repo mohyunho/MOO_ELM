@@ -137,9 +137,6 @@ def df_test_creator(df_all, units_index_test):
 
     return df_test
 
-
-
-
 def gen_sequence(id_df, seq_length, seq_cols):
     """ Only sequences that meet the window-length are considered, no padding is used. This means for testing
     we need to drop those which are below the window-length. An alternative would be to pad sequences so that
@@ -180,97 +177,75 @@ def gen_labels(id_df, seq_length, label):
     # All the next id's sequences will have associated step by step one label as target.
     return data_matrix[seq_length:num_elements, :]
 
-
-
 def time_window_slicing (input_array, sequence_length, sequence_cols):
     # generate labels
     label_gen = [gen_labels(input_array[input_array['unit'] == id], sequence_length, ['RUL'])
                  for id in input_array['unit'].unique()]
-
-    print("check ,label_gen")
     label_array = np.concatenate(label_gen).astype(np.float32)
-    print("check ,label_array")
-    print("label_array", label_array)
-    print ("label_array.shape", label_array.shape)
-    #
-    # # transform each id of the train dataset in a sequence
-    # seq_gen = (list(gen_sequence(input_array[input_array['unit'] == id], sequence_length, sequence_cols))
-    #            for id in input_array['unit'].unique())
-
-    sample_array = np.concatenate(list((list(gen_sequence(input_array[input_array['unit'] == id], sequence_length, sequence_cols))
-               for id in input_array['unit'].unique())))
-
-    # print ("check ,seq_gen")
-    # print("type(seq_gen)", type(seq_gen))
-    # print("type(list(seq_gen))", type(list(seq_gen)))
-    # print (list(seq_gen))
-    # generate sequences and convert to numpy array
-    # sample_array = np.concatenate(list(seq_gen)).astype(np.float32)
-
-    print("sample_array")
-
-
-    return sample_array, label_array
-
-
-def time_window_slicing_single (input_array, sequence_length, sequence_cols, index):
-    # generate labels
-    label_gen = [gen_labels(input_array[input_array['unit'] == id], sequence_length, ['RUL'])
-                 for id in input_array['unit'].unique()]
-
-    print("check ,label_gen")
-    label_array = np.concatenate(label_gen).astype(np.float32)
-    print("check ,label_array")
 
     # transform each id of the train dataset in a sequence
-    # seq_gen = list(gen_sequence(input_array[input_array['unit'] == index], sequence_length, sequence_cols))
-    sample_array = np.asarray(list(gen_sequence(input_array[input_array['unit'] == index], sequence_length, sequence_cols)))
-
-    # print("type(seq_gen)", type(seq_gen))
-    # print ("check ,seq_gen")
-    # generate sequences and convert to numpy array
-    # sample_array = np.concatenate(list(seq_gen)).astype(np.float32)
+    seq_gen = (list(gen_sequence(input_array[input_array['unit'] == id], sequence_length, sequence_cols))
+               for id in input_array['unit'].unique())
+    sample_array = np.concatenate(list(seq_gen)).astype(np.float32)
 
     print("sample_array")
-
-
     return sample_array, label_array
 
 
-def time_window_slicing_temp (input_array, sequence_length, sequence_cols, index):
-    # generate labels
-    label_gen = [gen_labels(input_array[input_array['unit'] == id], sequence_length, ['RUL'])
-                 for id in input_array['unit'].unique()]
-
-    print("check ,label_gen")
-    label_array = np.concatenate(label_gen).astype(np.float32)
-    print("check ,label_array")
-
-    a = []  # a python list to hold the windows
-    input_temp = input_array[input_array['unit'] == index].values
-    print (input_temp.shape)
-    for i in range(0, input_temp.shape[0] - sequence_length + 1):
-        window = input_temp[i:i + sequence_length, :]  # each individual window
-        a.append(window)
+def time_window_slicing_label_save (input_array, sequence_length, stride, index, sample_dir_path, sequence_cols = 'RUL'):
+    '''
+    ref
+        for i in range(0, input_temp.shape[0] - sequence_length):
+        window = input_temp[i*stride:i*stride + sequence_length, :]  # each individual window
+        window_lst.append(window)
         # print (window.shape)
 
 
-    print (len(a))
-    sample_array = np.dstack(a)
-    print ("complete")
-    # print("type(seq_gen)", type(seq_gen))
-    # print ("check ,seq_gen")
-    # generate sequences and convert to numpy array
-    # sample_array = np.concatenate(list(seq_gen)).astype(np.float32)
+    '''
+    # generate labels
+    window_lst = []  # a python list to hold the windows
 
-    print("sample_array.shape", sample_array.shape)
+    input_temp = input_array[input_array['unit'] == index][sequence_cols].values
+    print (input_temp.shape)
+    num_samples = int((input_temp.shape[0] - sequence_length)/stride) + 1
+    for i in range(num_samples):
+        window = input_temp[i*stride:i*stride + sequence_length]  # each individual window
+        window_lst.append(window)
+        # print (window.shape)
+
+    label_array = np.asarray(window_lst).astype(np.float32)
+    print ("label_array.shape", label_array.shape)
+
+    # np.save(os.path.join(sample_dir_path, 'Unit%s_rul_win%s_str%s' %(str(int(index)), sequence_length, stride)),
+    #         label_array)  # save the file as "outfile_name.npy"
+
+    return label_array
 
 
-    return sample_array, label_array
+
+def time_window_slicing_sample_save (input_array, sequence_length, stride, index, sample_dir_path, sequence_cols):
+    '''
 
 
+    '''
+    # generate labels
+    window_lst = []  # a python list to hold the windows
+
+    input_temp = input_array[input_array['unit'] == index][sequence_cols].values
+    print ("Unit%s input array shape: " %index, input_temp.shape)
+    num_samples = int((input_temp.shape[0] - sequence_length)/stride) + 1
+    for i in range(num_samples):
+        window = input_temp[i*stride:i*stride + sequence_length,:]  # each individual window
+        window_lst.append(window)
+
+    sample_array = np.dstack(window_lst)
+    print ("sample_array.shape", sample_array.shape)
+
+    # np.save(os.path.join(sample_dir_path, 'Unit%s_samples_win%s_str%s' %(str(int(index)), sequence_length, stride)),
+    #         sample_array)  # save the file as "outfile_name.npy"
 
 
+    return sample_array
 
 
 
@@ -279,7 +254,8 @@ class Input_Gen(object):
     class for data preparation (sequence generator)
     '''
 
-    def __init__(self, df_train, df_test, cols_normalize, sequence_length, sequence_cols):
+    def __init__(self, df_train, df_test, cols_normalize, sequence_length, sequence_cols, sample_dir_path,
+                 unit_index, stride):
         '''
 
         '''
@@ -307,6 +283,9 @@ class Input_Gen(object):
         self.cols_normalize = cols_normalize
         self.sequence_length = sequence_length
         self.sequence_cols = sequence_cols
+        self.sample_dir_path = sample_dir_path
+        self.unit_index = np.float64(unit_index)
+        self.stride = stride
 
 
     def seq_gen(self):
@@ -317,15 +296,29 @@ class Input_Gen(object):
         :return:
         '''
 
-        train_samples, label_array_train = time_window_slicing_temp(self.df_train, self.sequence_length, self.sequence_cols, 2.0)
-        # test_samples, truth_array_test = time_window_slicing(self.df_test, self.sequence_length, self.sequence_cols)
-        # print("truth_array_test.shape", train_samples.shape)
-        # print("truth_array_test.shape", label_array_train.shape)
-        # print("truth_array_test.shape", test_samples.shape)
-        # print("truth_array_test.shape", truth_array_test.shape)
+        if any(index == self.unit_index for index in self.df_train['unit'].unique()):
+            print ("if")
+            label_array = time_window_slicing_label_save(self.df_train, self.sequence_length,
+                                           self.stride, self.unit_index, self.sample_dir_path, sequence_cols='RUL')
+            sample_array = time_window_slicing_sample_save(self.df_train, self.sequence_length,
+                                           self.stride, self.unit_index, self.sample_dir_path, sequence_cols=self.cols_normalize)
 
+        else:
+            print("else")
+            label_array = time_window_slicing_label_save(self.df_test, self.sequence_length,
+                                           self.stride, self.unit_index, self.sample_dir_path, sequence_cols='RUL')
+            sample_array = time_window_slicing_sample_save(self.df_test, self.sequence_length,
+                                           self.stride, self.unit_index, self.sample_dir_path, sequence_cols=self.cols_normalize)
 
-        return train_samples, label_array_train, test_samples, truth_array_test
+        np.savez_compressed(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s' %(str(int(self.unit_index)), self.sequence_length, self.stride)),
+                                         sample=sample_array, label=label_array)
+        print ("saved")
+
+        loaded = np.load(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s.npz' %(str(int(self.unit_index)), self.sequence_length, self.stride)))
+        print (loaded['sample'].shape)
+        print(loaded['label'].shape)
+
+        return
 
 
 

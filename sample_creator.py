@@ -66,7 +66,7 @@ tf.get_logger().setLevel(logging.ERROR)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_filedir = os.path.join(current_dir, 'N-CMAPSS')
 data_filepath = os.path.join(current_dir, 'N-CMAPSS', 'N-CMAPSS_DS02-006.h5')
-sample_dir_path = os.path.join(data_filedir, 'Samples')
+
 
 
 
@@ -85,12 +85,56 @@ def main():
     unit_index = args.index
 
 
-    loaded = np.load(os.path.join(sample_dir_path,
-                                  'Unit%s_win%s_str%s.npz' % (str(int(unit_index)), sequence_length, stride)))
-    print(loaded['sample'].shape)
-    print(loaded['label'].shape)
+
+    # Load data
+    '''
+    W: operative conditions (Scenario descriptors)
+    X_s: measured signals
+    X_v: virtual sensors
+    T(theta): engine health parameters
+    Y: RUL [in cycles]
+    A: auxiliary data
+    '''
+
+    df_all = df_all_creator(data_filepath)
+
+    '''
+    Split dataframe into Train and Test
+    Training units: 2, 5, 10, 16, 18, 20
+    Test units: 11, 14, 15
+
+    '''
+    # units = list(np.unique(df_A['unit']))
+    units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
+    units_index_test = [11.0, 14.0, 15.0]
+
+    print("units_index_train", units_index_train)
+    print("units_index_test", units_index_test)
 
 
+
+    df_train = df_train_creator(df_all, units_index_train)
+    df_test = df_test_creator(df_all, units_index_test)
+
+    print(df_train)
+    print(df_train.columns)
+    print("num of inputs: ", len(df_train.columns) )
+    print(df_test)
+    print(df_test.columns)
+    print("num of inputs: ", len(df_test.columns))
+
+
+    del df_all
+    gc.collect()
+    df_all = pd.DataFrame()
+    sample_dir_path = os.path.join(data_filedir, 'Samples')
+
+    cols_normalize = df_train.columns.difference(['RUL', 'unit'])
+    sequence_cols = df_train.columns.difference(['RUL', 'unit'])
+
+    data_class = Input_Gen (df_train, df_test, cols_normalize, sequence_length, sequence_cols, sample_dir_path,
+                            unit_index, stride =stride)
+    data_class.seq_gen()
 
 
 
