@@ -111,18 +111,29 @@ def main():
     print("units_index_train", units_index_train)
     print("units_index_test", units_index_test)
 
+    # if any(int(idx) == unit_index for idx in units_index_train):
+    #     df_train = df_train_creator(df_all, units_index_train)
+    #     print(df_train)
+    #     print(df_train.columns)
+    #     print("num of inputs: ", len(df_train.columns) )
+    #     df_test = pd.DataFrame()
+    #
+    # else :
+    #     df_test = df_test_creator(df_all, units_index_test)
+    #     print(df_test)
+    #     print(df_test.columns)
+    #     print("num of inputs: ", len(df_test.columns))
+    #     df_train = pd.DataFrame()
 
 
     df_train = df_train_creator(df_all, units_index_train)
-    df_test = df_test_creator(df_all, units_index_test)
-
     print(df_train)
     print(df_train.columns)
     print("num of inputs: ", len(df_train.columns) )
+    df_test = df_test_creator(df_all, units_index_test)
     print(df_test)
     print(df_test.columns)
     print("num of inputs: ", len(df_test.columns))
-
 
     del df_all
     gc.collect()
