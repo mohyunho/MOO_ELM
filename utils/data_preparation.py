@@ -206,7 +206,6 @@ def time_window_slicing_label_save (input_array, sequence_length, stride, index,
     window_lst = []  # a python list to hold the windows
 
     input_temp = input_array[input_array['unit'] == index][sequence_cols].values
-    print (input_temp.shape)
     num_samples = int((input_temp.shape[0] - sequence_length)/stride) + 1
     for i in range(num_samples):
         window = input_temp[i*stride:i*stride + sequence_length]  # each individual window
@@ -214,12 +213,12 @@ def time_window_slicing_label_save (input_array, sequence_length, stride, index,
         # print (window.shape)
 
     label_array = np.asarray(window_lst).astype(np.float32)
-    print ("label_array.shape", label_array.shape)
+
 
     # np.save(os.path.join(sample_dir_path, 'Unit%s_rul_win%s_str%s' %(str(int(index)), sequence_length, stride)),
     #         label_array)  # save the file as "outfile_name.npy"
 
-    return label_array
+    return label_array[:,-1]
 
 
 
@@ -238,7 +237,7 @@ def time_window_slicing_sample_save (input_array, sequence_length, stride, index
         window = input_temp[i*stride:i*stride + sequence_length,:]  # each individual window
         window_lst.append(window)
 
-    sample_array = np.dstack(window_lst)
+    sample_array = np.dstack(window_lst).astype(np.float32)
     print ("sample_array.shape", sample_array.shape)
 
     # np.save(os.path.join(sample_dir_path, 'Unit%s_samples_win%s_str%s' %(str(int(index)), sequence_length, stride)),
@@ -297,26 +296,41 @@ class Input_Gen(object):
         '''
 
         if any(index == self.unit_index for index in self.df_train['unit'].unique()):
-            print ("if")
+            print ("Unit for Train")
             label_array = time_window_slicing_label_save(self.df_train, self.sequence_length,
                                            self.stride, self.unit_index, self.sample_dir_path, sequence_cols='RUL')
             sample_array = time_window_slicing_sample_save(self.df_train, self.sequence_length,
                                            self.stride, self.unit_index, self.sample_dir_path, sequence_cols=self.cols_normalize)
 
         else:
-            print("else")
+            print("Unit for Test")
             label_array = time_window_slicing_label_save(self.df_test, self.sequence_length,
                                            self.stride, self.unit_index, self.sample_dir_path, sequence_cols='RUL')
             sample_array = time_window_slicing_sample_save(self.df_test, self.sequence_length,
                                            self.stride, self.unit_index, self.sample_dir_path, sequence_cols=self.cols_normalize)
 
-        np.savez_compressed(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s' %(str(int(self.unit_index)), self.sequence_length, self.stride)),
-                                         sample=sample_array, label=label_array)
-        print ("saved")
+        sample_split_lst = np.array_split(sample_array, 3, axis=2)
+        # print (sample_split_lst[0].shape)
+        # print(sample_split_lst[1].shape)
+        # print(sample_split_lst[2].shape)
 
-        loaded = np.load(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s.npz' %(str(int(self.unit_index)), self.sequence_length, self.stride)))
-        print (loaded['sample'].shape)
-        print(loaded['label'].shape)
+        label_split_lst = np.array_split(label_array, 3, axis=0)
+        # print (label_split_lst[0].shape)
+        # print(label_split_lst[1].shape)
+        # print(label_split_lst[2].shape)
+
+
+
+        np.savez_compressed(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s_part1' %(str(int(self.unit_index)), self.sequence_length, self.stride)),
+                                         sample=sample_split_lst[0], label=label_split_lst[0])
+        print ("part1 saved")
+        np.savez_compressed(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s_part2' %(str(int(self.unit_index)), self.sequence_length, self.stride)),
+                                         sample=sample_split_lst[1], label=label_split_lst[1])
+        print ("part2 saved")
+        np.savez_compressed(os.path.join(self.sample_dir_path, 'Unit%s_win%s_str%s_part3' %(str(int(self.unit_index)), self.sequence_length, self.stride)),
+                                         sample=sample_split_lst[2], label=label_split_lst[2])
+        print ("part3 saved")
+
 
         return
 

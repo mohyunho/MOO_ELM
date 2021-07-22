@@ -6,6 +6,7 @@ hyunho.mo@unitn.it
 '''
 ## Import libraries in python
 import gc
+import glob
 import argparse
 import os
 import json
@@ -68,6 +69,29 @@ data_filedir = os.path.join(current_dir, 'N-CMAPSS')
 data_filepath = os.path.join(current_dir, 'N-CMAPSS', 'N-CMAPSS_DS02-006.h5')
 sample_dir_path = os.path.join(data_filedir, 'Samples')
 
+def merge (sample_dir_path, unit_num):
+    sample_array_lst = []
+    label_array_lst = []
+
+    for filepath in glob.glob(sample_dir_path + '/Unit' + unit_num + '*.npz'):
+        print ("Loading %s ..." %filepath)
+        # loaded = np.load(os.path.join(sample_dir_path, filepath))
+        loaded = np.load(filepath)
+        print(loaded['sample'].shape)
+        print(loaded['sample'][0].dtype)
+        print(loaded['label'].shape)
+        print(loaded['label'][0].dtype)
+        sample_array_lst.append(loaded['sample'])
+        label_array_lst.append(loaded['label'])
+
+
+    sample_array = np.dstack(sample_array_lst)
+
+    label_array = np.concatenate(label_array_lst)
+
+    print ("sample_array.shape", sample_array.shape)
+    print ("label_array.shape", label_array.shape)
+    return sample_array, label_array
 
 
 def main():
@@ -85,12 +109,63 @@ def main():
     unit_index = args.index
 
 
-    loaded = np.load(os.path.join(sample_dir_path,
-                                  'Unit%s_win%s_str%s.npz' % (str(int(unit_index)), sequence_length, stride)))
-    print(loaded['sample'].shape)
-    print(loaded['label'].shape)
+    # loaded = np.load(os.path.join(sample_dir_path,
+    #                               'Unit%s_win%s_str%s.npz' % (str(int(unit_index)), sequence_length, stride)))
+    # print(loaded['sample'].shape)
+    # print(loaded['label'].shape)
 
 
+
+    # sample_dir_files = os.path.join(sample_dir_path, '*.npz')
+    dirFiles = os.listdir(sample_dir_path)  # list of directory files
+
+    def SortingBigIntegers(arr, n):
+        # Direct sorting using lamda operator
+        # and length comparison
+        arr.sort(key=lambda x: (len(x), x))
+
+    sample_dir_files = dirFiles
+    n = len(sample_dir_files)
+
+    SortingBigIntegers(sample_dir_files, n)
+
+
+    print (sample_dir_files)
+    print (type(sample_dir_files))
+
+    units_index_train = [2.0, 5.0, 10]
+    # units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
+    units_index_test = [11.0, 14.0, 15.0]
+
+    sample_array_lst = []
+    label_array_lst = []
+
+    idx = units_index_train[0]
+    sample_array, label_array = merge(sample_dir_path, str(int(idx)))
+
+    sample_array = sample_array.transpose(2, 0, 1)
+    print (sample_array.shape)
+
+
+
+
+    # sample_array_lst = []
+    # label_array_lst = []
+    #
+    # for filepath in glob.glob(sample_dir_path + '/Unit2*.npz'):
+    #     print ("Loading %s ..." %filepath)
+    #     # loaded = np.load(os.path.join(sample_dir_path, filepath))
+    #     loaded = np.load(filepath)
+    #     print(loaded['sample'].shape)
+    #     print(loaded['label'].shape)
+    #     sample_array_lst.append(loaded['sample'])
+    #     label_array_lst.append(loaded['label'])
+    #
+    # sample_array = np.dstack(sample_array_lst)
+    # label_array = np.concatenate(label_array_lst)
+
+    print ("sample_array.shape", sample_array.shape)
+    print ("label_array.shape", label_array.shape)
 
 
 

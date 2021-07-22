@@ -4,4 +4,4 @@ mkdir N-CMAPSS
 pip install gdown
 gdown https://drive.google.com/uc?id=1Yyo_ls6E0WjZn7BoRG-X1lteVGPdnn3z
 
-
+python sample_creator.py -w 50 -s 1 --index 18
