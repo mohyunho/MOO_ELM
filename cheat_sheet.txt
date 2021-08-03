@@ -5,3 +5,11 @@ pip install gdown
 gdown https://drive.google.com/uc?id=1Yyo_ls6E0WjZn7BoRG-X1lteVGPdnn3z
 
 python sample_creator.py -w 50 -s 1 --index 18
+
+
+    Training units: 2, 5, 10, 16, 18, 20
+    Test units: 11, 14, 15
+
+python sample_creator.py -w 50 -s 1 --index 18
+
+python3 sample_creator_unit.py -w 50 -s 1 --index 
