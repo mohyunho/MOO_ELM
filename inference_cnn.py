@@ -63,8 +63,17 @@ np.random.seed(seed)
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
 
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-tf.get_logger().setLevel(logging.ERROR)
+
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+config = ConfigProto()
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
+
+# tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+# tf.get_logger().setLevel(logging.ERROR)
+
+
 
 # tf.config.set_visible_devices([], 'GPU')
 
