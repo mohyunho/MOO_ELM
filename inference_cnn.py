@@ -63,10 +63,10 @@ np.random.seed(seed)
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
 
-# tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-# tf.get_logger().setLevel(logging.ERROR)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+tf.get_logger().setLevel(logging.ERROR)
 
-tf.config.set_visible_devices([], 'GPU')
+# tf.config.set_visible_devices([], 'GPU')
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_filedir = os.path.join(current_dir, 'N-CMAPSS')
