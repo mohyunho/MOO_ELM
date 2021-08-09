@@ -105,7 +105,8 @@ def load_array (sample_dir_path, unit_num, win_len, stride):
     filename =  'Unit%s_win%s_str%s.npz' %(str(int(unit_num)), win_len, stride)
     filepath =  os.path.join(sample_dir_path, filename)
     loaded = np.load(filepath)
-    return loaded['sample'], loaded['label']
+
+    return loaded['sample'].transpose(2, 0, 1), loaded['label']
 
 def rmse(y_true, y_pred):
     return backend.sqrt(backend.mean(backend.square(y_pred - y_true), axis=-1))
