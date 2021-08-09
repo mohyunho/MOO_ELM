@@ -159,7 +159,7 @@ def main():
             print(one_d_cnn_model.summary())
             # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
             one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
-            history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=1,
+            history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                               callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                               )
@@ -167,7 +167,7 @@ def main():
 
         else:
             loaded_model = load_model(tf_temp_path)
-            history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=1,
+            history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
