@@ -64,11 +64,15 @@ np.random.seed(seed)
 pd.options.mode.chained_assignment = None  # default='warn'
 
 
-from tensorflow.compat.v1 import ConfigProto
-from tensorflow.compat.v1 import InteractiveSession
-config = ConfigProto()
-config.gpu_options.allow_growth = True
-session = InteractiveSession(config=config)
+# from tensorflow.compat.v1 import ConfigProto
+# from tensorflow.compat.v1 import InteractiveSession
+# config = ConfigProto()
+# config.gpu_options.allow_growth = True
+# session = InteractiveSession(config=config)
+
+gpus = tf.config.experimental.list_physical_devices('GPU')
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
 # tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 # tf.get_logger().setLevel(logging.ERROR)
