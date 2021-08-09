@@ -66,12 +66,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 # tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 # tf.get_logger().setLevel(logging.ERROR)
 
-# Set CPU as available physical device
-my_devices = tf.config.experimental.list_physical_devices(device_type='CPU')
-tf.config.experimental.set_visible_devices(devices= my_devices, device_type='CPU')
-
-# To find out which devices your operations and tensors are assigned to
-tf.debugging.set_log_device_placement(True)
+tf.config.set_visible_devices([], 'GPU')
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_filedir = os.path.join(current_dir, 'N-CMAPSS')
