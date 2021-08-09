@@ -143,6 +143,8 @@ def main():
 
     for index in units_index_train:
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
+        print("sample_array.shape", sample_array.shape)
+        print("label_array.shape", label_array.shape)
 
         if int(index) == int(units_index_train[0]):
             input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='unit%s' %str(int(index)))
