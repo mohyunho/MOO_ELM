@@ -145,7 +145,8 @@ def figsave(history,index, win_len, win_stride, bs):
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.show()
-    fig_acc.savefig(pic_dir + "/unit%s_training_w%s_s%s_bs%s.png" %(str(int(units_index_test[index])), int(win_len), int(win_stride), int(bs) ))
+    print ("saving file:training loss figure")
+    fig_acc.savefig(pic_dir + "/unit%s_training_w%s_s%s_bs%s.png" %(int(index), int(win_len), int(win_stride), int(bs)))
     return
 
 
@@ -184,6 +185,7 @@ def main():
     for index in units_index_train:
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
         sample_array, label_array = shuffle_array(sample_array, label_array)
+        print("Training for trajectory of engine %s" %int(index))
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
 
