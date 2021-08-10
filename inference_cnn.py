@@ -136,7 +136,17 @@ def shuffle_array(sample_array, label_array):
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
-
+def figsave(history,index, win_len, win_stride, bs):
+    fig_acc = plt.figure(figsize=(10, 10))
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('Training #%s' %index)
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.show()
+    fig_acc.savefig(pic_dir + "/unit%s_training_w%s_s%s_bs%s.png" %(str(int(units_index_test[index])), win_len, win_stride, bs ))
+    return
 
 
 
@@ -194,6 +204,13 @@ def main():
                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                               )
             one_d_cnn_model.save(tf_temp_path,save_format='tf')
+            figsave(history, index, win_len, win_stride, bs)
+
+
+
+
+
+
 
         else:
             loaded_model = load_model(tf_temp_path)
@@ -202,6 +219,7 @@ def main():
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
             loaded_model.save(tf_temp_path,save_format='tf')
+            figsave(history, index, win_len, win_stride, bs)
 
 
     output_lst = []
@@ -242,7 +260,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 18})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=20)
         plt.show()
-        fig_verify.savefig(pic_dir + "unit%s_test.png" %str(int(units_index_test[idx])))
+        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), win_len, win_stride, bs ))
 
 
 if __name__ == '__main__':

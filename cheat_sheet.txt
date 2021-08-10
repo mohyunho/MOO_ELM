@@ -15,3 +15,6 @@ python sample_creator.py -w 50 -s 1 --index 18
 python3 sample_creator_unit.py -w 50 -s 1 --index 
 
 python3 inference_cnn.py -w 50 -s 1 -f 10 -k 10 -bs 256 -ep 30 -pt 20
+
+python3 inference_cnn.py -w 50 -s 1 -f 10 -k 10 -bs 128 -ep 30 -pt 20
+
