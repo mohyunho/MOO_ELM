@@ -29,3 +29,103 @@ def one_dcnn(n_filters, kernel_size, input_array):
     print(cnn.summary())
 
     return cnn
+
+
+'''
+Define the function for generating CNN braches(heads)
+
+'''
+
+
+def CNNBranch(n_filters, window_length, input_features,
+              strides_len, kernel_size, n_conv_layer):
+    inputs = Input(shape=(window_length, input_features), name='input_layer')
+    x = inputs
+    for layer in range(n_conv_layer):
+        x = Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')(x)
+        x = BatchNormalization()(x)
+        x = Activation('relu')(x)
+
+    outputs = Flatten()(x)
+    #     causalcnn = Model(inputs, outputs=[outputs])
+    cnnbranch = Model(inputs, outputs=outputs)
+    return cnnbranch
+
+
+def TD_CNNBranch(n_filters, window_length, n_window, input_features,
+                 strides_len, kernel_size, n_conv_layer):
+    cnn = Sequential()
+    cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same'),
+                            input_shape=(n_window, window_length, input_features)))
+    cnn.add(TimeDistributed(BatchNormalization()))
+    cnn.add(TimeDistributed(Activation('relu')))
+
+    if n_conv_layer == 1:
+        pass
+
+    elif n_conv_layer == 2:
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(BatchNormalization()))
+        cnn.add(TimeDistributed(Activation('relu')))
+
+    elif n_conv_layer == 3:
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(BatchNormalization()))
+        cnn.add(TimeDistributed(Activation('relu')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(BatchNormalization()))
+        cnn.add(TimeDistributed(Activation('relu')))
+
+    elif n_conv_layer == 4:
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(BatchNormalization()))
+        cnn.add(TimeDistributed(Activation('relu')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(BatchNormalization()))
+        cnn.add(TimeDistributed(Activation('relu')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(BatchNormalization()))
+        cnn.add(TimeDistributed(Activation('relu')))
+
+    cnn.add(TimeDistributed(Flatten()))
+    print(cnn.summary())
+
+    return cnn
+
+
+def CNNB(n_filters, lr, decay, loss,
+         seq_len, input_features,
+         strides_len, kernel_size,
+         dilation_rates):
+    inputs = Input(shape=(seq_len, input_features), name='input_layer')
+    x = inputs
+    for dilation_rate in dilation_rates:
+        x = Conv1D(filters=n_filters,
+                   kernel_size=kernel_size,
+                   padding='causal',
+                   dilation_rate=dilation_rate,
+                   activation='linear')(x)
+        x = BatchNormalization()(x)
+        x = Activation('relu')(x)
+
+    # x = Dense(7, activation='relu', name='dense_layer')(x)
+    outputs = Dense(3, activation='sigmoid', name='output_layer')(x)
+    causalcnn = Model(inputs, outputs=[outputs])
+
+    return causalcnn
+
+
+def multi_head_cnn(sensor_input_model, n_filters, window_length, n_window,
+                   input_features, strides_len, kernel_size, n_conv_layer):
+    cnn_out_list = []
+    cnn_branch_list = []
+
+    for sensor_input in sensor_input_model:
+        cnn_branch_temp = TD_CNNBranch(n_filters, window_length, n_window,
+                                       input_features, strides_len, kernel_size, n_conv_layer)
+        cnn_out_temp = cnn_branch_temp(sensor_input)
+
+        cnn_branch_list.append(cnn_branch_temp)
+        cnn_out_list.append(cnn_out_temp)
+
+    return cnn_out_list, cnn_branch_list
