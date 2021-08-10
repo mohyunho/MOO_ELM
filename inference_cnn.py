@@ -137,13 +137,13 @@ def shuffle_array(sample_array, label_array):
     return shuffle_sample, shuffle_label
 
 def figsave(history,index, win_len, win_stride, bs):
-    fig_acc = plt.figure(figsize=(10, 10))
+    fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
-    plt.title('Training #%s' %index)
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    plt.title('Training #%s' %int(index), fontsize=24)
+    plt.ylabel('loss', fontdict={'fontsize': 18})
+    plt.xlabel('epoch', fontdict={'fontsize': 18})
+    plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
     fig_acc.savefig(pic_dir + "/unit%s_training_w%s_s%s_bs%s.png" %(int(index), int(win_len), int(win_stride), int(bs)))
@@ -151,7 +151,7 @@ def figsave(history,index, win_len, win_stride, bs):
 
 
 
-units_index_train = [2.0, 5.0]
+units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
 
 
@@ -255,12 +255,12 @@ def main():
         fig_verify = plt.figure(figsize=(24, 10))
         plt.plot(output_lst[idx], color="green")
         plt.plot(truth_lst[idx], color="red", linewidth=2.0)
-        plt.title('Unit11 inference', fontsize=24)
-        plt.yticks(fontsize=15)
-        plt.xticks(fontsize=15)
-        plt.ylabel('RUL', fontdict={'fontsize': 18})
-        plt.xlabel('Timestamps', fontdict={'fontsize': 18})
-        plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=20)
+        plt.title('Unit11 inference', fontsize=30)
+        plt.yticks(fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.ylabel('RUL', fontdict={'fontsize': 24})
+        plt.xlabel('Timestamps', fontdict={'fontsize': 24})
+        plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
         fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs)))
 
