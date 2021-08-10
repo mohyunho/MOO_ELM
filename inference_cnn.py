@@ -132,7 +132,7 @@ def rmse(y_true, y_pred):
 def shuffle_array(sample_array, label_array):
     ind_list = list(range(len(sample_array)))
     shuffle(ind_list)
-    shuffle_sample = sample_array[ind_list, :, :, :]
+    shuffle_sample = sample_array[ind_list, :, :]
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
