@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt
 from matplotlib import gridspec
 import math
 import random
+from random import shuffle
 import importlib
 from scipy.stats import randint, expon, uniform
 import sklearn as sk
@@ -127,6 +128,18 @@ def load_array (sample_dir_path, unit_num, win_len, stride):
 def rmse(y_true, y_pred):
     return backend.sqrt(backend.mean(backend.square(y_pred - y_true), axis=-1))
 
+
+def shuffle_array(sample_array, label_array):
+    ind_list = list(range(len(sample_array)))
+    shuffle(ind_list)
+    shuffle_sample = sample_array[ind_list, :, :, :]
+    shuffle_label = label_array[ind_list,]
+    return shuffle_sample, shuffle_label
+
+
+
+
+
 units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
 
@@ -160,6 +173,7 @@ def main():
 
     for index in units_index_train:
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
+        sample_array, label_array = shuffle_array(sample_array, label_array)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
 
