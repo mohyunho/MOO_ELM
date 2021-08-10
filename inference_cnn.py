@@ -150,7 +150,7 @@ def figsave(history,index, win_len, win_stride, bs):
 
 
 
-units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
+units_index_train = [2.0, 5.0]
 units_index_test = [11.0, 14.0, 15.0]
 
 
