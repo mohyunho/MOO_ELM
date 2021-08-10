@@ -145,7 +145,7 @@ def figsave(history,index, win_len, win_stride, bs):
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.show()
-    fig_acc.savefig(pic_dir + "/unit%s_training_w%s_s%s_bs%s.png" %(str(int(units_index_test[index])), win_len, win_stride, bs ))
+    fig_acc.savefig(pic_dir + "/unit%s_training_w%s_s%s_bs%s.png" %(str(int(units_index_test[index])), int(win_len), int(win_stride), int(bs) ))
     return
 
 
@@ -260,7 +260,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 18})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=20)
         plt.show()
-        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), win_len, win_stride, bs ))
+        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs)))
 
 
 if __name__ == '__main__':
