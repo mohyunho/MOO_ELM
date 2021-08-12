@@ -182,42 +182,12 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
 
 
 
-def cnnlstm_gen(sensor_col, seg_n,sub_win_len, input_features, n_filters, sub_win_stride, kernel_size,
-                n_conv_layer, bidirec, LSTM_u1, LSTM_u2, n_outputs):
-    sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
-    cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
-                                                   seg_n, input_features, sub_win_stride, kernel_size,
-                                                   n_conv_layer)
-
-    # x = concatenate([cnn_1_out, cnn_2_out])
-    x = concatenate(cnn_out_list)
-    # x = keras.layers.concatenate([lstm_out, auxiliary_input])
-
-    # We stack a deep densely-connected network on top
-    if bidirec == True:
-        x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
-        x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
-    elif bidirec == False:
-        x = LSTM(units=LSTM_u1, return_sequences=True)(x)
-        x = LSTM(units=LSTM_u2, return_sequences=False)(x)
-
-    x = Dropout(0.5)(x)
-    main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
-
-    cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
-    # model = Model(inputs=[input_1, input_2], outputs=main_output)
-    return cnnlstm
 
 
 
 
 units_index_train = [18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
-
-model_path_lst = []
-for idx in units_index_train:
-    model_temp_path = os.path.join(current_dir, 'Models', 'oned_cnnlstm_rep_%s.h5' %str(int(idx)))
-    model_path_lst.append(model_temp_path)
 
 sensor_col = ['alt', 'mach', 'tra', 't2', 't24', 't30', 't48', 't50', 'p15', 'p2',
        'p21', 'p24', 'ps30', 'p40', 'p50', 'nf', 'nc', 'wf', 't40', 'p30']
@@ -279,16 +249,10 @@ def main():
     rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
                                name='RMSprop')
 
-    cnnlstm_lst = []
-    for idx in units_index_train:
-        cnnlstm_temp = cnnlstm_gen(sensor_col, seg_n,sub_win_len, input_features, n_filters, sub_win_stride, kernel_size,
-                n_conv_layer, bidirec, LSTM_u1, LSTM_u2, n_outputs)
-        cnnlstm_lst.append(cnnlstm_temp)
 
 
 
-    for idx, index in enumerate(units_index_train):
-        print ("idx", idx)
+    for index in units_index_train:
         print ("Load data of: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
         sample_array, label_array = shuffle_array(sample_array, label_array)
@@ -299,34 +263,59 @@ def main():
         # Convert  (#samples, win_len) of each sensor to (#samples. subseq, sub_win_len)
         train_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
 
-        cnnlstm = cnnlstm_lst[idx]
-
-
-        cnnlstm.compile(loss='mean_squared_error', optimizer=amsgrad,
-                        metrics='mae')
-        print(cnnlstm.summary())
-
         if int(index) == int(units_index_train[0]):
-            print ("pass - loading weights")
-            pass
+
+            sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
+            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
+                                                           seg_n, input_features, sub_win_stride, kernel_size,
+                                                           n_conv_layer)
+
+            # x = concatenate([cnn_1_out, cnn_2_out])
+            x = concatenate(cnn_out_list)
+            # x = keras.layers.concatenate([lstm_out, auxiliary_input])
+
+            # We stack a deep densely-connected network on top
+            if bidirec == True:
+                x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
+                x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
+            elif bidirec == False:
+                x = LSTM(units=LSTM_u1, return_sequences=True)(x)
+                x = LSTM(units=LSTM_u2, return_sequences=False)(x)
+
+            # x = Dropout(0.5)(x)
+            main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
+
+            cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
+            # model = Model(inputs=[input_1, input_2], outputs=main_output)
+
+
+
+
+            cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
+                            metrics='mae')
+            print(cnnlstm.summary())
+
+            # fit the network
+            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+                                  callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
+                                                             mode='min', verbose=1)])
+
+            figsave(history, index, win_len, win_stride, bs)
+
 
         else:
-            cnnlstm.load_weights(model_path_lst[idx-1])
-            print("loaded weights")
+            loaded_model = load_model(model_temp_path)
 
+            loaded_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
 
-        # fit the network
-        print ("current model path: ", model_path_lst[idx])
-        history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                              callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                         ModelCheckpoint(model_path_lst[idx], monitor='val_loss', save_best_only=True,
-                                                         mode='min', verbose=1)])
+            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+                          callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
+                          )
 
-        # cnnlstm.save(tf_temp_path,save_format='tf')
-        figsave(history, index, win_len, win_stride, bs)
+            figsave(history, index, win_len, win_stride, bs)
 
-    trained_model_path = model_path_lst[len(units_index_train)-1]
-    print ("trained model path: ", trained_model_path)
     output_lst = []
     truth_lst = []
 
@@ -339,7 +328,7 @@ def main():
         test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
 
         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
-        estimator = load_model(trained_model_path)
+        estimator = load_model(model_temp_path)
 
         y_pred_test = estimator.predict(test_FD_sensor)
         output_lst.append(y_pred_test)
