@@ -266,7 +266,7 @@ def main():
             x = Dropout(0.5)(x)
             main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
 
-            cnnlstm = Model(inputs=sensor_input_model, outputs=main_output)
+            cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
             # model = Model(inputs=[input_1, input_2], outputs=main_output)
 
             cnnlstm.compile(loss='mean_squared_error', optimizer='rmsprop',
