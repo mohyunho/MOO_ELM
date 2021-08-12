@@ -213,7 +213,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.0001
+    lr = 0.001
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -240,7 +240,7 @@ def main():
 
     n_outputs = 1
 
-    # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
+    amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
     rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
                                name='RMSprop')
 
@@ -281,7 +281,7 @@ def main():
             # model = Model(inputs=[input_1, input_2], outputs=main_output)
 
 
-            cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
+            cnnlstm.compile(loss='mean_squared_error', optimizer=amsgrad,
                             metrics='mae')
             print(cnnlstm.summary())
 
