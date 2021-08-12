@@ -46,14 +46,14 @@ from tensorflow.keras import backend
 from tensorflow.keras import optimizers
 from tensorflow.keras.models import Sequential, load_model, Model
 from tensorflow.keras.layers import Input, Dense, Flatten, Dropout, Embedding
-from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional, CuDNNLSTM
+from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
-from utils.dnn import one_dcnn, CNNBranch, TD_CNNBranch, CNNB, multi_head_cnn, sensor_input_model
+from utils.dnn import one_dcnn, cudnnlstm
 
 
 # import tensorflow.compat.v1 as tf
@@ -71,9 +71,9 @@ pd.options.mode.chained_assignment = None  # default='warn'
 # config.gpu_options.allow_growth = True
 # session = InteractiveSession(config=config)
 
-# gpus = tf.config.experimental.list_physical_devices('GPU')
-# for gpu in gpus:
-#     tf.config.experimental.set_memory_growth(gpu, True)
+gpus = tf.config.experimental.list_physical_devices('GPU')
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
 # tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 # tf.get_logger().setLevel(logging.ERROR)
@@ -87,8 +87,8 @@ data_filedir = os.path.join(current_dir, 'N-CMAPSS')
 data_filepath = os.path.join(current_dir, 'N-CMAPSS', 'N-CMAPSS_DS02-006.h5')
 sample_dir_path = os.path.join(data_filedir, 'Samples_whole')
 
-model_temp_path = os.path.join(current_dir, 'Models', 'oned_cnnlstm_rep.h5')
-tf_temp_path = os.path.join(current_dir, 'TF_Model_tf')
+model_temp_path = os.path.join(current_dir, 'Models', 'oned_lstm_rep.h5')
+tf_temp_path = os.path.join(current_dir, 'TF_Model_tf_lstm')
 
 pic_dir = os.path.join(current_dir, 'Figures')
 
@@ -128,6 +128,7 @@ def load_array (sample_dir_path, unit_num, win_len, stride):
 def rmse(y_true, y_pred):
     return backend.sqrt(backend.mean(backend.square(y_pred - y_true), axis=-1))
 
+
 def shuffle_array(sample_array, label_array):
     ind_list = list(range(len(sample_array)))
     shuffle(ind_list)
@@ -145,47 +146,13 @@ def figsave(history,index, win_len, win_stride, bs):
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/cnnlstm_unit%s_training_w%s_s%s_bs%s.png" %(int(index), int(win_len), int(win_stride), int(bs)))
+    fig_acc.savefig(pic_dir + "/lstm_unit%s_training_w%s_s%s_bs%s.png" %(int(index), int(win_len), int(win_stride), int(bs)))
     return
 
-
-def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
-    '''
-    ## Reshape the time series as the network input
-    # for each sensor: reshape from [samples, timesteps] into [samples, subsequences, timesteps, features]
-    '''
-
-    train_FD_sensor = []
-
-    as_strided = np.lib.stride_tricks.as_strided
-
-    for s_i in range(seq_array_train.shape[2]):
-        window_list = []
-        window_array = np.array([])
-
-        for seq in range(seq_array_train.shape[0]):
-            S = sub_win_stride
-            s0 = seq_array_train[seq, :, s_i].strides
-            seq_sensor = as_strided(seq_array_train[seq, :, s_i], (seg_n, sub_win_len), strides=(S * s0[0], s0[0]))
-            #         print (seq_sensor)
-            #         window_array = np.concatenate((window_array, seq_sensor), axis=1)
-            window_list.append(seq_sensor)
-
-        window_array = np.stack(window_list, axis=0)
-        window_array = np.reshape(window_array, (window_array.shape[0], window_array.shape[1], window_array.shape[2], 1))
-        print(str(s_i) + "-" + str(window_array.shape))
-        train_FD_sensor.append(window_array)
-
-    # print("train_FD_sensor[0].shape", train_FD_sensor[0].shape)
-    # print(seq_array_train[0, :, 0])
-    return train_FD_sensor
 
 
 units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
-
-sensor_col = ['alt', 'mach', 'tra', 't2', 't24', 't30', 't48', 't50', 'p15', 'p2',
-       'p21', 'p24', 'ps30', 'p40', 'p50', 'nf', 'nc', 'wf', 't40', 'p30']
 
 
 
@@ -196,15 +163,13 @@ def main():
     parser.add_argument('-s', type=int, default=1, help='stride of filter')
     parser.add_argument('-f', type=int, default=10, help='number of filter')
     parser.add_argument('-k', type=int, default=10, help='size of kernel')
+    parser.add_argument('-l1', type=int, default=200, help='number of units in LSTM1')
+    parser.add_argument('-l2', type=int, default=100, help='number of units in LSTM2')
     parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
-    parser.add_argument('-s_stride', type=int, default=10, help='subwindow stride')
-    parser.add_argument('-s_len', type=int, default=100, help='subwindow len')
-    parser.add_argument('-n_conv', type=int, default=3, help='number of conv layers')
-    parser.add_argument('-lstm1', type=int, default=10, help='lstm1 unit multiplier')
-    parser.add_argument('-lstm2', type=int, default=5, help='lstm2 unit multiplier')
+
 
     args = parser.parse_args()
 
@@ -213,115 +178,66 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.0001
+    lr = 0.001
     bs = args.bs
     ep = args.ep
     pt = args.pt
     vs = args.vs
 
+    lstm1 = args.l1
+    lstm2 = args.l2
 
-    input_features = 1
-    sub_win_stride = args.s_stride
-    sub_win_len = args.s_len
-    seg_n = int((win_len - sub_win_len) / (sub_win_stride) + 1)
-    n_conv_layer = args.n_conv
 
-    print("the number of segments:", seg_n)
-
-    bidirec = False
-
-    mul1 = args.lstm1
-    mul2 = args.lstm2
-    LSTM_u1 = seg_n*mul1
-    LSTM_u2 = seg_n*mul2
-
-    # LSTM_u1 = args.lstm1
-    # LSTM_u2 = args.lstm2
-
-    n_outputs = 1
-
-    # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
-    rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
-                               name='RMSprop')
+    amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
+    rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False, name='RMSprop')
 
     for index in units_index_train:
-        print ("Load data of: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
         sample_array, label_array = shuffle_array(sample_array, label_array)
         print("Training for trajectory of engine %s" %int(index))
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
 
-        # Convert  (#samples, win_len) of each sensor to (#samples. subseq, sub_win_len)
-        train_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
-
         if int(index) == int(units_index_train[0]):
 
-            sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
-            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
-                                                           seg_n, input_features, sub_win_stride, kernel_size,
-                                                           n_conv_layer)
-
-            # x = concatenate([cnn_1_out, cnn_2_out])
-            x = concatenate(cnn_out_list)
-            # x = keras.layers.concatenate([lstm_out, auxiliary_input])
-
-            # We stack a deep densely-connected network on top
-            if bidirec == True:
-                x = Bidirectional(CuDNNLSTM(units=LSTM_u1, return_sequences=True))(x)
-                x = Bidirectional(CuDNNLSTM(units=LSTM_u2, return_sequences=False))(x)
-            elif bidirec == False:
-                x = CuDNNLSTM(units=LSTM_u1, return_sequences=True)(x)
-                x = CuDNNLSTM(units=LSTM_u2, return_sequences=False)(x)
-
-            # x = Dropout(0.5)(x)
-            main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
-
-            cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
-            # model = Model(inputs=[input_1, input_2], outputs=main_output)
+            lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1)
+            print(lstm_model.summary())
+            # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
+            lstm_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
+            history = lstm_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
+                              callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                                            ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
+                              )
 
 
-
-
-            cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
-                            metrics='mae')
-            print(cnnlstm.summary())
-
-            # fit the network
-            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                                  callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
-                                                             mode='min', verbose=1)])
-
-            cnnlstm.save(tf_temp_path,save_format='tf')
+            lstm_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
+
 
 
         else:
             loaded_model = load_model(tf_temp_path)
-            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
+
+
+            history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
             loaded_model.save(tf_temp_path,save_format='tf')
+
+
             figsave(history, index, win_len, win_stride, bs)
 
 
     output_lst = []
     truth_lst = []
 
-
-
     for index in units_index_test:
-        print("Load data of: ", index)
         sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
-
-        test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
-
         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
         estimator = load_model(tf_temp_path)
 
-        y_pred_test = estimator.predict(test_FD_sensor)
+        y_pred_test = estimator.predict(sample_array)
         output_lst.append(y_pred_test)
         truth_lst.append(label_array)
 
@@ -344,16 +260,15 @@ def main():
         fig_verify = plt.figure(figsize=(24, 10))
         plt.plot(output_lst[idx], color="green")
         plt.plot(truth_lst[idx], color="red", linewidth=2.0)
-        plt.title('Unit%s inference' %str(int(units_index_test[idx])), fontsize=30)
+        plt.title('Unit11 inference', fontsize=30)
         plt.yticks(fontsize=20)
         plt.xticks(fontsize=20)
         plt.ylabel('RUL', fontdict={'fontsize': 24})
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/cnnlstm_unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs)))
+        fig_verify.savefig(pic_dir + "/lstm_unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs)))
 
 
 if __name__ == '__main__':
     main()
-

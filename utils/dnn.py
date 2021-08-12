@@ -4,7 +4,7 @@ from tensorflow.keras import backend
 from tensorflow.keras import optimizers
 from tensorflow.keras.models import Sequential, load_model, Model
 from tensorflow.keras.layers import Input, Dense, Flatten, Dropout, Embedding
-from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional
+from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional, CuDNNLSTM
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
@@ -138,3 +138,22 @@ def sensor_input_model(sensor_col, n_window, window_length, input_features):
         sensor_input_model.append(input_temp)
 
     return sensor_input_model
+
+
+
+def cudnnlstm(sequence_length, nb_features, lstm1, lstm2, nb_out):
+    model = Sequential()
+    model.add(CuDNNLSTM(
+        input_shape=(sequence_length, nb_features),
+        units=lstm1,
+        return_sequences=True))
+    # model.add(Dropout(0.2))
+    model.add(CuDNNLSTM(
+        units=lstm2,
+        return_sequences=False))
+    # model.add(Dropout(0.2))
+    model.add(Dense(units=nb_out))
+    model.add(Activation("linear"))
+
+
+    return model
