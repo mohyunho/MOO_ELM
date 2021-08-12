@@ -44,7 +44,7 @@ print(tf.__version__)
 import tensorflow.keras.backend as K
 from tensorflow.keras import backend
 from tensorflow.keras import optimizers
-from tensorflow.keras.models import Sequential, load_model, Model
+from tensorflow.keras.models import Sequential, load_model, Model, load_weights
 from tensorflow.keras.layers import Input, Dense, Flatten, Dropout, Embedding
 from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional
 from tensorflow.keras.layers import Conv1D
@@ -181,7 +181,7 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
     return train_FD_sensor
 
 
-units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
+units_index_train = [18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
 
 sensor_col = ['alt', 'mach', 'tra', 't2', 't24', 't30', 't48', 't50', 'p15', 'p2',
@@ -213,7 +213,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.001
+    lr = 0.0001
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -296,8 +296,36 @@ def main():
 
 
         else:
-            loaded_model = load_model(model_temp_path)
-            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
+            # loaded_model = load_weights(model_temp_path)
+            sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
+            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
+                                                           seg_n, input_features, sub_win_stride, kernel_size,
+                                                           n_conv_layer)
+
+            # x = concatenate([cnn_1_out, cnn_2_out])
+            x = concatenate(cnn_out_list)
+            # x = keras.layers.concatenate([lstm_out, auxiliary_input])
+
+            # We stack a deep densely-connected network on top
+            if bidirec == True:
+                x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
+                x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
+            elif bidirec == False:
+                x = LSTM(units=LSTM_u1, return_sequences=True)(x)
+                x = LSTM(units=LSTM_u2, return_sequences=False)(x)
+
+            x = Dropout(0.5)(x)
+            main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
+
+            cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
+            cnnlstm.compile(loss='mean_squared_error', optimizer=amsgrad,
+                            metrics='mae')
+
+            # Loads the weights
+            cnnlstm.load_weights(model_temp_path)
+
+
+            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
