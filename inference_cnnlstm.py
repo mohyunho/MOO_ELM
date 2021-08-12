@@ -46,7 +46,8 @@ from tensorflow.keras import backend
 from tensorflow.keras import optimizers
 from tensorflow.keras.models import Sequential, load_model, Model
 from tensorflow.keras.layers import Input, Dense, Flatten, Dropout, Embedding
-from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional, CuDNNLSTM
+from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional
+from tensorflow.compat.v1.keras.layers import CuDNNLSTM
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
