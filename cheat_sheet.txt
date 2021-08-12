@@ -121,7 +121,8 @@ python3 inference_cnn.py -w 1000 -s 10 -f 10 -k 10 -bs 32 -ep 30 -pt 10
 [66. 66. 66. ...  0.  0.  0.]
 
 ---
-python3 inference_cnnlstm.py -w 1000 -s 10 -f 10 -k 10 -bs 256 -ep 30 -pt 10 -s_stride 10 -s_len 100 -n_conv 3 -lstm1 10 -lstm2 5
+python3 inference_cnnlstm.py -w 1000 -s 10 -f 10 -k 10 -bs 32 -ep 30 -pt 10 -s_stride 10 -s_len 50 -n_conv 2 -lstm1 4 -lstm2 2
+
 
 
 
