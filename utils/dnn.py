@@ -129,3 +129,12 @@ def multi_head_cnn(sensor_input_model, n_filters, window_length, n_window,
         cnn_out_list.append(cnn_out_temp)
 
     return cnn_out_list, cnn_branch_list
+
+
+def sensor_input_model(sensor_col, n_window, window_length, input_features):
+    sensor_input_model = []
+    for sensor in sensor_col:
+        input_temp = Input(shape=(n_window, window_length, input_features), name='%s' % sensor)
+        sensor_input_model.append(input_temp)
+
+    return sensor_input_model

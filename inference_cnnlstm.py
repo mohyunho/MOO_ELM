@@ -53,7 +53,7 @@ from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
-from utils.dnn import one_dcnn
+from utils.dnn import one_dcnn, CNNBranch, TD_CNNBranch, CNNB, multi_head_cnn, sensor_input_model
 
 
 # import tensorflow.compat.v1 as tf
@@ -149,7 +149,7 @@ def figsave(history,index, win_len, win_stride, bs):
     return
 
 
-def segment_gen(seq_array_train, stride):
+def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
     '''
     ## Reshape the time series as the network input
     # for each sensor: reshape from [samples, timesteps] into [samples, subsequences, timesteps, features]
@@ -164,9 +164,9 @@ def segment_gen(seq_array_train, stride):
         window_array = np.array([])
 
         for seq in range(seq_array_train.shape[0]):
-            S = stride
+            S = sub_win_stride
             s0 = seq_array_train[seq, :, s_i].strides
-            seq_sensor = as_strided(seq_array_train[seq, :, s_i], (n_window, window_length), strides=(S * s0[0], s0[0]))
+            seq_sensor = as_strided(seq_array_train[seq, :, s_i], (seg_n, sub_win_len), strides=(S * s0[0], s0[0]))
             #         print (seq_sensor)
             #         window_array = np.concatenate((window_array, seq_sensor), axis=1)
             window_list.append(seq_sensor)
@@ -181,9 +181,14 @@ def segment_gen(seq_array_train, stride):
     print(seq_array_train[0, :, 0])
 
 
+    return train_FD_sensor
+
 
 units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
+
+sensor_col = ['alt', 'Mach', 'TRA', 'T2', 'T24', 'T30', 'T48', 'T50', 'P15', 'P2',
+       'P21', 'P24', 'Ps30', 'P40', 'P50', 'Nf', 'Nc', 'Wf', 'T40', 'P30']
 
 
 
@@ -211,12 +216,18 @@ def main():
     ep = args.ep
     pt = args.pt
 
-    sub_win_stride = 1
-    sub_win_len = 3
-    seg_n = int((sequence_length - window_length) / (stride) + 1)
+    input_features = 1
+    sub_win_stride = 10
+    sub_win_len = 100
+    seg_n = int((win_len - sub_win_len) / (sub_win_stride) + 1)
+    n_conv_layer = 3
 
+    bidirec = False
+    LSTM_u1 = seg_n*10
+    LSTM_u2 = seg_n*5
+    n_outputs = 1
 
-    amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
+    # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
 
     for index in units_index_train:
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
@@ -226,37 +237,54 @@ def main():
         print("label_array.shape", label_array.shape)
 
         # Convert  (#samples, win_len) of each sensor to (#samples. subseq, sub_win_len)
+        train_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
+
+
 
 
 
         if int(index) == int(units_index_train[0]):
-            input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='unit%s' %str(int(index)))
-            one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array)
-            cnn_out = one_d_cnn(input_temp)
-            x = cnn_out
-            # x = Dropout(0.5)(x)
-            main_output = Dense(1, activation='linear', name='main_output')(x)
-            one_d_cnn_model = Model(inputs=input_temp, outputs=main_output)
+
+            sensor_input_model = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
+            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_model, n_filters, sub_win_len,
+                                                           seg_n, input_features, sub_win_stride, kernel_size,
+                                                           n_conv_layer)
+
+            # x = concatenate([cnn_1_out, cnn_2_out])
+            x = concatenate(cnn_out_list)
+            # x = keras.layers.concatenate([lstm_out, auxiliary_input])
+
+            # We stack a deep densely-connected network on top
+            if bidirec == True:
+                x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
+                x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
+            elif bidirec == False:
+                x = LSTM(units=LSTM_u1, return_sequences=True)(x)
+                x = LSTM(units=LSTM_u2, return_sequences=False)(x)
+
+            x = Dropout(0.5)(x)
+            main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
+
+            cnnlstm = Model(inputs=sensor_input_model, outputs=main_output)
             # model = Model(inputs=[input_1, input_2], outputs=main_output)
-            print(one_d_cnn_model.summary())
-            # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
-            one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
-            history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
-                              callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                            ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
-                              )
-            one_d_cnn_model.save(tf_temp_path,save_format='tf')
+
+            cnnlstm.compile(loss='mean_squared_error', optimizer='rmsprop',
+                            metrics='mae')
+            print(cnnlstm.summary())
+
+            # fit the network
+            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+                                  callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
+                                                             mode='min', verbose=1)])
+
+            cnnlstm.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
-
-
-
-
-
 
 
         else:
             loaded_model = load_model(tf_temp_path)
-            history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
@@ -267,12 +295,17 @@ def main():
     output_lst = []
     truth_lst = []
 
+
+
     for index in units_index_test:
         sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
+
+        test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
+
         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
         estimator = load_model(tf_temp_path)
 
-        y_pred_test = estimator.predict(sample_array)
+        y_pred_test = estimator.predict(test_FD_sensor)
         output_lst.append(y_pred_test)
         truth_lst.append(label_array)
 
