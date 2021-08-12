@@ -173,7 +173,7 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
 
         window_array = np.stack(window_list, axis=0)
         window_array = np.reshape(window_array, (window_array.shape[0], window_array.shape[1], window_array.shape[2], 1))
-        print(s_i + " " + window_array.shape)
+        print(str(s_i) + "-" + str(window_array.shape))
         train_FD_sensor.append(window_array)
 
     # print("train_FD_sensor[0].shape", train_FD_sensor[0].shape)
