@@ -202,7 +202,11 @@ def main():
     parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
-
+    parser.add_argument('-s_stride', type=int, default=10, help='subwindow stride')
+    parser.add_argument('-s_len', type=int, default=100, help='subwindow len')
+    parser.add_argument('-n_conv', type=int, default=3, help='number of conv layers')
+    parser.add_argument('-lstm1', type=int, default=10, help='lstm1 unit multiplier')
+    parser.add_argument('-lstm2', type=int, default=5, help='lstm2 unit multiplier')
 
     args = parser.parse_args()
 
@@ -217,14 +221,18 @@ def main():
     pt = args.pt
 
     input_features = 1
-    sub_win_stride = 10
-    sub_win_len = 100
+    sub_win_stride = args.s_stride
+    sub_win_len = args.s_len
     seg_n = int((win_len - sub_win_len) / (sub_win_stride) + 1)
-    n_conv_layer = 3
+    n_conv_layer = args.n_conv
+
+    print("the number of segments:", seg_n)
 
     bidirec = False
-    LSTM_u1 = seg_n*10
-    LSTM_u2 = seg_n*5
+    mul1 = args.lstm1
+    mul2 = args.lstm2
+    LSTM_u1 = seg_n*mul1
+    LSTM_u2 = seg_n*mul2
     n_outputs = 1
 
     # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
@@ -238,10 +246,6 @@ def main():
 
         # Convert  (#samples, win_len) of each sensor to (#samples. subseq, sub_win_len)
         train_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
-
-
-
-
 
         if int(index) == int(units_index_train[0]):
 
