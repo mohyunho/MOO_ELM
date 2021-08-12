@@ -226,10 +226,15 @@ def main():
     print("the number of segments:", seg_n)
 
     bidirec = False
+
     mul1 = args.lstm1
     mul2 = args.lstm2
     LSTM_u1 = seg_n*mul1
     LSTM_u2 = seg_n*mul2
+
+    # LSTM_u1 = args.lstm1
+    # LSTM_u2 = args.lstm2
+
     n_outputs = 1
 
     # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
@@ -263,7 +268,7 @@ def main():
                 x = LSTM(units=LSTM_u1, return_sequences=True)(x)
                 x = LSTM(units=LSTM_u2, return_sequences=False)(x)
 
-            x = Dropout(0.5)(x)
+            # x = Dropout(0.5)(x)
             main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
 
             cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
