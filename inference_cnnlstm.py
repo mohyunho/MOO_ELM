@@ -274,7 +274,7 @@ def main():
                 x = LSTM(units=LSTM_u1, return_sequences=True)(x)
                 x = LSTM(units=LSTM_u2, return_sequences=False)(x)
 
-            # x = Dropout(0.5)(x)
+            x = Dropout(0.5)(x)
             main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
 
             cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
