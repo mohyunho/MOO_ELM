@@ -181,11 +181,11 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
     return train_FD_sensor
 
 
-units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
+units_index_train = [2.0, 5.0]
 units_index_test = [11.0, 14.0, 15.0]
 
-sensor_col = ['alt', 'Mach', 'TRA', 'T2', 'T24', 'T30', 'T48', 'T50', 'P15', 'P2',
-       'P21', 'P24', 'Ps30', 'P40', 'P50', 'Nf', 'Nc', 'Wf', 'T40', 'P30']
+sensor_col = ['alt', 'mach', 'tra', 't2', 't24', 't30', 't48', 't50', 'p15', 'p2',
+       'p21', 'p24', 'ps30', 'p40', 'p50', 'nf', 'nc', 'wf', 't40', 'p30']
 
 
 
