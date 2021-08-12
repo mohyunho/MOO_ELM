@@ -172,15 +172,12 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
             window_list.append(seq_sensor)
 
         window_array = np.stack(window_list, axis=0)
-        print(window_array.shape)
         window_array = np.reshape(window_array, (window_array.shape[0], window_array.shape[1], window_array.shape[2], 1))
-        print(window_array.shape)
+        print(s_i + " " + window_array.shape)
         train_FD_sensor.append(window_array)
 
-    print("train_FD_sensor[0].shape", train_FD_sensor[0].shape)
-    print(seq_array_train[0, :, 0])
-
-
+    # print("train_FD_sensor[0].shape", train_FD_sensor[0].shape)
+    # print(seq_array_train[0, :, 0])
     return train_FD_sensor
 
 
@@ -249,8 +246,8 @@ def main():
 
         if int(index) == int(units_index_train[0]):
 
-            sensor_input_model = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
-            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_model, n_filters, sub_win_len,
+            sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
+            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
                                                            seg_n, input_features, sub_win_stride, kernel_size,
                                                            n_conv_layer)
 
