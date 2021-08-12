@@ -47,7 +47,6 @@ from tensorflow.keras import optimizers
 from tensorflow.keras.models import Sequential, load_model, Model
 from tensorflow.keras.layers import Input, Dense, Flatten, Dropout, Embedding
 from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional
-from tensorflow.compat.v1.keras.layers import CuDNNLSTM
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
@@ -269,19 +268,17 @@ def main():
 
             # We stack a deep densely-connected network on top
             if bidirec == True:
-                x = Bidirectional(CuDNNLSTM(units=LSTM_u1, return_sequences=True))(x)
-                x = Bidirectional(CuDNNLSTM(units=LSTM_u2, return_sequences=False))(x)
+                x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
+                x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
             elif bidirec == False:
-                x = CuDNNLSTM(units=LSTM_u1, return_sequences=True)(x)
-                x = CuDNNLSTM(units=LSTM_u2, return_sequences=False)(x)
+                x = LSTM(units=LSTM_u1, return_sequences=True)(x)
+                x = LSTM(units=LSTM_u2, return_sequences=False)(x)
 
             # x = Dropout(0.5)(x)
             main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
 
             cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
             # model = Model(inputs=[input_1, input_2], outputs=main_output)
-
-
 
 
             cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
