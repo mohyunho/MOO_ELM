@@ -238,6 +238,8 @@ def main():
     n_outputs = 1
 
     # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
+    rmsop = optimizers.RMSprop(learning_rate=0.0001, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
+                               name='RMSprop')
 
     for index in units_index_train:
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
@@ -274,12 +276,15 @@ def main():
             cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
             # model = Model(inputs=[input_1, input_2], outputs=main_output)
 
-            cnnlstm.compile(loss='mean_squared_error', optimizer='rmsprop',
+
+
+
+            cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
                             metrics='mae')
             print(cnnlstm.summary())
 
             # fit the network
-            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=1,
+            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                                   callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                              ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
                                                              mode='min', verbose=1)])
@@ -290,7 +295,7 @@ def main():
 
         else:
             loaded_model = load_model(tf_temp_path)
-            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=1,
+            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
