@@ -181,7 +181,7 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
     return train_FD_sensor
 
 
-units_index_train = [18.0, 20.0]
+units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
 
 sensor_col = ['alt', 'mach', 'tra', 't2', 't24', 't30', 't48', 't50', 'p15', 'p2',
