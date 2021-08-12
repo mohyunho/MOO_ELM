@@ -181,7 +181,7 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
     return train_FD_sensor
 
 
-units_index_train = [2.0, 5.0]
+units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
 
 sensor_col = ['alt', 'mach', 'tra', 't2', 't24', 't30', 't48', 't50', 'p15', 'p2',
@@ -212,7 +212,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.001
+    lr = 0.0001
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -238,10 +238,11 @@ def main():
     n_outputs = 1
 
     # amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
-    rmsop = optimizers.RMSprop(learning_rate=0.0001, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
+    rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
                                name='RMSprop')
 
     for index in units_index_train:
+        print ("Load data of: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
         sample_array, label_array = shuffle_array(sample_array, label_array)
         print("Training for trajectory of engine %s" %int(index))
@@ -309,6 +310,7 @@ def main():
 
 
     for index in units_index_test:
+        print("Load data of: ", index)
         sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
 
         test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
