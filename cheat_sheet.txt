@@ -177,5 +177,6 @@ python3 inference_lstm.py -w 1000 -s 10 -f 10 -k 10 -bs 64 -ep 30 -pt 10 -s_stri
 
 
 ----
+python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 64 -ep 30 -pt 10 -s_stride 40 -s_len 40 -n_conv 2 -lstm1 8 -lstm2 4
 
 

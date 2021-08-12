@@ -291,17 +291,17 @@ def main():
                                              ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
                                                              mode='min', verbose=1)])
 
-            cnnlstm.save(tf_temp_path,save_format='tf')
+            # cnnlstm.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
 
 
         else:
-            loaded_model = load_model(tf_temp_path)
+            loaded_model = load_model(model_temp_path)
             history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
-            loaded_model.save(tf_temp_path,save_format='tf')
+            # loaded_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
 
 
@@ -317,7 +317,7 @@ def main():
         test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
 
         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
-        estimator = load_model(tf_temp_path)
+        estimator = load_model(model_temp_path)
 
         y_pred_test = estimator.predict(test_FD_sensor)
         output_lst.append(y_pred_test)
