@@ -292,7 +292,9 @@ python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 128 -ep 30 -pt 10 -vs 0
 
 ---
 
-python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 64 -ep 20 -pt 20 -vs 0.1 -s_stride 20 -s_len 40 -n_conv 2 -lstm1 8 -lstm2 4
+python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 64 -ep 20 -pt 20 -vs 0.01 -s_stride 20 -s_len 40 -n_conv 2 -lstm1 8 -lstm2 4
+
+python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 64 -ep 20 -pt 20 -vs 0.01 -s_stride 20 -s_len 40 -n_conv 2 -lstm1 8 -lstm2 4
 
 
 
