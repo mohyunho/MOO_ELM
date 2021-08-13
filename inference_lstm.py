@@ -178,7 +178,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.0001
+    lr = 0.001
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -193,7 +193,7 @@ def main():
 
     for index in units_index_train:
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
-        sample_array, label_array = shuffle_array(sample_array, label_array)
+        # sample_array, label_array = shuffle_array(sample_array, label_array)
         print("Training for trajectory of engine %s" %int(index))
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
