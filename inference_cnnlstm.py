@@ -255,7 +255,7 @@ def main():
     for index in units_index_train:
         print ("Load data of: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
-        # sample_array, label_array = shuffle_array(sample_array, label_array)
+        sample_array, label_array = shuffle_array(sample_array, label_array)
         print("Training for trajectory of engine %s" %int(index))
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
