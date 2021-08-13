@@ -205,22 +205,17 @@ def main():
                               callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                               )
-            one_d_cnn_model.save(tf_temp_path,save_format='tf')
+            # one_d_cnn_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
 
 
-
-
-
-
-
         else:
-            loaded_model = load_model(tf_temp_path)
+            loaded_model = load_model(model_temp_path)
             history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
-            loaded_model.save(tf_temp_path,save_format='tf')
+            # loaded_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
 
 
@@ -230,7 +225,7 @@ def main():
     for index in units_index_test:
         sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
-        estimator = load_model(tf_temp_path)
+        estimator = load_model(model_temp_path)
 
         y_pred_test = estimator.predict(sample_array)
         output_lst.append(y_pred_test)
