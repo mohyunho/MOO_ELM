@@ -321,6 +321,40 @@ def main():
 
             figsave(history, index, win_len, win_stride, bs)
 
+
+        # Evaluate (test) the trained network after training each engine
+        output_lst = []
+        truth_lst = []
+        for index in units_index_test:
+            print("Load data of: ", index)
+            sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
+
+            test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
+
+            # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
+            estimator = load_model(model_temp_path)
+
+            y_pred_test = estimator.predict(test_FD_sensor)
+            output_lst.append(y_pred_test)
+            truth_lst.append(label_array)
+
+        print(output_lst[0].shape)
+        print(truth_lst[0].shape)
+
+        print(np.concatenate(output_lst).shape)
+        print(np.concatenate(truth_lst).shape)
+
+        output_array = np.concatenate(output_lst)[:, 0]
+        trytg_array = np.concatenate(truth_lst)
+        print(output_array.shape)
+        print(trytg_array.shape)
+        rms = sqrt(mean_squared_error(output_array, trytg_array))
+        print(rms)
+
+
+
+    ### Test (inference after training)
+
     output_lst = []
     truth_lst = []
 
