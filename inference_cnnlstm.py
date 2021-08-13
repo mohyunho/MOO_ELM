@@ -255,7 +255,7 @@ def main():
     for index in units_index_train:
         print ("Load data of: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
-        sample_array, label_array = shuffle_array(sample_array, label_array)
+        # sample_array, label_array = shuffle_array(sample_array, label_array)
         print("Training for trajectory of engine %s" %int(index))
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
@@ -296,7 +296,7 @@ def main():
             print(cnnlstm.summary())
 
             # fit the network
-            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                                   callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                              ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False,
                                                              mode='min', verbose=1)])
@@ -309,7 +309,7 @@ def main():
 
             # loaded_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
 
-            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                         ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False, mode='min', verbose=1)]
                           )
