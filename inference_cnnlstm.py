@@ -307,7 +307,7 @@ def main():
         else:
             loaded_model = load_model(model_temp_path)
 
-            loaded_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
+            # loaded_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
 
             history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
