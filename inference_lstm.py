@@ -203,7 +203,7 @@ def main():
             lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1)
             print(lstm_model.summary())
             # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
-            lstm_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
+            lstm_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
             history = lstm_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                               callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
