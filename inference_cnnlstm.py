@@ -218,7 +218,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.0001
+    lr = 0.001
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -298,7 +298,7 @@ def main():
             # fit the network
             history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                                   callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
+                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False,
                                                              mode='min', verbose=1)])
 
             figsave(history, index, win_len, win_stride, bs)
@@ -311,7 +311,7 @@ def main():
 
             history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
+                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False, mode='min', verbose=1)]
                           )
 
             figsave(history, index, win_len, win_stride, bs)
