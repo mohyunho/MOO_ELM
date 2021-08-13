@@ -178,7 +178,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.01
+    lr = 0.0001
     bs = args.bs
     ep = args.ep
     pt = args.pt
