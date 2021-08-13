@@ -203,7 +203,7 @@ def main():
             one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
             history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                               callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                            ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
+                                            ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False, mode='min', verbose=1)]
                               )
             # one_d_cnn_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
@@ -213,7 +213,7 @@ def main():
             loaded_model = load_model(model_temp_path)
             history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
+                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False, mode='min', verbose=1)]
                           )
             # loaded_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
