@@ -205,6 +205,7 @@ def main():
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
+    parser.add_argument('-lr', type=float, default=0.001, help='validation split')
     parser.add_argument('-s_stride', type=int, default=10, help='subwindow stride')
     parser.add_argument('-s_len', type=int, default=100, help='subwindow len')
     parser.add_argument('-n_conv', type=int, default=3, help='number of conv layers')
@@ -218,7 +219,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.001
+    lr = args.lr
     bs = args.bs
     ep = args.ep
     pt = args.pt
