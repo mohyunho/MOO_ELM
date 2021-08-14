@@ -166,6 +166,7 @@ def main():
     parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
+    parser.add_argument('-vs', type=float, default=0.1, help='validation split')
 
 
     args = parser.parse_args()
@@ -179,6 +180,7 @@ def main():
     bs = args.bs
     ep = args.ep
     pt = args.pt
+    vs = args.vs
 
     amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
 
@@ -201,9 +203,9 @@ def main():
             print(one_d_cnn_model.summary())
             # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
             one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
-            history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+            history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                               callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                            ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False, mode='min', verbose=1)]
+                                            ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                               )
             # one_d_cnn_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
@@ -211,13 +213,45 @@ def main():
 
         else:
             loaded_model = load_model(model_temp_path)
-            history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=0.1, verbose=2,
+            history = loaded_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                           callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=False, mode='min', verbose=1)]
+                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                           )
             # loaded_model.save(tf_temp_path,save_format='tf')
             figsave(history, index, win_len, win_stride, bs)
 
+
+        # Evaluate (test) the trained network after training each engine
+        output_lst = []
+        truth_lst = []
+        for index in units_index_test:
+            print("Load data of: ", index)
+            sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
+
+
+            # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
+            estimator = load_model(model_temp_path)
+
+            y_pred_test = estimator.predict(sample_array)
+            output_lst.append(y_pred_test)
+            truth_lst.append(label_array)
+
+        print(output_lst[0].shape)
+        print(truth_lst[0].shape)
+
+        print(np.concatenate(output_lst).shape)
+        print(np.concatenate(truth_lst).shape)
+
+        output_array = np.concatenate(output_lst)[:, 0]
+        trytg_array = np.concatenate(truth_lst)
+        print(output_array.shape)
+        print(trytg_array.shape)
+        rms = sqrt(mean_squared_error(output_array, trytg_array))
+        print(rms)
+
+
+
+    ### Test (inference after training)
 
     output_lst = []
     truth_lst = []
