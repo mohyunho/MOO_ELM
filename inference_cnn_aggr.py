@@ -23,6 +23,8 @@ from matplotlib import gridspec
 import math
 import random
 from random import shuffle
+from tqdm.keras import TqdmCallback
+
 import importlib
 from scipy.stats import randint, expon, uniform
 import sklearn as sk
@@ -221,8 +223,9 @@ def main():
     print(one_d_cnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
     one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
-    history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                      callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+    history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=0,
+                      callbacks = [TqdmCallback(verbose=2),
+                                   EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
     # one_d_cnn_model.save(tf_temp_path,save_format='tf')
