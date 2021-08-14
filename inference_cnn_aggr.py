@@ -140,7 +140,7 @@ def figsave(history, win_len, win_stride, bs):
     fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
-    plt.title('Training #%s', fontsize=24)
+    plt.title('Training', fontsize=24)
     plt.ylabel('loss', fontdict={'fontsize': 18})
     plt.xlabel('epoch', fontdict={'fontsize': 18})
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
@@ -169,6 +169,7 @@ def main():
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
+    parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
 
 
     args = parser.parse_args()
@@ -178,7 +179,7 @@ def main():
     partition = 3
     n_filters = args.f
     kernel_size = args.k
-    lr = 0.001
+    lr = args.lr
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -220,7 +221,7 @@ def main():
     print(one_d_cnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
     one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
-    history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=1,
+    history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                       callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
@@ -256,6 +257,7 @@ def main():
     print(trytg_array.shape)
     rms = sqrt(mean_squared_error(output_array, trytg_array))
     print(rms)
+    rms = round(rms, 2)
 
     for idx in range(len(units_index_test)):
         print(output_lst[idx])
@@ -270,7 +272,8 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs)))
+        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s_rmse%s.png" %(str(int(units_index_test[idx])),
+                                                                              int(win_len), int(win_stride), int(bs), str(rms)))
 
 
 if __name__ == '__main__':
