@@ -149,7 +149,9 @@ def figsave(history, win_len, win_stride, bs):
     fig_acc.savefig(pic_dir + "/training_w%s_s%s_bs%s.png" %(int(win_len), int(win_stride), int(bs)))
     return
 
-
+def release_list(a):
+   del a[:]
+   del a
 
 units_index_train = [2.0, 5.0, 10.0, 16.0, 18.0, 20.0]
 units_index_test = [11.0, 14.0, 15.0]
@@ -202,7 +204,10 @@ def main():
 
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
-
+    release_list(train_units_samples_lst)
+    release_list(train_units_labels_lst)
+    train_units_samples_lst =[]
+    train_units_labels_lst = []
 
     input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
     one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array)
