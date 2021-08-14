@@ -190,6 +190,7 @@ def main():
     for index in units_index_train:
         print("Load data index: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
+        sample_array, label_array = shuffle_array(sample_array, label_array)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
         train_units_samples_lst.append(sample_array)
@@ -198,8 +199,6 @@ def main():
     sample_array = np.concatenate(train_units_samples_lst)
     label_array = np.concatenate(train_units_labels_lst)
     print ("samples are aggregated")
-
-    sample_array, label_array = shuffle_array(sample_array, label_array)
 
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
