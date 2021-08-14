@@ -188,15 +188,15 @@ def main():
     train_units_labels_lst = []
 
     for index in units_index_train:
-        sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
         print("Load data index: ", index)
+        sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
         train_units_samples_lst.append(sample_array)
         train_units_labels_lst.append(label_array)
 
-    sample_array = np.stack(train_units_samples_lst)
-    label_array = np.stack(train_units_labels_lst)
+    sample_array = np.concatenate(train_units_samples_lst)
+    label_array = np.concatenate(train_units_labels_lst)
     print ("samples are aggregated")
 
     sample_array, label_array = shuffle_array(sample_array, label_array)
