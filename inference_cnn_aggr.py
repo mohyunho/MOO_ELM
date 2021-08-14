@@ -195,7 +195,7 @@ def main():
     for index in units_index_train:
         print("Load data index: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
-        sample_array, label_array = shuffle_array(sample_array, label_array)
+        #sample_array, label_array = shuffle_array(sample_array, label_array)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
         train_units_samples_lst.append(sample_array)
@@ -275,7 +275,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s_rmse%s.png" %(str(int(units_index_test[idx])),
+        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s_rmse-%s.png" %(str(int(units_index_test[idx])),
                                                                               int(win_len), int(win_stride), int(bs), str(rms)))
 
 
