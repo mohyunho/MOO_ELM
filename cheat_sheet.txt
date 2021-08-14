@@ -333,4 +333,14 @@ python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 64 -ep 30 -pt 10 -vs 0.
 
 python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 64 -ep 30 -pt 10 -lr 0.0001 -vs 0.2 -s_stride 20 -s_len 40 -n_conv 2 -lstm1 6 -lstm2 3
 
+python3 inference_cnnlstm.py -w 1000 -s 10 -f 3 -k 3 -bs 128 -ep 30 -pt 10 -lr 0.0001 -vs 0.2 -s_stride 20 -s_len 40 -n_conv 2 -lstm1 6 -lstm2 3
+
+(125076,)
+13.750058260707537
+10.850607690625413
+9.961987536566733
+7.939347900594225
+9.285972960505656
+13.774607331205715
+
 
