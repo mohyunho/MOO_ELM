@@ -205,6 +205,10 @@ def main():
         #sample_array, label_array = shuffle_array(sample_array, label_array)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
+        sample_array = sample_array[::10]
+        label_array = label_array[::10]
+        print("sub sample_array.shape", sample_array.shape)
+        print("sub label_array.shape", label_array.shape)
         train_units_samples_lst.append(sample_array)
         train_units_labels_lst.append(label_array)
 
@@ -233,7 +237,7 @@ def main():
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
     print(one_d_cnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
-    one_d_cnn_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
+    one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
     history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                       callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
@@ -251,8 +255,16 @@ def main():
     truth_lst = []
 
     for index in units_index_test:
+        print ("test idx: ", index)
         sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
+        print("sample_array.shape", sample_array.shape)
+        print("label_array.shape", label_array.shape)
+        sample_array = sample_array[::10]
+        label_array = label_array[::10]
+        print("sub sample_array.shape", sample_array.shape)
+        print("sub label_array.shape", label_array.shape)
+
         estimator = load_model(model_temp_path)
 
         y_pred_test = estimator.predict(sample_array)
