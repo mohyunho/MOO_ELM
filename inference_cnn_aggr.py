@@ -142,7 +142,7 @@ def shuffle_array(sample_array, label_array):
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
-def figsave(history, win_len, win_stride, bs):
+def figsave(history, win_len, win_stride, bs, lr):
     fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -152,7 +152,7 @@ def figsave(history, win_len, win_stride, bs):
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/training_w%s_s%s_bs%s.png" %(int(win_len), int(win_stride), int(bs)))
+    fig_acc.savefig(pic_dir + "/training_w%s_s%s_bs%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), str(lr)))
     return
 
 def release_list(a):
@@ -199,7 +199,7 @@ def main():
     for index in units_index_train:
         print("Load data index: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
-        sample_array, label_array = shuffle_array(sample_array, label_array)
+        #sample_array, label_array = shuffle_array(sample_array, label_array)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
         train_units_samples_lst.append(sample_array)
@@ -208,7 +208,8 @@ def main():
     sample_array = np.concatenate(train_units_samples_lst)
     label_array = np.concatenate(train_units_labels_lst)
     print ("samples are aggregated")
-
+    sample_array, label_array = shuffle_array(sample_array, label_array)
+    print("samples are shuffled")
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
     release_list(train_units_samples_lst)
@@ -233,7 +234,7 @@ def main():
                       )
     # TqdmCallback(verbose=2)
     # one_d_cnn_model.save(tf_temp_path,save_format='tf')
-    figsave(history, win_len, win_stride, bs)
+    figsave(history, win_len, win_stride, bs, lr)
 
 
 
@@ -279,8 +280,9 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s_rmse-%s.png" %(str(int(units_index_test[idx])),
-                                                                              int(win_len), int(win_stride), int(bs), str(rms)))
+        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s_lr%s_rmse-%s.png" %(str(int(units_index_test[idx])),
+                                                                              int(win_len), int(win_stride), int(bs),
+                                                                                    str(lr), str(rms)))
 
 
 if __name__ == '__main__':
