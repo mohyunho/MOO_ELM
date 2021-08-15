@@ -147,11 +147,11 @@ def cudnnlstm(sequence_length, nb_features, lstm1, lstm2, nb_out):
         input_shape=(sequence_length, nb_features),
         units=lstm1,
         return_sequences=True))
-    # model.add(Dropout(0.2))
+    model.add(Dropout(0.2))
     model.add(LSTM(
         units=lstm2,
         return_sequences=False))
-    # model.add(Dropout(0.2))
+    model.add(Dropout(0.2))
     model.add(Dense(units=nb_out))
     model.add(Activation("linear"))
 
