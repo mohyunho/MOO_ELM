@@ -55,7 +55,7 @@ from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
-from utils.dnn import one_dcnn
+from utils.dnn import one_dcnn, cudnnlstm
 
 
 # import tensorflow.compat.v1 as tf
@@ -153,7 +153,7 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
+    fig_acc.savefig(pic_dir + "/lstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
     return
 
 def release_list(a):
@@ -172,6 +172,8 @@ def main():
     parser.add_argument('-s', type=int, default=1, help='stride of filter')
     parser.add_argument('-f', type=int, default=10, help='number of filter')
     parser.add_argument('-k', type=int, default=10, help='size of kernel')
+    parser.add_argument('-l1', type=int, default=200, help='number of units in LSTM1')
+    parser.add_argument('-l2', type=int, default=100, help='number of units in LSTM2')
     parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
@@ -193,6 +195,10 @@ def main():
     pt = args.pt
     vs = args.vs
     sub = args.sub
+
+    lstm1 = args.l1
+    lstm2 = args.l2
+
 
     amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
     rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
@@ -229,18 +235,9 @@ def main():
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
 
-    input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
-    one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array)
-    cnn_out = one_d_cnn(input_temp)
-    x = cnn_out
-    # x = Dropout(0.5)(x)
-    main_output = Dense(1, activation='linear', name='main_output')(x)
-    one_d_cnn_model = Model(inputs=input_temp, outputs=main_output)
-    # model = Model(inputs=[input_1, input_2], outputs=main_output)
-    print(one_d_cnn_model.summary())
-    # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
-    one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
-    history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
+    lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1)
+    lstm_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
+    history = lstm_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                       callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
@@ -300,7 +297,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/unit%s_test_w%s_s%s_bs%s_lr%s_sub%s_rmse-%s.png" %(str(int(units_index_test[idx])),
+        fig_verify.savefig(pic_dir + "/lstm_unit%s_test_w%s_s%s_bs%s_lr%s_sub%s_rmse-%s.png" %(str(int(units_index_test[idx])),
                                                                               int(win_len), int(win_stride), int(bs),
                                                                                     str(lr), int(sub), str(rms)))
 
