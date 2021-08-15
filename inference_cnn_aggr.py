@@ -138,6 +138,7 @@ def shuffle_array(sample_array, label_array):
     ind_list = shuffle(ind_list)
     print("ind_list after: ", ind_list[:10])
     print("ind_list after: ", ind_list[-10:])
+    print("Shuffeling in progress")
     shuffle_sample = sample_array[ind_list, :, :]
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
@@ -208,14 +209,17 @@ def main():
     sample_array = np.concatenate(train_units_samples_lst)
     label_array = np.concatenate(train_units_labels_lst)
     print ("samples are aggregated")
-    sample_array, label_array = shuffle_array(sample_array, label_array)
-    print("samples are shuffled")
-    print("sample_array.shape", sample_array.shape)
-    print("label_array.shape", label_array.shape)
+
     release_list(train_units_samples_lst)
     release_list(train_units_labels_lst)
     train_units_samples_lst =[]
     train_units_labels_lst = []
+    print("Memory released")
+
+    sample_array, label_array = shuffle_array(sample_array, label_array)
+    print("samples are shuffled")
+    print("sample_array.shape", sample_array.shape)
+    print("label_array.shape", label_array.shape)
 
     input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
     one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array)
