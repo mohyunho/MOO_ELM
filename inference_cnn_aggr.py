@@ -272,7 +272,7 @@ def main():
         fig_verify = plt.figure(figsize=(24, 10))
         plt.plot(output_lst[idx], color="green")
         plt.plot(truth_lst[idx], color="red", linewidth=2.0)
-        plt.title('Unit11 inference', fontsize=30)
+        plt.title('Unit%s inference' %str(int(units_index_test[idx])), fontsize=30)
         plt.yticks(fontsize=20)
         plt.xticks(fontsize=20)
         plt.ylabel('RUL', fontdict={'fontsize': 24})

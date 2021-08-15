@@ -371,6 +371,9 @@ python3 inference_cnnlstm.py -w 50 -s 1 -f 3 -k 3 -bs 128 -ep 30 -pt 10 -lr 0.00
 8.025093301486194
 12.974127038537482
 
+----------------
+python3 inference_cnn_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 128 -ep 30 -pt 10 -vs 0.1 -lr 0.001 
+
 
 
 
