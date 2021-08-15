@@ -193,6 +193,8 @@ def main():
     vs = args.vs
 
     amsgrad = optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-07, amsgrad=True, name='Adam')
+    rmsop = optimizers.RMSprop(learning_rate=lr, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False,
+                               name='RMSprop')
 
     train_units_samples_lst =[]
     train_units_labels_lst = []
@@ -231,7 +233,7 @@ def main():
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
     print(one_d_cnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
-    one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
+    one_d_cnn_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
     history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
                       callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]

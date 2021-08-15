@@ -376,6 +376,13 @@ python3 inference_cnn_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 128 -ep 30 -pt 10 -vs 0
 
 
 
+--
+python3 inference_cnn_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 512 -ep 30 -pt 10 -vs 0.1 -lr 0.00001
+
+
+
+---
+python3 sample_creator_unit.py -w 100 -s 1 --index 
 
 python3 sample_creator_unit.py -w 50 -s 5 --index 
 
