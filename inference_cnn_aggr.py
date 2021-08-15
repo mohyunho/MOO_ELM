@@ -135,7 +135,7 @@ def shuffle_array(sample_array, label_array):
     ind_list = list(range(len(sample_array)))
     print("ind_list befor: ", ind_list[:10])
     print("ind_list befor: ", ind_list[-10:])
-    shuffle(ind_list)
+    ind_list = shuffle(ind_list)
     print("ind_list after: ", ind_list[:10])
     print("ind_list after: ", ind_list[-10:])
     shuffle_sample = sample_array[ind_list, :, :]
