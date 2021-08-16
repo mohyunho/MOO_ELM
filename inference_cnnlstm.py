@@ -130,7 +130,12 @@ def rmse(y_true, y_pred):
 
 def shuffle_array(sample_array, label_array):
     ind_list = list(range(len(sample_array)))
-    shuffle(ind_list)
+    print("ind_list befor: ", ind_list[:10])
+    print("ind_list befor: ", ind_list[-10:])
+    ind_list = shuffle(ind_list)
+    print("ind_list after: ", ind_list[:10])
+    print("ind_list after: ", ind_list[-10:])
+    print("Shuffeling in progress")
     shuffle_sample = sample_array[ind_list, :, :]
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
