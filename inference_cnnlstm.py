@@ -140,7 +140,7 @@ def shuffle_array(sample_array, label_array):
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
-def figsave(history, win_len, win_stride, bs, sub, lr):
+def figsave(history, win_len, win_stride, bs, sub, lr, sub_win_stride, sub_win_len, mul1, mul2):
     fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -150,7 +150,8 @@ def figsave(history, win_len, win_stride, bs, sub, lr):
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/cnnlstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
+    fig_acc.savefig(pic_dir + "/cnnlstm_training_w%s_s%s_bs%s_sub%s_lr%s_substride%s_subwinlen%s_mul1-%s_mul2%s.png" %(int(win_len), int(win_stride), int(bs),
+                                                                                int(sub), str(lr), str(sub_win_stride), str(sub_win_len), str(mul1), str(mul2)))
     return
 
 
@@ -333,7 +334,7 @@ def main():
                                      ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
                                                      mode='min', verbose=1)])
 
-    figsave(history, win_len, win_stride, bs, sub, lr)
+    figsave(history, win_len, win_stride, bs, sub, lr, sub_win_stride, sub_win_len, mul1, mul2)
 
 
     ### Test (inference after training)
@@ -382,7 +383,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/cnnlstm_unit%s_test_w%s_s%s_bs%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs)))
+        fig_verify.savefig(pic_dir + "/cnnlstm_unit%s_test_w%s_s%s_bs%s_lr%s_substride%s_subwinlen%s_mul1-%s_mul2%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs), str(lr), str(sub_win_stride), str(sub_win_len), str(mul1), str(mul2)))
 
 
 if __name__ == '__main__':
