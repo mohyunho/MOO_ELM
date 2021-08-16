@@ -310,21 +310,21 @@ def main():
     # We stack a deep densely-connected network on top
     if bidirec == True:
         x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
-        x = Dropout(0.2)(x)
+        # x = Dropout(0.2)(x)
         x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
-        x = Dropout(0.2)(x)
+        # x = Dropout(0.2)(x)
     elif bidirec == False:
         x = LSTM(units=LSTM_u1, return_sequences=True)(x)
-        x = Dropout(0.2)(x)
+        # x = Dropout(0.2)(x)
         x = LSTM(units=LSTM_u2, return_sequences=False)(x)
-        x = Dropout(0.2)(x)
+        # x = Dropout(0.2)(x)
 
 
     main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
     cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
 
-    cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
+    cnnlstm.compile(loss='mean_squared_error', optimizer=amsgrad,
                     metrics='mae')
     print(cnnlstm.summary())
 
