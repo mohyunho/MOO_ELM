@@ -135,17 +135,19 @@ def shuffle_array(sample_array, label_array):
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
-def figsave(history,index, win_len, win_stride, bs):
+def figsave(history, win_len, win_stride, bs, sub, lr):
     fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
-    plt.title('Training #%s' %int(index), fontsize=24)
+    plt.title('Training', fontsize=24)
     plt.ylabel('loss', fontdict={'fontsize': 18})
     plt.xlabel('epoch', fontdict={'fontsize': 18})
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/cnnlstm_unit%s_training_w%s_s%s_bs%s.png" %(int(index), int(win_len), int(win_stride), int(bs)))
+    fig_acc.savefig(pic_dir + "/cnnlstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len),
+                                                                                       int(win_stride), int(bs),
+                                                                                       int(sub), str(lr)))
     return
 
 
@@ -182,6 +184,9 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
 
 
 
+def release_list(a):
+   del a[:]
+   del a
 
 
 
@@ -207,6 +212,7 @@ def main():
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
+    parser.add_argument('-sub', type=int, default=10, help='subsampling stride')
     parser.add_argument('-s_stride', type=int, default=10, help='subwindow stride')
     parser.add_argument('-s_len', type=int, default=100, help='subwindow len')
     parser.add_argument('-n_conv', type=int, default=3, help='number of conv layers')
@@ -225,6 +231,7 @@ def main():
     ep = args.ep
     pt = args.pt
     vs = args.vs
+    sub = args.sub
 
 
     input_features = 1
@@ -252,106 +259,78 @@ def main():
                                name='RMSprop')
 
 
-
+    train_units_samples_lst =[]
+    train_units_labels_lst = []
 
     for index in units_index_train:
-        print ("Load data of: ", index)
+        print("Load data index: ", index)
         sample_array, label_array = load_array (sample_dir_path, index, win_len, win_stride)
-        sample_array, label_array = shuffle_array(sample_array, label_array)
-        print("Training for trajectory of engine %s" %int(index))
+        #sample_array, label_array = shuffle_array(sample_array, label_array)
         print("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
+        sample_array = sample_array[::sub]
+        label_array = label_array[::sub]
+        print("sub sample_array.shape", sample_array.shape)
+        print("sub label_array.shape", label_array.shape)
+        train_units_samples_lst.append(sample_array)
+        train_units_labels_lst.append(label_array)
 
-        # Convert  (#samples, win_len) of each sensor to (#samples. subseq, sub_win_len)
-        train_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
+    sample_array = np.concatenate(train_units_samples_lst)
+    label_array = np.concatenate(train_units_labels_lst)
+    print ("samples are aggregated")
 
-        if int(index) == int(units_index_train[0]):
+    release_list(train_units_samples_lst)
+    release_list(train_units_labels_lst)
+    train_units_samples_lst =[]
+    train_units_labels_lst = []
+    print("Memory released")
 
-            sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
-            cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
-                                                           seg_n, input_features, sub_win_stride, kernel_size,
-                                                           n_conv_layer)
+    sample_array, label_array = shuffle_array(sample_array, label_array)
+    print("samples are shuffled")
+    print("sample_array.shape", sample_array.shape)
+    print("label_array.shape", label_array.shape)
 
-            # x = concatenate([cnn_1_out, cnn_2_out])
-            x = concatenate(cnn_out_list)
-            # x = keras.layers.concatenate([lstm_out, auxiliary_input])
-
-            # We stack a deep densely-connected network on top
-            if bidirec == True:
-                x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
-                x = Dropout(0.2)(x)
-                x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
-                x = Dropout(0.2)(x)
-            elif bidirec == False:
-                x = LSTM(units=LSTM_u1, return_sequences=True)(x)
-                x = Dropout(0.2)(x)
-                x = LSTM(units=LSTM_u2, return_sequences=False)(x)
-                x = Dropout(0.2)(x)
+    # Convert  (#samples, win_len) of each sensor to (#samples. subseq, sub_win_len)
+    train_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
 
 
-            main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
+    sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
+    cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
+                                                   seg_n, input_features, sub_win_stride, kernel_size,
+                                                   n_conv_layer)
 
-            cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
-            # model = Model(inputs=[input_1, input_2], outputs=main_output)
+    # x = concatenate([cnn_1_out, cnn_2_out])
+    x = concatenate(cnn_out_list)
+    # x = keras.layers.concatenate([lstm_out, auxiliary_input])
 
-
-
-
-            cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
-                            metrics='mae')
-            print(cnnlstm.summary())
-
-            # fit the network
-            history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                                  callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                             ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
-                                                             mode='min', verbose=1)])
-
-            figsave(history, index, win_len, win_stride, bs)
-
-
-        else:
-            loaded_model = load_model(model_temp_path)
-
-            # loaded_model.compile(loss='mean_squared_error', optimizer=rmsop, metrics='mae')
-
-            history = loaded_model.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                          callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
-                                        ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
-                          )
-
-            figsave(history, index, win_len, win_stride, bs)
+    # We stack a deep densely-connected network on top
+    if bidirec == True:
+        x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
+        x = Dropout(0.2)(x)
+        x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
+        x = Dropout(0.2)(x)
+    elif bidirec == False:
+        x = LSTM(units=LSTM_u1, return_sequences=True)(x)
+        x = Dropout(0.2)(x)
+        x = LSTM(units=LSTM_u2, return_sequences=False)(x)
+        x = Dropout(0.2)(x)
 
 
-        # Evaluate (test) the trained network after training each engine
-        output_lst = []
-        truth_lst = []
-        for index in units_index_test:
-            print("Load data of: ", index)
-            sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
+    main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
+    cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
+    # model = Model(inputs=[input_1, input_2], outputs=main_output)
 
-            test_FD_sensor = segment_gen(sample_array, seg_n, sub_win_stride, sub_win_len)
+    cnnlstm.compile(loss='mean_squared_error', optimizer=rmsop,
+                    metrics='mae')
+    print(cnnlstm.summary())
 
-            # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
-            estimator = load_model(model_temp_path)
+    # fit the network
+    history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
+                          callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
+                                                     mode='min', verbose=1)])
 
-            y_pred_test = estimator.predict(test_FD_sensor)
-            output_lst.append(y_pred_test)
-            truth_lst.append(label_array)
-
-        print(output_lst[0].shape)
-        print(truth_lst[0].shape)
-
-        print(np.concatenate(output_lst).shape)
-        print(np.concatenate(truth_lst).shape)
-
-        output_array = np.concatenate(output_lst)[:, 0]
-        trytg_array = np.concatenate(truth_lst)
-        print(output_array.shape)
-        print(trytg_array.shape)
-        rms = sqrt(mean_squared_error(output_array, trytg_array))
-        print(rms)
-
+    figsave(history, win_len, win_stride, bs, sub, lr)
 
 
     ### Test (inference after training)
