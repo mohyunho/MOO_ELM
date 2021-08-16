@@ -150,9 +150,7 @@ def figsave(history, win_len, win_stride, bs, sub, lr):
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/cnnlstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len),
-                                                                                       int(win_stride), int(bs),
-                                                                                       int(sub), str(lr)))
+    fig_acc.savefig(pic_dir + "/cnnlstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
     return
 
 
