@@ -369,6 +369,7 @@ def main():
     print(trytg_array.shape)
     rms = sqrt(mean_squared_error(output_array, trytg_array))
     print(rms)
+    rms = round(rms, 2)
 
     for idx in range(len(units_index_test)):
         print(output_lst[idx])
@@ -383,7 +384,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/cnnlstm_unit%s_test_w%s_s%s_bs%s_lr%s_substride%s_subwinlen%s_mul1-%s_mul2%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs), str(lr), str(sub_win_stride), str(sub_win_len), str(mul1), str(mul2)))
+        fig_verify.savefig(pic_dir + "/cnnlstm_unit%s_test_w%s_s%s_bs%s_lr%s_substride%s_subwinlen%s_mul1-%s_mul2%s_rms%s.png" %(str(int(units_index_test[idx])), int(win_len), int(win_stride), int(bs), str(lr), str(sub_win_stride), str(sub_win_len), str(mul1), str(mul2), str(rms)))
 
 
 if __name__ == '__main__':
