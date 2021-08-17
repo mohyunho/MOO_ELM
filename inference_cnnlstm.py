@@ -192,6 +192,8 @@ def scheduler(epoch, lr):
         return lr * 0.1
     elif epoch == 30:
         return lr * 0.1
+    else:
+        return lr
 
 
 

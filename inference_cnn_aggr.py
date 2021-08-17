@@ -157,9 +157,9 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
     return
 
 def scheduler(epoch, lr):
-    if epoch == 10:
+    if epoch == 20:
         return lr * 0.1
-    elif epoch == 40:
+    elif epoch == 60:
         return lr * 0.1
     else:
         return lr
