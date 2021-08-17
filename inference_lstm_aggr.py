@@ -52,7 +52,7 @@ from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDi
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, cudnnlstm
@@ -156,6 +156,13 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
     fig_acc.savefig(pic_dir + "/lstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
     return
 
+def scheduler(epoch, lr):
+    if epoch == 10:
+        return lr * 0.1
+    elif epoch == 30:
+        return lr * 0.1
+
+
 def release_list(a):
    del a[:]
    del a
@@ -236,9 +243,12 @@ def main():
     print("label_array.shape", label_array.shape)
 
     lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1)
+
+    lr_scheduler = LearningRateScheduler(scheduler)
+
     lstm_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
     history = lstm_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                      callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                      callbacks = [lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
     # TqdmCallback(verbose=2)

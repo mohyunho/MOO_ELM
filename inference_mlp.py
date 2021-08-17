@@ -52,7 +52,7 @@ from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDi
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, mlps
@@ -156,6 +156,16 @@ def figsave(history, h1,h2,h3,h4, bs, lr, sub):
     fig_acc.savefig(pic_dir + "/mlp_training_h1%s_h2%s_h3%s_h4%s_bs%s_sub%s_lr%s.png" %(int(h1), int(h2), int(h3), int(h4), int(bs), int(sub), str(lr)))
     return
 
+
+def scheduler(epoch, lr):
+    if epoch == 10:
+        return lr * 0.1
+    elif epoch == 60:
+        return lr * 0.1
+
+
+
+
 def release_list(a):
    del a[:]
    del a
@@ -245,8 +255,11 @@ def main():
     print(fnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
     fnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
+
+    lr_scheduler = LearningRateScheduler(scheduler)
+
     history = fnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                      callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                      callbacks = [lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
     # TqdmCallback(verbose=2)

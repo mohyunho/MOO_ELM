@@ -52,7 +52,7 @@ from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDi
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn
@@ -156,6 +156,14 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
     fig_acc.savefig(pic_dir + "/training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
     return
 
+def scheduler(epoch, lr):
+    if epoch == 10:
+        return lr * 0.1
+    elif epoch == 40:
+        return lr * 0.1
+
+
+
 def release_list(a):
    del a[:]
    del a
@@ -239,9 +247,12 @@ def main():
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
     print(one_d_cnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
+
+    lr_scheduler = LearningRateScheduler(scheduler)
+
     one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
     history = one_d_cnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                      callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                      callbacks = [lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
     # TqdmCallback(verbose=2)

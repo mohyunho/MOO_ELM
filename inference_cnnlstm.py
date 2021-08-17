@@ -50,7 +50,7 @@ from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDi
 from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, CNNBranch, TD_CNNBranch, CNNB, multi_head_cnn, sensor_input_model
@@ -185,6 +185,13 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
     # print("train_FD_sensor[0].shape", train_FD_sensor[0].shape)
     # print(seq_array_train[0, :, 0])
     return train_FD_sensor
+
+
+def scheduler(epoch, lr):
+    if epoch == 10:
+        return lr * 0.1
+    elif epoch == 30:
+        return lr * 0.1
 
 
 
@@ -324,13 +331,15 @@ def main():
     cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
 
+    lr_scheduler = LearningRateScheduler(scheduler)
+
     cnnlstm.compile(loss='mean_squared_error', optimizer=amsgrad,
                     metrics='mae')
     print(cnnlstm.summary())
 
     # fit the network
     history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                          callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                          callbacks=[lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                      ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
                                                      mode='min', verbose=1)])
 
