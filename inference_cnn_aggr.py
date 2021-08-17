@@ -181,7 +181,7 @@ def main():
     parser.add_argument('-f', type=int, default=10, help='number of filter')
     parser.add_argument('-k', type=int, default=10, help='size of kernel')
     parser.add_argument('-bs', type=int, default=256, help='batch size')
-    parser.add_argument('-ep', type=int, default=30, help='max epoch')
+    parser.add_argument('-ep', type=float, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
