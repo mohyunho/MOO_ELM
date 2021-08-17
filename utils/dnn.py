@@ -157,3 +157,18 @@ def cudnnlstm(sequence_length, nb_features, lstm1, lstm2, nb_out):
 
 
     return model
+
+
+
+def mlps(vec_len, h1, h2, h3, h4):
+    '''
+
+    '''
+    model = Sequential()
+    model.add(Dense(h1, activation='relu', input_shape=(vec_len,)))
+    model.add(Dense(h2, activation='relu'))
+    model.add(Dense(h3, activation='relu'))
+    model.add(Dense(h4, activation='relu'))
+    model.add(Dense(1))
+
+    return model
