@@ -189,8 +189,10 @@ def segment_gen(seq_array_train, seg_n, sub_win_stride, sub_win_len):
 
 def scheduler(epoch, lr):
     if epoch == 10:
+        print("lr decay by 10")
         return lr * 0.1
     elif epoch == 30:
+        print("lr decay by 10")
         return lr * 0.1
     else:
         return lr
@@ -341,7 +343,7 @@ def main():
 
     # fit the network
     history = cnnlstm.fit(train_FD_sensor, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                          callbacks=[lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                          callbacks=[EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                      ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True,
                                                      mode='min', verbose=1)])
 

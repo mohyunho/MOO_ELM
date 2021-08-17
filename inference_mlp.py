@@ -158,9 +158,11 @@ def figsave(history, h1,h2,h3,h4, bs, lr, sub):
 
 
 def scheduler(epoch, lr):
-    if epoch == 20:
+    if epoch == 30:
+        print ("lr decay by 10")
         return lr * 0.1
-    elif epoch == 60:
+    elif epoch == 70:
+        print("lr decay by 10")
         return lr * 0.1
     else:
         return lr

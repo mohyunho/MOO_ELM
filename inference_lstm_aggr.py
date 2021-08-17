@@ -158,8 +158,10 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
 
 def scheduler(epoch, lr):
     if epoch == 10:
+        print("lr decay by 10")
         return lr * 0.1
     elif epoch == 30:
+        print("lr decay by 10")
         return lr * 0.1
     else:
         return lr
@@ -250,7 +252,7 @@ def main():
 
     lstm_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
     history = lstm_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                      callbacks = [lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                      callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
     # TqdmCallback(verbose=2)
