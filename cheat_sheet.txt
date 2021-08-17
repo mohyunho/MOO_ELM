@@ -720,6 +720,10 @@ saving file:training loss figure
 [66. 66. 66. ...  0.  0.  0.]
 
 
+-------
+python3 inference_cnn_aggr.py -w 1 -s 1 -bs 512 -ep 30 -pt 5 -vs 0.01 -lr 0.001 -sub 1 
+
+
 ---
 python3 sample_creator_unit_auto.py -w 100 -s 1 --index 0 ,
 

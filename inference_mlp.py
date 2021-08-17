@@ -143,7 +143,7 @@ def shuffle_array(sample_array, label_array):
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
-def figsave(history, h1,h2,h3,h4, win_stride, bs, lr, sub):
+def figsave(history, h1,h2,h3,h4, bs, lr, sub):
     fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
