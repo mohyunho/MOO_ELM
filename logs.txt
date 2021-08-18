@@ -1,0 +1,59 @@
+python3 inference_mlp.py -w 1 -s 1 -bs 512 -ep 60 -pt 10 -vs 0.1 -lr 0.001 -sub 1
+
+trial1
+
+The FLOPs is:188751
+wind length_1,  win stride_1
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  1163.4503991603851
+Inference time:  48.74464178085327
+Result in RMSE:  6.44
+
+wind length_1,  win stride_1
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  1099.9206492900848
+Inference time:  32.534690141677856
+Result in RMSE:  6.63
+
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  1081.05109500885
+Inference time:  33.46583700180054
+Result in RMSE:  6.81
+
+
+
+python3 inference_mlp.py -w 1 -s 1 -bs 512 -ep 60 -pt 5 -vs 0.1 -lr 0.0001 -sub 1
+The FLOPs is:188751
+wind length_1,  win stride_1
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  626.3942859172821
+Inference time:  49.50804162025452
+Result in RMSE:  7.33
+
+The FLOPs is:188751
+wind length_1,  win stride_1
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  247.76036095619202
+Inference time:  62.37381339073181
+Result in RMSE:  7.39
+
+
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  386.3741202354431
+Inference time:  40.76616358757019
+Result in RMSE:  7.2
+
+# Training samples:  5263447
+# Inference samples:  1253743
+Training time:  182.27060317993164
+Inference time:  47.54991793632507
+Result in RMSE:  7.42
+
+------------
+

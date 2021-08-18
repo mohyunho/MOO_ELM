@@ -159,6 +159,22 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
     fig_acc.savefig(pic_dir + "/lstm_training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
     return
 
+
+
+def get_flops(model):
+    concrete = tf.function(lambda inputs: model(inputs))
+    concrete_func = concrete.get_concrete_function(
+        [tf.TensorSpec([1, *inputs.shape[1:]]) for inputs in model.inputs])
+    frozen_func, graph_def = convert_variables_to_constants_v2_as_graph(concrete_func)
+    with tf.Graph().as_default() as graph:
+        tf.graph_util.import_graph_def(graph_def, name='')
+        run_meta = tf.compat.v1.RunMetadata()
+        opts = tf.compat.v1.profiler.ProfileOptionBuilder.float_operation()
+        flops = tf.compat.v1.profiler.profile(graph=graph, run_meta=run_meta, cmd="op", options=opts)
+        return flops.total_float_ops
+
+
+
 def scheduler(epoch, lr):
     if epoch == 10:
         print("lr decay by 10")
@@ -251,6 +267,9 @@ def main():
 
     lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1)
 
+
+    start = time.time()
+
     lr_scheduler = LearningRateScheduler(scheduler)
 
     lstm_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics='mae')
@@ -262,10 +281,16 @@ def main():
     # one_d_cnn_model.save(tf_temp_path,save_format='tf')
     figsave(history, win_len, win_stride, bs, lr, sub)
 
-
+    print("The FLOPs is:{}".format(get_flops(lstm_model)), flush=True)
+    num_train = sample_array.shape[0]
+    end = time.time()
+    training_time = end - start
+    print("Training time: ", training_time)
 
 
     ### Test (inference after training)
+
+    start = time.time()
 
     output_lst = []
     truth_lst = []
@@ -301,6 +326,10 @@ def main():
     print(rms)
     rms = round(rms, 2)
 
+    end = time.time()
+    inference_time = end - start
+    num_test = output_array.shape[0]
+
     for idx in range(len(units_index_test)):
         print(output_lst[idx])
         print(truth_lst[idx])
@@ -317,6 +346,14 @@ def main():
         fig_verify.savefig(pic_dir + "/lstm_unit%s_test_w%s_s%s_bs%s_lr%s_sub%s_rmse-%s.png" %(str(int(units_index_test[idx])),
                                                                               int(win_len), int(win_stride), int(bs),
                                                                                     str(lr), int(sub), str(rms)))
+
+    print("The FLOPs is:{}".format(get_flops(lstm_model)), flush=True)
+    print("wind length_%s,  win stride_%s" %(str(win_len), str(win_stride)))
+    print("# Training samples: ", num_train)
+    print("# Inference samples: ", num_test)
+    print("Training time: ", training_time)
+    print("Inference time: ", inference_time)
+    print("Result in RMSE: ", rms)
 
 
 if __name__ == '__main__':
