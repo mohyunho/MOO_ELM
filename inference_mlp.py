@@ -54,6 +54,9 @@ from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
+from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
+
+
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, mlps
 
@@ -157,6 +160,20 @@ def figsave(history, h1,h2,h3,h4, bs, lr, sub):
     return
 
 
+
+def get_flops(model):
+    concrete = tf.function(lambda inputs: model(inputs))
+    concrete_func = concrete.get_concrete_function(
+        [tf.TensorSpec([1, *inputs.shape[1:]]) for inputs in model.inputs])
+    frozen_func, graph_def = convert_variables_to_constants_v2_as_graph(concrete_func)
+    with tf.Graph().as_default() as graph:
+        tf.graph_util.import_graph_def(graph_def, name='')
+        run_meta = tf.compat.v1.RunMetadata()
+        opts = tf.compat.v1.profiler.ProfileOptionBuilder.float_operation()
+        flops = tf.compat.v1.profiler.profile(graph=graph, run_meta=run_meta, cmd="op", options=opts)
+        return flops.total_float_ops
+
+
 def scheduler(epoch, lr):
     if epoch == 30:
         print ("lr decay by 10")
@@ -254,6 +271,9 @@ def main():
     print("label_array_reshape.shape", label_array.shape)
     feat_len = sample_array.shape[1]
     print ("feat_len", feat_len)
+
+    start = time.time()
+
     fnn_model = mlps(feat_len, h1, h2, h3, h4)
 
     print(fnn_model.summary())
@@ -270,10 +290,14 @@ def main():
     # one_d_cnn_model.save(tf_temp_path,save_format='tf')
     figsave(history, h1, h2, h3, h4, bs, lr, sub)
 
-
-
+    print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
+    end = time.time()
+    training_time = end - start
+    print("Training time: ", training_time)
 
     ### Test (inference after training)
+
+    start = time.time()
 
     output_lst = []
     truth_lst = []
@@ -312,6 +336,10 @@ def main():
     print(rms)
     rms = round(rms, 2)
 
+    end = time.time()
+    inference_time = end - start
+
+
     for idx in range(len(units_index_test)):
         print(output_lst[idx])
         print(truth_lst[idx])
@@ -328,6 +356,14 @@ def main():
         fig_verify.savefig(pic_dir + "/mlps_unit%s_test_h1%s_h2%s_h3%s_h4%s_bs%s_lr%s_sub%s_rmse-%s.png" %(str(int(units_index_test[idx])),
                                                                               int(h1), int(h2), int(h3), int(h4), int(bs),
                                                                                     str(lr), int(sub), str(rms)))
+
+    
+
+    print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
+    print("Training time: ", training_time)
+    print("Inference time: ", inference_time)
+
+
 
 
 if __name__ == '__main__':
