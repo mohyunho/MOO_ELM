@@ -291,6 +291,7 @@ def main():
     figsave(history, h1, h2, h3, h4, bs, lr, sub)
 
     print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
+    num_train = sample_array.shape[0]
     end = time.time()
     training_time = end - start
     print("Training time: ", training_time)
@@ -338,7 +339,7 @@ def main():
 
     end = time.time()
     inference_time = end - start
-
+    num_test = output_array.shape[0]
 
     for idx in range(len(units_index_test)):
         print(output_lst[idx])
@@ -358,7 +359,9 @@ def main():
                                                                                     str(lr), int(sub), str(rms)))
 
 
-
+    print("wind length_%s,  win stride_%s" %(str(win_len), str(win_stride)))
+    print("# Training samples: ", num_train)
+    print("# Inference samples: ", num_test)
     print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
     print("Training time: ", training_time)
     print("Inference time: ", inference_time)

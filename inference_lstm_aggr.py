@@ -54,6 +54,9 @@ from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
+
+from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
+
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, cudnnlstm
 
