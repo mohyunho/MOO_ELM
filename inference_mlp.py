@@ -283,7 +283,7 @@ def main():
     lr_scheduler = LearningRateScheduler(scheduler)
 
     history = fnn_model.fit(sample_array, label_array, epochs=ep, batch_size=bs, validation_split=vs, verbose=2,
-                      callbacks = [lr_scheduler, EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
+                      callbacks = [EarlyStopping(monitor='val_loss', min_delta=0, patience=pt, verbose=1, mode='min'),
                                     ModelCheckpoint(model_temp_path, monitor='val_loss', save_best_only=True, mode='min', verbose=1)]
                       )
     # TqdmCallback(verbose=2)
@@ -359,10 +359,11 @@ def main():
                                                                                     str(lr), int(sub), str(rms)))
 
 
+
+    print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
     print("wind length_%s,  win stride_%s" %(str(win_len), str(win_stride)))
     print("# Training samples: ", num_train)
     print("# Inference samples: ", num_test)
-    print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
     print("Training time: ", training_time)
     print("Inference time: ", inference_time)
     print("Result in RMSE: ", rms)
