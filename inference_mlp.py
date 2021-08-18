@@ -357,11 +357,12 @@ def main():
                                                                               int(h1), int(h2), int(h3), int(h4), int(bs),
                                                                                     str(lr), int(sub), str(rms)))
 
-    
+
 
     print("The FLOPs is:{}".format(get_flops(fnn_model)), flush=True)
     print("Training time: ", training_time)
     print("Inference time: ", inference_time)
+    print("Result in RMSE: ", rms)
 
 
 
