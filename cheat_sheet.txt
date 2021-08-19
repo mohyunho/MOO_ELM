@@ -794,6 +794,11 @@ python3 inference_cnn_aggr.py -w 50 -s 50 -f 10 -k 10 -bs 128 -ep 60 -pt 10 -vs 
 python3 inference_lstm_aggr.py -w 50 -s 50 -f 10 -k 10 -bs 256 -ep 60 -pt 10 -vs 0.1 -lr 0.001 -sub 1 -l1 200 -l2 100 
 
 
+
+---
+python3 inference_cnnlstm.py -w 50 -s 50 -f 5 -k 5 -bs 128 -ep 30 -pt 5 -lr 0.001 -vs 0.1 -sub 1 -s_stride 1 -s_len 50 -n_conv 2 -lstm1 4 -lstm2 2
+
+
 ---
 python3 sample_creator_unit_auto.py -w 100 -s 1 --index 0 ,
 
@@ -808,3 +813,9 @@ python3 sample_creator_unit_auto.py -w 50 -s 50 --index 0
 python3 sample_creator_unit.py -w 100 -s 10 --index 
 
 python3 sample_creator_unit.py -w 500 -s 50 --index 
+
+
+
+---
+
+

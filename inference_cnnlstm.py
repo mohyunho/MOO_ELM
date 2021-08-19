@@ -338,14 +338,14 @@ def main():
     # We stack a deep densely-connected network on top
     if bidirec == True:
         x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
-        # x = Dropout(0.2)(x)
+        x = Dropout(0.2)(x)
         x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
-        # x = Dropout(0.2)(x)
+        x = Dropout(0.2)(x)
     elif bidirec == False:
         x = LSTM(units=LSTM_u1, return_sequences=True)(x)
-        # x = Dropout(0.2)(x)
+        x = Dropout(0.2)(x)
         x = LSTM(units=LSTM_u2, return_sequences=False)(x)
-        # x = Dropout(0.2)(x)
+        x = Dropout(0.2)(x)
 
 
     main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
