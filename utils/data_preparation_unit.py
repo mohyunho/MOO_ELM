@@ -263,7 +263,7 @@ class Input_Gen(object):
         '''
         # self.__logger = logging.getLogger('data preparation for using it as the network input')
         print("the number of input signals: ", len(cols_normalize))
-        min_max_scaler = preprocessing.MinMaxScaler()
+        min_max_scaler = preprocessing.MinMaxScaler(feature_range=(-1, 1))
         norm_df = pd.DataFrame(min_max_scaler.fit_transform(df_train[cols_normalize]),
                                columns=cols_normalize,
                                index=df_train.index)
