@@ -42,6 +42,8 @@ def one_dcnn(n_filters, kernel_size, input_array, initializer):
     # cnn.add(BatchNormalization())
     cnn.add(Activation('relu'))
     cnn.add(Flatten())
+    cnn.add(Dense(50, kernel_initializer=initializer))
+    cnn.add(Activation('relu'))
     print(cnn.summary())
 
     return cnn
