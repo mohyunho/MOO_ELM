@@ -267,6 +267,9 @@ def main():
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
 
+    print ("train sample dtype", sample_array.dtype)
+    print("train label dtype", label_array.dtype)
+
     input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
     one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array, initializer)
     cnn_out = one_d_cnn(input_temp)
