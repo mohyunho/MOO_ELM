@@ -1,3 +1,19 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from pandas import DataFrame
+import matplotlib.pyplot as plt
+from matplotlib import gridspec
+import math
+import random
+from random import shuffle
+from tqdm.keras import TqdmCallback
+
+seed = 0
+random.seed(0)
+np.random.seed(seed)
+
+
 # import keras.backend as K
 import tensorflow.keras.backend as K
 from tensorflow.keras import backend
@@ -9,20 +25,20 @@ from tensorflow.keras.layers import Conv1D
 from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.initializers import GlorotNormal
 
+initializer = GlorotNormal(seed=0)
 
-
-
-def one_dcnn(n_filters, kernel_size, input_array):
+def one_dcnn(n_filters, kernel_size, input_array, initializer):
 
     cnn = Sequential(name='one_d_cnn')
-    cnn.add(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', input_shape=(input_array.shape[1],input_array.shape[2])))
+    cnn.add(Conv1D(filters=n_filters, kernel_size=kernel_size, kernel_initializer=initializer, padding='same', input_shape=(input_array.shape[1],input_array.shape[2])))
     # cnn.add(BatchNormalization())
     cnn.add(Activation('relu'))
-    cnn.add(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same'))
+    cnn.add(Conv1D(filters=n_filters, kernel_size=kernel_size, kernel_initializer=initializer, padding='same'))
     # cnn.add(BatchNormalization())
     cnn.add(Activation('relu'))
-    cnn.add(Conv1D(filters=1, kernel_size=kernel_size, padding='same'))
+    cnn.add(Conv1D(filters=1, kernel_size=kernel_size, kernel_initializer=initializer, padding='same'))
     # cnn.add(BatchNormalization())
     cnn.add(Activation('relu'))
     cnn.add(Flatten())

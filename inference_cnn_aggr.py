@@ -25,6 +25,10 @@ import random
 from random import shuffle
 from tqdm.keras import TqdmCallback
 
+seed = 0
+random.seed(0)
+np.random.seed(seed)
+
 import importlib
 from scipy.stats import randint, expon, uniform
 import sklearn as sk
@@ -57,15 +61,17 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningR
 
 from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
 
+from tensorflow.keras.initializers import GlorotNormal
+
+initializer = GlorotNormal(seed=0)
+
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn
 
 
 # import tensorflow.compat.v1 as tf
 # tf.disable_v2_behavior()
-seed = 0
-random.seed(0)
-np.random.seed(seed)
+
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -262,11 +268,11 @@ def main():
     print("label_array.shape", label_array.shape)
 
     input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
-    one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array)
+    one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array, initializer)
     cnn_out = one_d_cnn(input_temp)
     x = cnn_out
     # x = Dropout(0.5)(x)
-    main_output = Dense(1, activation='linear', name='main_output')(x)
+    main_output = Dense(1, activation='linear', kernel_initializer=initializer, name='main_output')(x)
     one_d_cnn_model = Model(inputs=input_temp, outputs=main_output)
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
     print(one_d_cnn_model.summary())
