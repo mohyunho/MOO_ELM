@@ -270,14 +270,20 @@ def main():
     print ("train sample dtype", sample_array.dtype)
     print("train label dtype", label_array.dtype)
 
-    input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
-    one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array, initializer)
-    cnn_out = one_d_cnn(input_temp)
-    x = cnn_out
-    # x = Dropout(0.5)(x)
-    main_output = Dense(1, activation='linear', kernel_initializer=initializer, name='main_output')(x)
-    one_d_cnn_model = Model(inputs=input_temp, outputs=main_output)
+
+    # input_temp = Input(shape=(sample_array.shape[1], sample_array.shape[2]),name='kernel_size%s' %str(int(kernel_size)))
+    # #------
+    # one_d_cnn = one_dcnn(n_filters, kernel_size, sample_array, initializer)
+    # cnn_out = one_d_cnn(input_temp)
+    # x = cnn_out
+    # # x = Dropout(0.5)(x)
+    # main_output = Dense(1, activation='linear', kernel_initializer=initializer, name='main_output')(x)
+    # one_d_cnn_model = Model(inputs=input_temp, outputs=main_output)
+
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
+
+    one_d_cnn_model = one_dcnn(n_filters, kernel_size, sample_array, initializer)
+
     print(one_d_cnn_model.summary())
     # one_d_cnn_model.compile(loss='mean_squared_error', optimizer=amsgrad, metrics=[rmse, 'mae'])
 
