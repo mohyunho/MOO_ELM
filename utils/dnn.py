@@ -27,8 +27,8 @@ from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
 
-#initializer = GlorotNormal(seed=0)
-initializer = GlorotUniform(seed=0)
+initializer = GlorotNormal(seed=0)
+#initializer = GlorotUniform(seed=0)
 
 
 def one_dcnn(n_filters, kernel_size, input_array, initializer):
