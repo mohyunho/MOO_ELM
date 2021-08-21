@@ -504,6 +504,79 @@ Training time:  398.14663219451904
 Inference time:  188.96166396141052
 Result in RMSE:  6.69
 
+(no random)
+python3 inference_cnn_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 1024 -ep 50 -pt 10 -vs 0.1 -lr 0.001 -sub 1
 
-python3 inference_cnn_aggr.py -w 50 -s 1 -f 20 -k 10 -bs 1024 -ep 50 -pt 10 -vs 0.1 -lr 0.0001 -sub 1
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv1d (Conv1D)              (None, 50, 10)            2010      
+_________________________________________________________________
+activation (Activation)      (None, 50, 10)            0         
+_________________________________________________________________
+conv1d_1 (Conv1D)            (None, 50, 10)            1010      
+_________________________________________________________________
+activation_1 (Activation)    (None, 50, 10)            0         
+_________________________________________________________________
+conv1d_2 (Conv1D)            (None, 50, 1)             101       
+_________________________________________________________________
+activation_2 (Activation)    (None, 50, 1)             0         
+_________________________________________________________________
+flatten (Flatten)            (None, 50)                0         
+_________________________________________________________________
+dense (Dense)                (None, 50)                2550      
+_________________________________________________________________
+activation_3 (Activation)    (None, 50)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 1)                 51        
+_________________________________________________________________
+activation_4 (Activation)    (None, 1)                 0         
+=================================================================
+Total params: 5,722
+Trainable params: 5,722
+Non-trainable params: 0
+
+
+
+The FLOPs is:316201
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  255.15105366706848
+Inference time:  207.53027749061584
+Result in RMSE:  5.98
+
+The FLOPs is:316201
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  271.5106258392334
+Inference time:  171.3393635749817
+Result in RMSE:  5.72
+
+The FLOPs is:316201
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  273.2136914730072
+Inference time:  210.18060684204102
+Result in RMSE:  5.5
+
+
+The FLOPs is:316201
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  346.79398560523987
+Inference time:  161.0526168346405
+Result in RMSE:  5.93
+
+The FLOPs is:316201
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  410.06535148620605
+Inference time:  181.4243414402008
+Result in RMSE:  5.51
+
+
 

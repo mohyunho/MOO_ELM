@@ -61,9 +61,10 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningR
 
 from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
 
-from tensorflow.keras.initializers import GlorotNormal
+from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
 
-initializer = GlorotNormal(seed=0)
+# initializer = GlorotNormal(seed=0)
+initializer = GlorotUniform(seed=0)
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn
