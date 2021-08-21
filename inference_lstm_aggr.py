@@ -54,7 +54,11 @@ from tensorflow.keras.layers import MaxPooling1D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
 
+seed = 0
+random.seed(0)
+np.random.seed(seed)
 
+from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
 from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
@@ -63,12 +67,10 @@ from utils.dnn import one_dcnn, cudnnlstm
 
 # import tensorflow.compat.v1 as tf
 # tf.disable_v2_behavior()
-seed = 0
-random.seed(0)
-np.random.seed(seed)
+
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
-
+initializer = GlorotNormal(seed=0)
 
 # from tensorflow.compat.v1 import ConfigProto
 # from tensorflow.compat.v1 import InteractiveSession
@@ -265,7 +267,7 @@ def main():
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
 
-    lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1)
+    lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1, initializer)
 
 
     start = time.time()

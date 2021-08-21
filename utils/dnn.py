@@ -161,15 +161,15 @@ def sensor_input_model(sensor_col, n_window, window_length, input_features):
 
 
 
-def cudnnlstm(sequence_length, nb_features, lstm1, lstm2, nb_out):
+def cudnnlstm(sequence_length, nb_features, lstm1, lstm2, nb_out, initializer):
     model = Sequential()
     model.add(LSTM(
         input_shape=(sequence_length, nb_features),
-        units=lstm1,
+        units=lstm1, kernel_initializer= initializer,
         return_sequences=True))
     model.add(Dropout(0.2))
     model.add(LSTM(
-        units=lstm2,
+        units=lstm2, kernel_initializer= initializer,
         return_sequences=False))
     model.add(Dropout(0.2))
     model.add(Dense(units=nb_out))
