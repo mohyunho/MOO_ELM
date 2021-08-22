@@ -262,7 +262,7 @@ def main():
     train_units_labels_lst = []
     print("Memory released")
 
-    sample_array, label_array = shuffle_array(sample_array, label_array)
+    # sample_array, label_array = shuffle_array(sample_array, label_array)
     print("samples are shuffled")
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
