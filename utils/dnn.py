@@ -73,9 +73,9 @@ def CNNBranch(n_filters, window_length, input_features,
 
 
 def TD_CNNBranch(n_filters, window_length, n_window, input_features,
-                 strides_len, kernel_size, n_conv_layer):
+                 strides_len, kernel_size, n_conv_layer, initializer):
     cnn = Sequential()
-    cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same'),
+    cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer),
                             input_shape=(n_window, window_length, input_features)))
     cnn.add(TimeDistributed(BatchNormalization()))
     cnn.add(TimeDistributed(Activation('relu')))
@@ -84,26 +84,26 @@ def TD_CNNBranch(n_filters, window_length, n_window, input_features,
         pass
 
     elif n_conv_layer == 2:
-        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer)))
         cnn.add(TimeDistributed(BatchNormalization()))
         cnn.add(TimeDistributed(Activation('relu')))
 
     elif n_conv_layer == 3:
-        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer)))
         cnn.add(TimeDistributed(BatchNormalization()))
         cnn.add(TimeDistributed(Activation('relu')))
-        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer)))
         cnn.add(TimeDistributed(BatchNormalization()))
         cnn.add(TimeDistributed(Activation('relu')))
 
     elif n_conv_layer == 4:
-        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer)))
         cnn.add(TimeDistributed(BatchNormalization()))
         cnn.add(TimeDistributed(Activation('relu')))
-        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer)))
         cnn.add(TimeDistributed(BatchNormalization()))
         cnn.add(TimeDistributed(Activation('relu')))
-        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same')))
+        cnn.add(TimeDistributed(Conv1D(filters=n_filters, kernel_size=kernel_size, padding='same', kernel_initializer=initializer)))
         cnn.add(TimeDistributed(BatchNormalization()))
         cnn.add(TimeDistributed(Activation('relu')))
 
@@ -136,13 +136,13 @@ def CNNB(n_filters, lr, decay, loss,
 
 
 def multi_head_cnn(sensor_input_model, n_filters, window_length, n_window,
-                   input_features, strides_len, kernel_size, n_conv_layer):
+                   input_features, strides_len, kernel_size, n_conv_layer, initializer):
     cnn_out_list = []
     cnn_branch_list = []
 
     for sensor_input in sensor_input_model:
         cnn_branch_temp = TD_CNNBranch(n_filters, window_length, n_window,
-                                       input_features, strides_len, kernel_size, n_conv_layer)
+                                       input_features, strides_len, kernel_size, n_conv_layer, initializer)
         cnn_out_temp = cnn_branch_temp(sensor_input)
 
         cnn_branch_list.append(cnn_branch_temp)

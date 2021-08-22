@@ -268,7 +268,7 @@ def main():
     print("label_array.shape", label_array.shape)
 
     lstm_model = cudnnlstm(sample_array.shape[1], sample_array.shape[2], lstm1, lstm2, 1, initializer)
-
+    print(lstm_model.summary())
 
     start = time.time()
 

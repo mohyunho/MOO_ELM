@@ -33,6 +33,11 @@ from sklearn import preprocessing
 from sklearn import pipeline
 from sklearn.metrics import mean_squared_error
 from math import sqrt
+
+seed = 0
+random.seed(0)
+np.random.seed(seed)
+
 from tqdm import tqdm
 import scipy.stats as stats
 # from sklearn.utils.testing import ignore_warnings
@@ -54,15 +59,17 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningR
 
 from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
 
+from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
+
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, CNNBranch, TD_CNNBranch, CNNB, multi_head_cnn, sensor_input_model
 
 
+initializer = GlorotNormal(seed=0)
+
 # import tensorflow.compat.v1 as tf
 # tf.disable_v2_behavior()
-seed = 0
-random.seed(0)
-np.random.seed(seed)
+
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -317,7 +324,7 @@ def main():
     train_units_labels_lst = []
     print("Memory released")
 
-    sample_array, label_array = shuffle_array(sample_array, label_array)
+    # sample_array, label_array = shuffle_array(sample_array, label_array)
     print("samples are shuffled")
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
@@ -329,7 +336,7 @@ def main():
     sensor_input_shape = sensor_input_model(sensor_col, seg_n, sub_win_len, input_features)
     cnn_out_list, cnn_branch_list = multi_head_cnn(sensor_input_shape, n_filters, sub_win_len,
                                                    seg_n, input_features, sub_win_stride, kernel_size,
-                                                   n_conv_layer)
+                                                   n_conv_layer, initializer)
 
     # x = concatenate([cnn_1_out, cnn_2_out])
     x = concatenate(cnn_out_list)
@@ -337,18 +344,18 @@ def main():
 
     # We stack a deep densely-connected network on top
     if bidirec == True:
-        x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True))(x)
+        x = Bidirectional(LSTM(units=LSTM_u1, return_sequences=True, kernel_initializer=initializer))(x)
         x = Dropout(0.2)(x)
-        x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False))(x)
+        x = Bidirectional(LSTM(units=LSTM_u2, return_sequences=False, kernel_initializer=initializer))(x)
         x = Dropout(0.2)(x)
     elif bidirec == False:
-        x = LSTM(units=LSTM_u1, return_sequences=True)(x)
+        x = LSTM(units=LSTM_u1, return_sequences=True, kernel_initializer=initializer)(x)
         x = Dropout(0.2)(x)
-        x = LSTM(units=LSTM_u2, return_sequences=False)(x)
+        x = LSTM(units=LSTM_u2, return_sequences=False, kernel_initializer=initializer)(x)
         x = Dropout(0.2)(x)
 
 
-    main_output = Dense(n_outputs, activation='linear', name='main_output')(x)
+    main_output = Dense(n_outputs, activation='linear', name='main_output', kernel_initializer=initializer)(x)
     cnnlstm = Model(inputs=sensor_input_shape, outputs=main_output)
     # model = Model(inputs=[input_1, input_2], outputs=main_output)
 

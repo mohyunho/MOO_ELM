@@ -583,3 +583,42 @@ Result in RMSE:  5.51
 
 ---
 python3 inference_lstm_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 1024 -ep 30 -pt 5 -vs 0.1 -lr 0.001 -sub 1 -l1 200 -l2 100 
+
+
+The FLOPs is:594309
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  5839.377256155014
+Inference time:  269.13259053230286
+Result in RMSE:  5.56
+
+The FLOPs is:594309
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  4372.0528700351715
+Inference time:  253.91949820518494
+Result in RMSE:  5.48
+
+
+The FLOPs is:594309
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  4137.580518007278
+Inference time:  232.0687072277069
+Result in RMSE:  5.36
+
+The FLOPs is:594309
+wind length_50,  win stride_1
+# Training samples:  5263153
+# Inference samples:  1253596
+Training time:  4260.436011791229
+Inference time:  287.01993703842163
+Result in RMSE:  5.79
+
+
+
+
+
