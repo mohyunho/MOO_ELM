@@ -209,7 +209,7 @@ def main():
     # current_dir = os.path.dirname(os.path.abspath(__file__))
     parser = argparse.ArgumentParser(description='sample creator')
     parser.add_argument('-i', type=int, default=20, help='n_input_nodes')
-    parser.add_argument('-h', type=int, default=100, help='n_hidden_nodes')
+    parser.add_argument('-hidden', type=int, default=100, help='n_hidden_nodes')
     parser.add_argument('-o', type=int, default=1, help='n_output_nodes')
 
 
@@ -237,7 +237,7 @@ def main():
     sub = args.sub
 
     n_input_nodes = args.i
-    n_hidden_nodes = args.h
+    n_hidden_nodes = args.hidden
     n_output_nodes = args.o
 
     os_elm = OS_ELM(
