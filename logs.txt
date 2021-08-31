@@ -584,6 +584,24 @@ Result in RMSE:  5.51
 ---
 python3 inference_lstm_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 1024 -ep 30 -pt 5 -vs 0.1 -lr 0.001 -sub 1 -l1 200 -l2 100 
 
+Layer (type)                 Output Shape              Param #   
+=================================================================
+lstm (LSTM)                  (None, 50, 200)           176800    
+_________________________________________________________________
+dropout (Dropout)            (None, 50, 200)           0         
+_________________________________________________________________
+lstm_1 (LSTM)                (None, 100)               120400    
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 100)               0         
+_________________________________________________________________
+dense (Dense)                (None, 1)                 101       
+_________________________________________________________________
+activation (Activation)      (None, 1)                 0         
+=================================================================
+Total params: 297,301
+Trainable params: 297,301
+Non-trainable params: 0
+
 
 The FLOPs is:594309
 wind length_50,  win stride_1
@@ -620,5 +638,9 @@ Result in RMSE:  5.79
 
 
 
+----------
+python3 inference_cnnlstm.py -w 50 -s 50 -f 3 -k 3 -bs 128 -ep 40 -pt 10 -lr 0.0001 -vs 0.1 -sub 1 -s_stride 1 -s_len 30 -n_conv 1 -lstm1 10 -lstm2 5
 
+
+python3 inference_cnnlstm.py -w 50 -s 50 -f 3 -k 3 -bs 256 -ep 40 -pt 10 -lr 0.001 -vs 0.1 -sub 1 -s_stride 1 -s_len 30 -n_conv 1 -lstm1 10 -lstm2 5
 

@@ -793,6 +793,7 @@ python3 inference_cnn_aggr.py -w 50 -s 50 -f 10 -k 10 -bs 128 -ep 60 -pt 10 -vs 
 ---
 python3 inference_lstm_aggr.py -w 50 -s 50 -f 10 -k 10 -bs 256 -ep 60 -pt 10 -vs 0.1 -lr 0.001 -sub 1 -l1 200 -l2 100 
 
+python3 inference_lstm_aggr.py -w 50 -s 1 -f 10 -k 10 -bs 1024 -ep 30 -pt 5 -vs 0.1 -lr 0.001 -sub 1 -l1 200 -l2 100 
 
 
 ---
