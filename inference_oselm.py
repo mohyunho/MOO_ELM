@@ -241,7 +241,7 @@ def main():
     elm = HPELM(sample_array.shape[1], 1, precision='single', accelerator="GPU", norm=1)
     elm.add_neurons(hidden1, "sigm")
     elm.add_neurons(hidden2, "rbf_l2")
-    elm.train(sample_array, label_array, "LOO")
+    elm.train(sample_array, label_array, "r")
 
     # Y = elm.predict(X)
 
