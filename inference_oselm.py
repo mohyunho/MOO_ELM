@@ -181,7 +181,7 @@ def main():
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
-    parser.add_argument('-sub', type=int, default=10, help='subsampling stride')
+    parser.add_argument('-sub', type=int, default=1, help='subsampling stride')
 
 
     args = parser.parse_args()
