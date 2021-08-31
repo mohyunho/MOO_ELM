@@ -235,7 +235,7 @@ def main():
     train_units_labels_lst = []
     print("Memory released")
 
-    sample_array, label_array = shuffle_array(sample_array, label_array)
+    #sample_array, label_array = shuffle_array(sample_array, label_array)
     print("samples are shuffled")
     print("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
@@ -246,11 +246,11 @@ def main():
     feat_len = sample_array.shape[1]
     print ("feat_len", feat_len)
 
-    elm = ELM(sample_array.shape[1], 1, accelerator="GPU")
-    elm.add_neurons(hidden1, "sigm")
+    elm = HPELM(sample_array.shape[1], 1, accelerator="GPU", batch= 5000, norm=0.001  )
+    elm.add_neurons(hidden1, "tanh")
     elm.add_neurons(hidden2, "tanh")
-    elm.add_neurons(hidden3, "rbf_l2")
-    elm.add_neurons(hidden4, "lin")
+    elm.add_neurons(hidden3, "tanh")
+    elm.add_neurons(hidden4, "tanh")
 
     elm.train(sample_array, label_array, "r")
 
