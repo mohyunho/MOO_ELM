@@ -43,7 +43,7 @@ import scipy.stats as stats
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
 from utils.dnn import one_dcnn, mlps
-from utils.hpelm import HPELM
+from utils.hpelm import ELM, HPELM
 
 # import tensorflow.compat.v1 as tf
 # tf.disable_v2_behavior()
@@ -242,7 +242,7 @@ def main():
     feat_len = sample_array.shape[1]
     print ("feat_len", feat_len)
 
-    elm = HPELM(sample_array.shape[1], 1, precision='single', accelerator="GPU", norm=1)
+    elm = ELM(sample_array.shape[1], 1, precision='single', accelerator="GPU", norm=1)
     elm.add_neurons(hidden1, "sigm")
     elm.add_neurons(hidden2, "rbf_l2")
     elm.train(sample_array, label_array, "r")
