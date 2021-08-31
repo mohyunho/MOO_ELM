@@ -224,8 +224,6 @@ def main():
 
     args = parser.parse_args()
 
-    win_len = args.w
-    win_stride = args.s
     partition = 3
     n_filters = args.f
     kernel_size = args.k
