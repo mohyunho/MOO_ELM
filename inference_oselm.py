@@ -25,10 +25,6 @@ import random
 from random import shuffle
 from tqdm.keras import TqdmCallback
 
-seed = 0
-random.seed(0)
-np.random.seed(seed)
-
 import importlib
 from scipy.stats import randint, expon, uniform
 import sklearn as sk
@@ -44,36 +40,16 @@ import scipy.stats as stats
 # from sklearn.utils.testing import ignore_warnings
 # from sklearn.exceptions import ConvergenceWarning
 # import keras
-import tensorflow as tf
-print(tf.__version__)
-# import keras.backend as K
-import tensorflow.keras.backend as K
-from tensorflow.keras import backend
-from tensorflow.keras import optimizers
-from tensorflow.keras.models import Sequential, load_model, Model
-from tensorflow.keras.layers import Input, Dense, Flatten, Dropout, Embedding
-from tensorflow.keras.layers import BatchNormalization, Activation, LSTM, TimeDistributed, Bidirectional
-from tensorflow.keras.layers import Conv1D
-from tensorflow.keras.layers import MaxPooling1D
-from tensorflow.keras.layers import concatenate
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, LearningRateScheduler
-
-
-from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
-
-from tensorflow.keras.initializers import GlorotNormal, GlorotUniform
-
-initializer = GlorotNormal(seed=0)
-# initializer = GlorotUniform(seed=0)
 
 from utils.data_preparation_unit import df_all_creator, df_train_creator, df_test_creator, Input_Gen
-# from utils.dnn import one_dcnn
-from utils.os_elm import OS_ELM
-
+from utils.dnn import one_dcnn, mlps
+from utils.hpelm import HPELM
 
 # import tensorflow.compat.v1 as tf
 # tf.disable_v2_behavior()
-
+seed = 0
+random.seed(0)
+np.random.seed(seed)
 # Ignore tf err log
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -100,7 +76,7 @@ data_filedir = os.path.join(current_dir, 'N-CMAPSS')
 data_filepath = os.path.join(current_dir, 'N-CMAPSS', 'N-CMAPSS_DS02-006.h5')
 sample_dir_path = os.path.join(data_filedir, 'Samples_whole')
 
-model_temp_path = os.path.join(current_dir, 'Models', 'oned_cnn_rep.h5')
+model_temp_path = os.path.join(current_dir, 'Models', 'oned_fnn_rep.h5')
 tf_temp_path = os.path.join(current_dir, 'TF_Model_tf')
 
 pic_dir = os.path.join(current_dir, 'Figures')
@@ -138,9 +114,6 @@ def load_array (sample_dir_path, unit_num, win_len, stride):
 
     return loaded['sample'].transpose(2, 0, 1), loaded['label']
 
-def rmse(y_true, y_pred):
-    return backend.sqrt(backend.mean(backend.square(y_pred - y_true), axis=-1))
-
 
 def shuffle_array(sample_array, label_array):
     ind_list = list(range(len(sample_array)))
@@ -154,7 +127,7 @@ def shuffle_array(sample_array, label_array):
     shuffle_label = label_array[ind_list,]
     return shuffle_sample, shuffle_label
 
-def figsave(history, win_len, win_stride, bs, lr, sub):
+def figsave(history, h1,h2,h3,h4, bs, lr, sub):
     fig_acc = plt.figure(figsize=(15, 8))
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -164,35 +137,24 @@ def figsave(history, win_len, win_stride, bs, lr, sub):
     plt.legend(['Training loss', 'Validation loss'], loc='upper left', fontsize=18)
     plt.show()
     print ("saving file:training loss figure")
-    fig_acc.savefig(pic_dir + "/training_w%s_s%s_bs%s_sub%s_lr%s.png" %(int(win_len), int(win_stride), int(bs), int(sub), str(lr)))
+    fig_acc.savefig(pic_dir + "/mlp_training_h1%s_h2%s_h3%s_h4%s_bs%s_sub%s_lr%s.png" %(int(h1), int(h2), int(h3), int(h4), int(bs), int(sub), str(lr)))
     return
 
 
-
-def get_flops(model):
-    concrete = tf.function(lambda inputs: model(inputs))
-    concrete_func = concrete.get_concrete_function(
-        [tf.TensorSpec([1, *inputs.shape[1:]]) for inputs in model.inputs])
-    frozen_func, graph_def = convert_variables_to_constants_v2_as_graph(concrete_func)
-    with tf.Graph().as_default() as graph:
-        tf.graph_util.import_graph_def(graph_def, name='')
-        run_meta = tf.compat.v1.RunMetadata()
-        opts = tf.compat.v1.profiler.ProfileOptionBuilder.float_operation()
-        flops = tf.compat.v1.profiler.profile(graph=graph, run_meta=run_meta, cmd="op", options=opts)
-        return flops.total_float_ops
 
 
 
 
 def scheduler(epoch, lr):
     if epoch == 30:
-        print("lr decay by 10")
+        print ("lr decay by 10")
         return lr * 0.1
     elif epoch == 70:
         print("lr decay by 10")
         return lr * 0.1
     else:
         return lr
+
 
 
 
@@ -210,14 +172,9 @@ def main():
     parser = argparse.ArgumentParser(description='sample creator')
     parser.add_argument('-w', type=int, default=50, help='sequence length', required=True)
     parser.add_argument('-s', type=int, default=1, help='stride of filter')
-
-    parser.add_argument('-i', type=int, default=20, help='n_input_nodes')
-    parser.add_argument('-hidden', type=int, default=100, help='n_hidden_nodes')
-    parser.add_argument('-o', type=int, default=1, help='n_output_nodes')
-
-
-    parser.add_argument('-k', type=int, default=10, help='size of kernel')
-    parser.add_argument('-bs', type=int, default=128, help='batch size')
+    parser.add_argument('-h1', type=int, default=200, help='batch size')
+    parser.add_argument('-h2', type=int, default=100, help='batch size')
+    parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
     parser.add_argument('-vs', type=float, default=0.1, help='validation split')
@@ -226,9 +183,14 @@ def main():
 
 
     args = parser.parse_args()
+
     win_len = args.w
     win_stride = args.s
     partition = 3
+
+    hidden1 = args.h1
+    hidden2 = args.h2
+
     lr = args.lr
     bs = args.bs
     ep = args.ep
@@ -236,28 +198,6 @@ def main():
     vs = args.vs
     sub = args.sub
 
-    n_input_nodes = args.i
-    n_hidden_nodes = args.hidden
-    n_output_nodes = args.o
-
-    os_elm = OS_ELM(
-        # the number of input nodes.
-        n_input_nodes=n_input_nodes,
-        # the number of hidden nodes.
-        n_hidden_nodes=n_hidden_nodes,
-        # the number of output nodes.
-        n_output_nodes=n_output_nodes,
-        # loss function.
-        # the default value is 'mean_squared_error'.
-        # for the other functions, we support
-        # 'mean_absolute_error', 'categorical_crossentropy', and 'binary_crossentropy'.
-        loss='mean_squared_error',
-        # activation function applied to the hidden nodes.
-        # the default value is 'sigmoid'.
-        # for the other functions, we support 'linear' and 'tanh'.
-        # NOTE: OS-ELM can apply an activation function only to the hidden nodes.
-        activation='sigmoid',
-    )
 
 
 
@@ -297,52 +237,16 @@ def main():
     print("label_array_reshape.shape", label_array.shape)
     feat_len = sample_array.shape[1]
     print ("feat_len", feat_len)
-    print ("n_input_nodes",  n_input_nodes)
 
-    # divide the training dataset into two datasets:
-    # (1) for the initial training phase
-    # (2) for the sequential training phase
-    # NOTE: the number of training samples for the initial training phase
-    # must be much greater than the number of the model's hidden nodes.
-    # here, we assign int(1.5 * n_hidden_nodes) training samples
-    # for the initial training phase.
-    n_classes = n_output_nodes
+    elm = HPELM(sample_array.shape[1], 1, precision='single', accelerator="GPU", norm=1)
+    elm.add_neurons(hidden1, "sigm")
+    elm.add_neurons(hidden2, "rbf_l2")
+    elm.train(sample_array, label_array, "LOO")
 
-    border = int(1.5 * n_hidden_nodes)
-    x_train_init = sample_array[:border]
-    x_train_seq = sample_array[border:]
-    t_train_init = label_array[:border]
-    t_train_seq = label_array[border:]
+    # Y = elm.predict(X)
 
 
-    print ("x_train_init.shape", x_train_init.shape)
-    print("x_train_seq.shape", x_train_seq.shape)
-    print("t_train_init.shape", t_train_init.shape)
-    print("t_train_seq.shape", t_train_seq.shape)
 
-    # ===========================================
-    # Training
-    # ===========================================
-    # the initial training phase
-    pbar = tqdm.tqdm(total=len(sample_array), desc='initial training phase')
-    os_elm.init_train(x_train_init, t_train_init)
-    pbar.update(n=len(x_train_init))
-
-    # the sequential training phase
-    pbar.set_description('sequential training phase')
-    batch_size = bs
-    for i in range(0, len(x_train_seq), batch_size):
-        x_batch = x_train_seq[i:i + batch_size]
-        t_batch = t_train_seq[i:i + batch_size]
-        os_elm.seq_train(x_batch, t_batch)
-        pbar.update(n=len(x_batch))
-    pbar.close()
-
-    # ===========================================
-    # Prediction
-    # ===========================================
-    print('saving model parameters...')
-    os_elm.save('./checkpoint/model.ckpt')
 
     output_lst = []
     truth_lst = []
@@ -362,11 +266,8 @@ def main():
         print("label_array_reshape.shape", label_array.shape)
 
         # estimator = load_model(model_temp_path)
-        # y_pred_test = estimator.predict(sample_array)
 
-        y_pred_test = os_elm.predict(sample_array)
-
-
+        y_pred_test = elm.predict(sample_array)
         output_lst.append(y_pred_test)
         truth_lst.append(label_array)
 
@@ -400,12 +301,14 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/elm_unit%s_test_h%s_rmse-%s.png" %(str(int(units_index_test[idx])),
-                                                                              int(n_hidden_nodes), str(rms)))
+        fig_verify.savefig(pic_dir + "/mlps_unit%s_test_h1%s_h2%s_rmse-%s.png" %(str(int(units_index_test[idx])),
+                                                                              int(hidden1), int(hidden2), str(rms)))
 
 
 
     print("Result in RMSE: ", rms)
+
+
 
 
 if __name__ == '__main__':
