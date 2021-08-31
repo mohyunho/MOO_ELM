@@ -172,8 +172,10 @@ def main():
     parser = argparse.ArgumentParser(description='sample creator')
     parser.add_argument('-w', type=int, default=50, help='sequence length', required=True)
     parser.add_argument('-s', type=int, default=1, help='stride of filter')
-    parser.add_argument('-h1', type=int, default=200, help='batch size')
-    parser.add_argument('-h2', type=int, default=100, help='batch size')
+    parser.add_argument('-h1', type=int, default=2000, help='hidden1')
+    parser.add_argument('-h2', type=int, default=2000, help='hidden2')
+    parser.add_argument('-h3', type=int, default=1000, help='hidden3')
+    parser.add_argument('-h4', type=int, default=500, help='hidden4')
     parser.add_argument('-bs', type=int, default=256, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
@@ -190,6 +192,8 @@ def main():
 
     hidden1 = args.h1
     hidden2 = args.h2
+    hidden3 = args.h3
+    hidden4 = args.h4
 
     lr = args.lr
     bs = args.bs
@@ -242,9 +246,11 @@ def main():
     feat_len = sample_array.shape[1]
     print ("feat_len", feat_len)
 
-    elm = ELM(sample_array.shape[1], 1, accelerator="GPU", norm=1)
+    elm = HPELM(sample_array.shape[1], 1, accelerator="GPU", norm=1)
     elm.add_neurons(hidden1, "sigm")
-    elm.add_neurons(hidden2, "rbf_l2")
+    elm.add_neurons(hidden2, "tanh")
+    elm.add_neurons(hidden3, "lin")
+    # elm.add_neurons(hidden2, "rbf_l2")
     elm.train(sample_array, label_array, "r")
 
     # Y = elm.predict(X)
@@ -308,7 +314,7 @@ def main():
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
         plt.show()
-        fig_verify.savefig(pic_dir + "/mlps_unit%s_test_h1%s_h2%s_rmse-%s.png" %(str(int(units_index_test[idx])),
+        fig_verify.savefig(pic_dir + "/elm_unit%s_test_h1%s_h2%s_rmse-%s.png" %(str(int(units_index_test[idx])),
                                                                               int(hidden1), int(hidden2), str(rms)))
 
 
