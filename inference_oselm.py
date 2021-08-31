@@ -212,6 +212,10 @@ def main():
         print("label_array.shape", label_array.shape)
         sample_array = sample_array[::sub]
         label_array = label_array[::sub]
+
+        sample_array = sample_array.astype(np.float32)
+        label_array = label_array.astype(np.float32)
+
         print("sub sample_array.shape", sample_array.shape)
         print("sub label_array.shape", label_array.shape)
         train_units_samples_lst.append(sample_array)
@@ -264,6 +268,9 @@ def main():
         sample_array = sample_array.reshape(sample_array.shape[0], sample_array.shape[2])
         print("sample_array_reshape.shape", sample_array.shape)
         print("label_array_reshape.shape", label_array.shape)
+
+        sample_array = sample_array.astype(np.float32)
+        label_array = label_array.astype(np.float32)
 
         # estimator = load_model(model_temp_path)
 
