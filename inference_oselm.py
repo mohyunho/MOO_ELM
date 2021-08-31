@@ -246,7 +246,7 @@ def main():
     feat_len = sample_array.shape[1]
     print ("feat_len", feat_len)
 
-    elm = HPELM(sample_array.shape[1], 1, accelerator="GPU", norm=1)
+    elm = ELM(sample_array.shape[1], 1, accelerator="GPU")
     elm.add_neurons(hidden1, "sigm")
     elm.add_neurons(hidden2, "tanh")
     elm.add_neurons(hidden3, "rbf_l2")
