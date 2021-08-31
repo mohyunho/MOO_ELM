@@ -208,6 +208,9 @@ units_index_test = [11.0, 14.0, 15.0]
 def main():
     # current_dir = os.path.dirname(os.path.abspath(__file__))
     parser = argparse.ArgumentParser(description='sample creator')
+    parser.add_argument('-w', type=int, default=50, help='sequence length', required=True)
+    parser.add_argument('-s', type=int, default=1, help='stride of filter')
+
     parser.add_argument('-i', type=int, default=20, help='n_input_nodes')
     parser.add_argument('-hidden', type=int, default=100, help='n_hidden_nodes')
     parser.add_argument('-o', type=int, default=1, help='n_output_nodes')
@@ -223,10 +226,9 @@ def main():
 
 
     args = parser.parse_args()
-
+    win_len = args.w
+    win_stride = args.s
     partition = 3
-    n_filters = args.f
-    kernel_size = args.k
     lr = args.lr
     bs = args.bs
     ep = args.ep
