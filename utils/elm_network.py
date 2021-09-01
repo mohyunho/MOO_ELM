@@ -48,7 +48,7 @@ def gen_net(train_sample_array, l2_norm, num_layer, num_neurons_lst, type_lst, d
     :return:
     '''
 
-    model = ELM(train_sample_array.shape[1], 1, accelerator=device, batch=5000, norm=l2_norm)
+    model = HPELM(train_sample_array.shape[1], 1, accelerator=device, batch=1000, norm=l2_norm)
     for idx in range(num_layer):
         model.add_neurons(num_neurons_lst[idx], type_lst[idx])
 
@@ -85,7 +85,7 @@ class network_fit(object):
 
 
 
-    def train_net(self, batch_size= 5000):
+    def train_net(self, batch_size= 1000):
         '''
         specify the optimizers and train the network
         :param epochs:

@@ -44,11 +44,11 @@ class SimpleNeuroEvolutionTask(Task):
         bounds = [
             (1, 5), #L2 norm params, 0
             (1, 5), #numb of hidden layers, 1
-            (10, 500), #hidden1 neurons, 2
-            (10, 100), #hidden2 neurons, 3
-            (10, 100), #hidden3 neurons, 4
-            (10, 100), #hidden4 neurons, 5
-            (10, 100), #hidden5 neurons, 6
+            (10, 20), #hidden1 neurons, 2
+            (10, 20), #hidden2 neurons, 3
+            (10, 20), #hidden3 neurons, 4
+            (10, 20), #hidden4 neurons, 5
+            (10, 20), #hidden5 neurons, 6
             (1, 5),  # hidden1 type, 7
             (1, 5),  # hidden2 type, 8
             (1, 5),  # hidden3 type, 9
@@ -80,6 +80,8 @@ class SimpleNeuroEvolutionTask(Task):
         for n in range(num_layer):
             num_neuron_lst[n] = genotype[n+2]*10
             type_neuron_lst[n] = type_cand_lst [genotype[n+7]-1]
+
+
 
 
         elm_net = network_fit(self.train_sample_array, self.train_label_array,
