@@ -25,7 +25,7 @@ from math import sqrt
 # import keras
 np.random.seed(0)
 
-from hpelm import ELM, HPELM
+from utils.hpelm import ELM, HPELM
 
 
 def score_calculator(y_predicted, y_actual):
