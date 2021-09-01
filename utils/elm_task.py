@@ -7,7 +7,7 @@ import pandas as pd
 from abc import abstractmethod
 
 # from input_creator import input_gen
-from elm_network import network_fit
+from utils.elm_network import network_fit
 
 class Task:
     @abstractmethod

@@ -7,7 +7,7 @@ Date:
 import random
 import pathos
 import numpy as np
-from elm_task import Task
+from utils.elm_task import Task
 from functools import partial
 from deap import base, algorithms, creator, tools
 import pickle
