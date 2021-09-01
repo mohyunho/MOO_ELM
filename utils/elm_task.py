@@ -28,11 +28,12 @@ class SimpleNeuroEvolutionTask(Task):
     TODO: Consider hyperparameters of ELM instead of the number of neurons in hidden layers of MLPs.
     Class for EA Task
     '''
-    def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array, model_path, device):
+    def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array, batch, model_path, device):
         self.train_sample_array = train_sample_array
         self.train_label_array = train_label_array
         self.val_sample_array = val_sample_array
         self.val_label_array = val_label_array
+        self.batch = batch
         self.model_path = model_path
         self.device = device
 
@@ -88,7 +89,7 @@ class SimpleNeuroEvolutionTask(Task):
 
 
 
-        fitness = elm_net.train_net(epochs=self.epochs, batch_size=self.batch)
+        fitness = elm_net.train_net(batch_size=self.batch)
 
 
         return fitness
