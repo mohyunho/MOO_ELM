@@ -227,10 +227,10 @@ def main():
     num_samples = sample_array.shape[0]
     print ("feat_len", feat_len)
 
-    train_sample_array = sample_array[:num_samples*(1-vs)]
-    train_label_array = label_array[:num_samples*(1-vs)]
-    val_sample_array = sample_array[num_samples*(1-vs)+1:]
-    val_label_array = label_array[num_samples*(1-vs)+1:]
+    train_sample_array = sample_array[:int(num_samples*(1-vs))]
+    train_label_array = label_array[:int(num_samples*(1-vs))]
+    val_sample_array = sample_array[int(num_samples*(1-vs))+1:]
+    val_label_array = label_array[int(num_samples*(1-vs))+1:]
 
     print ("train_sample_array.shape", train_sample_array.shape)
     print ("train_label_array.shape", train_label_array.shape)
