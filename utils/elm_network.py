@@ -39,6 +39,7 @@ def score_calculator(y_predicted, y_actual):
         else:
             s_array[j] = math.exp(h_j / 10) - 1
     score = np.sum(s_array)
+    return score
 
 
 def gen_net(train_sample_array, l2_norm, num_layer, num_neurons_lst, type_lst, device = "GPU"):

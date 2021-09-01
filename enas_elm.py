@@ -128,6 +128,7 @@ def score_calculator(y_predicted, y_actual):
         else:
             s_array[j] = math.exp(h_j / 10) - 1
     score = np.sum(s_array)
+    return score
 
 
 def release_list(a):
