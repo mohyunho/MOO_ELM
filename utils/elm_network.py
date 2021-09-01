@@ -80,7 +80,7 @@ class network_fit(object):
         self.device = device
 
 
-        self.model= gen_net(self.train_sample_array, self.l2_parms, self.num_layer,
+        self.model= gen_net(self.train_sample_array, self.l2_parm, self.num_layer,
                             self.num_neurons_lst, self.type_lst, self.device)
 
 
