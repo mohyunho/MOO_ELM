@@ -103,28 +103,11 @@ class network_fit(object):
 
 
         pred_test = elm.predict(self.val_sample_array)
-
-        print ("prediction completed")
-
         pred_test = pred_test.flatten()
-        print ("pred_test.shape", pred_test.shape)
-        print ("self.val_label_array.shape", self.val_label_array.shape)
-
-        h_array = pred_test - self.val_label_array
-        print ("h_array")
-        s_array = np.zeros(len(h_array))
-        print("calculating score")
-        for j, h_j in enumerate(h_array):
-            if h_j < 0:
-                s_array[j] = math.exp(-(h_j / 13)) - 1
-
-            else:
-                s_array[j] = math.exp(h_j / 10) - 1
-        score = np.sum(s_array)
-
-
+        # print ("pred_test.shape", pred_test.shape)
+        # print ("self.val_label_array.shape", self.val_label_array.shape)
+        score = score_calculator(pred_test, self.val_sample_array)
         print("score: ", score)
-
 
         rms = sqrt(mean_squared_error(pred_test, self.val_label_array))
         # print(rms)
@@ -132,7 +115,6 @@ class network_fit(object):
         fitness_net = (rms,)
         end_itr = time.time()
         print("training network is successfully completed, time: ", end_itr - start_itr)
-
         print("fitness in rmse: ", fitness_net[0])
 
         return fitness_net

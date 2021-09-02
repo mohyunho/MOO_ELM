@@ -53,7 +53,7 @@ class ELM(object):
     # TODO: note about HDF5 instead of matrix for Matlab compatibility
 
     def __init__(self, inputs, outputs, classification="", w=None, batch=1000, accelerator=None,
-                 precision='double', norm=None, tprint=5):
+                 precision='double', norm=None, tprint=20):
         assert isinstance(inputs, integer_types), "Number of inputs must be integer"
         assert isinstance(outputs, integer_types), "Number of outputs must be integer"
         assert batch > 0, "Batch should be positive"
@@ -381,6 +381,14 @@ class ELM(object):
         X, _ = self._checkdata(X, None)
         Y = self.nnet._predict(X)
         return Y
+
+
+    def summary(self):
+        """Print summary of machine
+        """
+        print ("neurons", self.nnet.get_neurons(),)
+        print ("norm", self.nnet.norm)
+        return
 
     def save(self, fname):
         """Save ELM model with current parameters.
