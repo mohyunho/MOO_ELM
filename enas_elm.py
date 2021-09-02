@@ -36,6 +36,7 @@ from utils.hpelm import ELM, HPELM
 from utils.elm_task import SimpleNeuroEvolutionTask
 from utils.ea import GeneticAlgorithm
 
+
 # random seed predictable
 jobs = 1
 seed = 0
@@ -341,48 +342,125 @@ def main():
 
 
 
-    # """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
-    # print ("Evaluate the best individual")
-    # data_class = input_gen(data_path_list=dp, sequence_length=sequence_length,
-    #                        sensor_drop= sensor_drop, visualize=visualize, test=True)
-    # train_samples, label_array_train, test_samples, label_array_test = data_class.concat_vec()
-    # print ("train_samples.shape: ", train_samples.shape) # shape = (samples, sensors, concat_vec)
-    # print ("label_array_train.shape: ", label_array_train.shape) # shape = (samples, label)
-    # print ("test_samples.shape: ", test_samples.shape) # shape = (samples, sensors, concat_vec)
-    # print ("label_array_test.shape: ", label_array_test.shape) # shape = (samples, ground truth)
-    #
-    # if method == 'non':
-    #     mlps_net = network_fit(train_samples, label_array_train, test_samples, label_array_test,
-    #                            model_path = model_path, n_hidden1=hof[0][0], n_hidden2=hof[0][1], verbose=verbose)
-    #
-    # elif method == 'sfa':
-    #     train_samples, test_samples = data_class.sfa(train_samples, test_samples, n_components=hof[0][0], n_bins=hof[0][1])
-    #     print ("train_samples.shape: ", train_samples.shape) # shape = (samples, sensors, height, width)
-    #     print ("label_array_train.shape: ", label_array_train.shape) # shape = (samples, label)
-    #     print ("test_samples.shape: ", test_samples.shape) # shape = (samples, sensors, height, width)
-    #     print ("label_array_test.shape: ", label_array_test.shape) # shape = (samples, ground truth)
-    #
-    #     mlps_net = network_fit(train_samples, label_array_train, test_samples, label_array_test,
-    #                            model_path = model_path, n_hidden1=hof[0][2], n_hidden2=hof[0][3], verbose=verbose)
-    #
-    # elif method == 'pca':
-    #     train_samples, test_samples = data_class.pca(train_samples, test_samples, n_components=hof[0][0])
-    #     print ("train_samples.shape: ", train_samples.shape) # shape = (samples, sensors, height, width)
-    #     print ("label_array_train.shape: ", label_array_train.shape) # shape = (samples, label)
-    #     print ("test_samples.shape: ", test_samples.shape) # shape = (samples, sensors, height, width)
-    #     print ("label_array_test.shape: ", label_array_test.shape) # shape = (samples, ground truth)
-    #
-    #     mlps_net = network_fit(train_samples, label_array_train, test_samples, label_array_test,
-    #                            model_path = model_path, n_hidden1=hof[0][1], n_hidden2=hof[0][2], verbose=verbose)
-    #
-    #
-    #
-    #
-    # rms, score  = mlps_net.test_net(epochs=epochs, batch_size= batch, lr= 1e-05, plotting=True)
-    #
-    #
-    # print(subdataset + " test RMSE: ", rms)
-    # print(subdataset + " test Score: ", score)
+
+
+
+
+
+
+
+    """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
+    output_lst = []
+    truth_lst = []
+
+    #Generate network (Phenotype HOF individual)
+    train_sample_array = sample_array[:int(num_samples*(1-vs))]
+    train_label_array = label_array[:int(num_samples*(1-vs))]
+    val_sample_array = sample_array[int(num_samples*(1-vs))+1:]
+    val_label_array = label_array[int(num_samples*(1-vs))+1:]
+
+    l2_parms_lst = [1, 0.1, 0.01, 0.001, 0.0001]
+    l2_parm = l2_parms_lst[hof[0][0] - 1]
+    type_neuron_lst = ["tanh", "sigm", "rbf_l2", "rbf_linf", "lin"]
+
+    lin_check = hof[0][5]
+    num_neuron_lst = []
+    for n in range(4):
+        num_neuron_lst.append(hof[0][n + 1] * 20)
+    if lin_check == 1:
+        num_neuron_lst.append(20)
+    else:
+        num_neuron_lst.append(0)
+
+    print("HoF l2_params: ", l2_parm)
+    print("HoF lin_check: ", lin_check)
+    print("HoF num_neuron_lst: ", num_neuron_lst)
+    print("HoF type_neuron_lst: ", type_neuron_lst)
+
+    best_elm_net = network_fit(train_sample_array, train_label_array,
+                          val_sample_array, val_label_array,
+                          l2_parm, lin_check,
+                          num_neuron_lst, type_neuron_lst, model_temp_path, device)
+
+    # Train the best network
+    best_elm_net.train(train_sample_array, train_label_array, "R")
+    print("individual trained...evaluation in progress...")
+
+    neurons_lst, norm_check = best_elm_net.summary()
+    print("summary: ", neurons_lst, norm_check)
+
+
+
+
+
+    # Test
+    for index in units_index_test:
+        print ("test idx: ", index)
+        sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
+        # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
+        print("sample_array.shape", sample_array.shape)
+        print("label_array.shape", label_array.shape)
+        sample_array = sample_array[::sub]
+        label_array = label_array[::sub]
+        print("sub sample_array.shape", sample_array.shape)
+        print("sub label_array.shape", label_array.shape)
+        sample_array = sample_array.reshape(sample_array.shape[0], sample_array.shape[2])
+        print("sample_array_reshape.shape", sample_array.shape)
+        print("label_array_reshape.shape", label_array.shape)
+
+        sample_array = sample_array.astype(np.float32)
+        label_array = label_array.astype(np.float32)
+
+        # estimator = load_model(model_temp_path)
+
+        y_pred_test = best_elm_net.predict(sample_array)
+        output_lst.append(y_pred_test)
+        truth_lst.append(label_array)
+
+    print(output_lst[0].shape)
+    print(truth_lst[0].shape)
+
+    print(np.concatenate(output_lst).shape)
+    print(np.concatenate(truth_lst).shape)
+
+    output_array = np.concatenate(output_lst)[:, 0]
+    trytg_array = np.concatenate(truth_lst)
+    print(output_array.shape)
+    print(trytg_array.shape)
+
+    output_array = output_array.flatten()
+    print(output_array.shape)
+    print(trytg_array.shape)
+    score = score_calculator(output_array, trytg_array)
+    print("score: ", score)
+
+    rms = sqrt(mean_squared_error(output_array, trytg_array))
+    print(rms)
+    rms = round(rms, 2)
+    score = round(score, 2)
+
+
+    for idx in range(len(units_index_test)):
+        print(output_lst[idx])
+        print(truth_lst[idx])
+        fig_verify = plt.figure(figsize=(24, 10))
+        plt.plot(output_lst[idx], color="green")
+        plt.plot(truth_lst[idx], color="red", linewidth=2.0)
+        plt.title('Unit%s inference' %str(int(units_index_test[idx])), fontsize=30)
+        plt.yticks(fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.ylabel('RUL', fontdict={'fontsize': 24})
+        plt.xlabel('Timestamps', fontdict={'fontsize': 24})
+        plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
+        plt.show()
+        fig_verify.savefig(pic_dir + "/best_elm_unit%s_test_pop%s_gen%s_rmse-%s_score-%s.png" %(str(int(units_index_test[idx])),
+                                                                              str(args.pop), str(args.gen), str(rms), str(score)))
+
+
+
+
+    print(" test RMSE: ", rms)
+    print(" test Score: ", score)
 
 
 
