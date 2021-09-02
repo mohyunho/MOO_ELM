@@ -337,6 +337,7 @@ def main():
     print("Best individual is saved")
     end = time.time()
     print("EA time: ", end - start)
+    print ("####################  EA COMPLETE / HOF TEST   ##############################")
 
 
 
@@ -371,6 +372,8 @@ def main():
     best_elm_net = best_elm_class.trained_model()
 
     # Train the best network
+    print ("sample_array.shape", sample_array.shape)
+    print("label_array.shape", label_array.shape)
     best_elm_net.train(sample_array, label_array, "R")
     print("individual trained...evaluation in progress...")
     neurons_lst, norm_check = best_elm_net.summary()
