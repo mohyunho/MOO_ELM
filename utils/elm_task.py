@@ -44,11 +44,11 @@ class SimpleNeuroEvolutionTask(Task):
         bounds = [
             (1, 5), #L2 norm params, 0
             (1, 5), #numb of hidden layers, 1
-            (10, 20), #hidden1 neurons, 2
-            (10, 20), #hidden2 neurons, 3
-            (10, 20), #hidden3 neurons, 4
-            (10, 20), #hidden4 neurons, 5
-            (10, 20), #hidden5 neurons, 6
+            (10, 100), #hidden1 neurons, 2
+            (10, 50), #hidden2 neurons, 3
+            (10, 50), #hidden3 neurons, 4
+            (10, 50), #hidden4 neurons, 5
+            (10, 50), #hidden5 neurons, 6
             (1, 5),  # hidden1 type, 7
             (1, 5),  # hidden2 type, 8
             (1, 5),  # hidden3 type, 9

@@ -50,7 +50,7 @@ def gen_net(train_sample_array, l2_norm, num_layer, num_neurons_lst, type_lst, d
     :return:
     '''
 
-    model = ELM(train_sample_array.shape[1], 1, accelerator=device, batch=1000, norm=l2_norm)
+    model = HPELM(train_sample_array.shape[1], 1, accelerator=device, batch=1000, norm=l2_norm)
     for idx in range(num_layer):
         print ("idx", idx)
         print ("num_neurons_lst[idx]", num_neurons_lst[idx])
@@ -101,7 +101,7 @@ class network_fit(object):
         print("Initializing network...")
         start_itr = time.time()
         elm = self.model
-        elm.train(self.train_sample_array, self.train_label_array, "r")
+        elm.train(self.train_sample_array, self.train_label_array, "R")
         print ("individual trained...evaluation in progress...")
 
         neurons_lst, norm_check = elm.summary()
