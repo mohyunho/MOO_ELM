@@ -64,6 +64,7 @@ class SimpleNeuroEvolutionTask(Task):
         :param genotype:
         :return:
         '''
+        print ("######################################################################################")
         l2_parms_lst = [1, 0.1, 0.01, 0.001, 0.0001]
         l2_parm = l2_parms_lst[genotype[0]-1]
         num_layer = genotype[1]
@@ -85,7 +86,7 @@ class SimpleNeuroEvolutionTask(Task):
         print("l2_params:%s  num_layer:%s" % (str(l2_parm), str(num_layer)))
         print("num_neuron_lst: ", num_neuron_lst)
         print("type_neuron_lst: ", type_neuron_lst)
-        
+
 
 
         elm_net = network_fit(self.train_sample_array, self.train_label_array,
@@ -95,7 +96,7 @@ class SimpleNeuroEvolutionTask(Task):
 
 
         fitness = elm_net.train_net(batch_size=self.batch)
-
+        print("######################################################################################")
 
         return fitness
 
