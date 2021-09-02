@@ -43,7 +43,7 @@ def score_calculator(y_predicted, y_actual):
     return score
 
 
-def gen_net(train_sample_array, l2_norm,  num_neurons_lst, type_lst, device = "GPU"):
+def gen_net(train_sample_array, l2_norm, lin_check, num_neurons_lst, type_lst, device = "GPU"):
     '''
     Generate and evaluate any ELM
     :param
@@ -51,11 +51,16 @@ def gen_net(train_sample_array, l2_norm,  num_neurons_lst, type_lst, device = "G
     '''
 
     model = HPELM(train_sample_array.shape[1], 1, accelerator=device, batch=1000, norm=l2_norm)
-    for idx in range(5):
-        print ("idx", idx)
-        print ("num_neurons_lst[idx]", num_neurons_lst[idx])
-        print ("type_lst[idx]", type_lst[idx])
+    for idx in range(4):
+        # print ("idx", idx)
+        # print ("num_neurons_lst[idx]", num_neurons_lst[idx])
+        # print ("type_lst[idx]", type_lst[idx])
         model.add_neurons(num_neurons_lst[idx], type_lst[idx])
+
+    if lin_check == 1:
+        model.add_neurons(num_neurons_lst[4], type_lst[4])
+    else:
+        pass
 
     return model
 
@@ -66,7 +71,7 @@ class network_fit(object):
     '''
 
     def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array,
-                 l2_parm,  num_neurons_lst, type_lst, model_path, device):
+                 l2_parm, lin_check, num_neurons_lst, type_lst, model_path, device):
         '''
         Constructor
         Generate a NN and train
@@ -78,13 +83,14 @@ class network_fit(object):
         self.val_sample_array = val_sample_array
         self.val_label_array = val_label_array
         self.l2_parm = l2_parm
+        self.lin_check = lin_check
         self.num_neurons_lst = num_neurons_lst
         self.type_lst = type_lst
         self.model_path = model_path
         self.device = device
 
 
-        self.model= gen_net(self.train_sample_array, self.l2_parm,
+        self.model= gen_net(self.train_sample_array, self.l2_parm, self.lin_check,
                             self.num_neurons_lst, self.type_lst, self.device)
 
 

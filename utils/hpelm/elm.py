@@ -387,13 +387,12 @@ class ELM(object):
         """Print summary of machine
         """
         neurons_lst = []
-
-        print (len(self.nnet.get_neurons()))
-        print (self.nnet.get_neurons())
-        for layer in range(len(self.nnet.get_neurons())):
-            print ("layer", layer)
-            numb = self.nnet.get_neurons()[layer][0]
-            type = self.nnet.get_neurons()[layer][1]
+        # print (len(self.nnet.get_neurons()))
+        # print (self.nnet.get_neurons())
+        for type_idx in range(len(self.nnet.get_neurons())):
+            # print ("layer", layer)
+            numb = self.nnet.get_neurons()[type_idx][0]
+            type = self.nnet.get_neurons()[type_idx][1]
             neurons_lst.append(numb)
             neurons_lst.append(type)
 
