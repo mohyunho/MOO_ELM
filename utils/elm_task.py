@@ -43,11 +43,11 @@ class SimpleNeuroEvolutionTask(Task):
     def get_parameters_bounds(self):
         bounds = [
             (1, 5), #L2 norm params, 0
-            (10, 200), #type1 neurons, 1
-            (10, 200), #type2 neurons, 2
-            (10, 200), #type3 neurons, 3
-            (10, 200), #type4 neurons, 4
-            (10, 200), #type5 neurons, 5
+            (1, 200), #type1 neurons, 1
+            (1, 200), #type2 neurons, 2
+            (1, 200), #type3 neurons, 3
+            (1, 200), #type4 neurons, 4
+            (1, 200), #type5 neurons, 5
         ]
         return bounds
 
@@ -65,7 +65,7 @@ class SimpleNeuroEvolutionTask(Task):
         num_neuron_lst = []
 
         for n in range(5):
-            num_neuron_lst[n] = genotype[n+1]*10
+            num_neuron_lst.append(genotype[n+1]*10)
 
 
         print("l2_params: " ,l2_parm)
