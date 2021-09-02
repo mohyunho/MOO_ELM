@@ -106,7 +106,7 @@ class network_fit(object):
 
         print ("prediction completed")
 
-
+        pred_test = pred_test.flatten()
         print ("pred_test.shape", pred_test.shape)
         print ("self.val_label_array.shape", self.val_label_array.shape)
 
