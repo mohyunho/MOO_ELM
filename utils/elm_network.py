@@ -130,11 +130,7 @@ class network_fit(object):
         return fitness_net
 
 
-
-
-
-    def test_net(self, epochs = 1000, batch_size= 700, lr= 1e-05, plotting=True):
-
-
-
-        return rms, score
+    def trained_model(self):
+        best_model = gen_net(self.train_sample_array, self.l2_parm, self.lin_check,
+                             self.num_neurons_lst, self.type_lst, self.device)
+        return best_model
