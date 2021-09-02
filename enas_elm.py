@@ -258,13 +258,23 @@ def main():
 
     start = time.time()
 
+    # log_file_path = log_path + 'log_%s_%s_pop-%s_gen-%s_%s.csv' % (
+    # subdata_mode_list[subdata_mode], fitness_mode_list[fitness_mode], pop_size, n_generations, trial)
+    # log_col = ['idx', 'stop_epoch', 'window_length', 'n_filters', 'kernel_size', 'n_conv_layer', 'LSTM1_units',
+    #            'LSTM2_units', 'n_window',
+    #            'val_rmse', 'val_score', 'rmse_combined', 'score_combined',
+    #            'AIC', 'train_loss', 'mle_term', 'params_term', 'geno_list']
+    # log_df = pd.DataFrame(columns=log_col, index=None)
+    # log_df.to_csv(log_file_path, index=False)
+    # print(log_df)
+
 
     # Save log file of EA in csv
     recursive_clean(directory_path)
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
     mutate_log_path = 'EA_log/mute_log_%s_%s.csv' % (pop_size, n_generations)
-    mutate_log_col = ['idx', 'params_1', 'params_2', 'fitness', 'gen']
+    mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'params_5', 'params_6', 'fitness', 'gen']
     mutate_log_df = pd.DataFrame(columns=mutate_log_col, index=None)
     mutate_log_df.to_csv(mutate_log_path, index=False)
 
