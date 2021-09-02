@@ -96,7 +96,6 @@ class SimpleNeuroEvolutionTask(Task):
 
 
         fitness = elm_net.train_net(batch_size=self.batch)
-        print("######################################################################################")
 
         return fitness
 
