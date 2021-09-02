@@ -67,7 +67,7 @@ class SimpleNeuroEvolutionTask(Task):
         num_neuron_lst = []
 
         for n in range(4):
-            num_neuron_lst.append(genotype[n+1]*20)
+            num_neuron_lst.append(genotype[n+1]*10)
 
         if lin_check == 1:
             num_neuron_lst.append(20)
