@@ -239,8 +239,8 @@ def main():
     print ("val_sample_array.shape", val_sample_array.shape)
     print ("val_label_array.shape", val_label_array.shape)
 
-    sample_array = []
-    label_array = []
+    # sample_array = []
+    # label_array = []
 
 
     ## Parameters for the GA
@@ -352,12 +352,6 @@ def main():
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
     output_lst = []
     truth_lst = []
-
-    #Generate network (Phenotype HOF individual)
-    train_sample_array = sample_array[:int(num_samples*(1-vs))]
-    train_label_array = label_array[:int(num_samples*(1-vs))]
-    val_sample_array = sample_array[int(num_samples*(1-vs))+1:]
-    val_label_array = label_array[int(num_samples*(1-vs))+1:]
 
     l2_parms_lst = [1, 0.1, 0.01, 0.001, 0.0001]
     l2_parm = l2_parms_lst[hof[0][0] - 1]
