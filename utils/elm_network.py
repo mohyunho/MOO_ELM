@@ -32,6 +32,7 @@ def score_calculator(y_predicted, y_actual):
     # Score metric
     h_array = y_predicted - y_actual
     s_array = np.zeros(len(h_array))
+    print ("calculating score")
     for j, h_j in enumerate(h_array):
         if h_j < 0:
             s_array[j] = math.exp(-(h_j / 13)) - 1
@@ -104,14 +105,17 @@ class network_fit(object):
         pred_test = elm.predict(self.val_sample_array)
 
         print ("prediction completed")
-        # score = score_calculator(pred_test, self.val_label_array)
+        score = score_calculator(pred_test, self.val_label_array)
+        print("score: ", score)
+
+
         rms = sqrt(mean_squared_error(pred_test, self.val_label_array))
         # print(rms)
         rms = round(rms, 4)
         fitness_net = (rms,)
         end_itr = time.time()
         print("training network is successfully completed, time: ", end_itr - start_itr)
-        # print("score: ", score)
+
         print("fitness in rmse: ", fitness_net[0])
 
         return fitness_net
