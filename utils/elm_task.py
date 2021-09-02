@@ -38,23 +38,16 @@ class SimpleNeuroEvolutionTask(Task):
         self.device = device
 
     def get_n_parameters(self):
-        return 13
+        return 6
 
     def get_parameters_bounds(self):
         bounds = [
             (1, 5), #L2 norm params, 0
-            (1, 5), #numb of hidden layers, 1
-            (10, 100), #hidden1 neurons, 2
-            (10, 50), #hidden2 neurons, 3
-            (10, 50), #hidden3 neurons, 4
-            (10, 50), #hidden4 neurons, 5
-            (10, 50), #hidden5 neurons, 6
-            (1, 5),  # hidden1 type, 7
-            (1, 5),  # hidden2 type, 8
-            (1, 5),  # hidden3 type, 9
-            (1, 5),  # hidden4 type, 10
-            (1, 5),  # hidden5 type, 11
-            (1, 5) #activation, 12
+            (10, 200), #type1 neurons, 1
+            (10, 200), #type2 neurons, 2
+            (10, 200), #type3 neurons, 3
+            (10, 200), #type4 neurons, 4
+            (10, 200), #type5 neurons, 5
         ]
         return bounds
 
@@ -67,23 +60,15 @@ class SimpleNeuroEvolutionTask(Task):
         print ("######################################################################################")
         l2_parms_lst = [1, 0.1, 0.01, 0.001, 0.0001]
         l2_parm = l2_parms_lst[genotype[0]-1]
-        num_layer = genotype[1]
-        type_cand_lst = ["lin", "sigm", "tanh", "rbf_l2", "rbf_linf"]
+        type_neuron_lst = ["lin", "sigm", "tanh", "rbf_l2", "rbf_linf"]
 
         num_neuron_lst = []
-        type_neuron_lst = []
+
+        for n in range(5):
+            num_neuron_lst[n] = genotype[n+1]*10
 
 
-        for i in range(5):
-            num_neuron_lst.append(0)
-            type_neuron_lst.append("none")
-
-
-        for n in range(num_layer):
-            num_neuron_lst[n] = genotype[n+2]*10
-            type_neuron_lst[n] = type_cand_lst [genotype[n+7]-1]
-
-        print("l2_params:%s  num_layer:%s" % (str(l2_parm), str(num_layer)))
+        print("l2_params: " ,l2_parm)
         print("num_neuron_lst: ", num_neuron_lst)
         print("type_neuron_lst: ", type_neuron_lst)
 
@@ -91,7 +76,7 @@ class SimpleNeuroEvolutionTask(Task):
 
         elm_net = network_fit(self.train_sample_array, self.train_label_array,
                               self.val_sample_array, self.val_label_array,
-                              l2_parm, num_layer,
+                              l2_parm,
                               num_neuron_lst, type_neuron_lst, self.model_path, self.device)
 
 
