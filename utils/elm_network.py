@@ -105,7 +105,21 @@ class network_fit(object):
         pred_test = elm.predict(self.val_sample_array)
 
         print ("prediction completed")
-        score = score_calculator(pred_test, self.val_label_array)
+
+
+
+        h_array = pred_test - self.val_label_array
+        s_array = np.zeros(len(h_array))
+        print("calculating score")
+        for j, h_j in enumerate(h_array):
+            if h_j < 0:
+                s_array[j] = math.exp(-(h_j / 13)) - 1
+
+            else:
+                s_array[j] = math.exp(h_j / 10) - 1
+        score = np.sum(s_array)
+      
+
         print("score: ", score)
 
 
