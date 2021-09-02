@@ -101,6 +101,7 @@ class network_fit(object):
         elm.train(self.train_sample_array, self.train_label_array, "r")
         print ("individual trained...evaluation in progress...")
 
+        elm.summary()
 
         pred_test = elm.predict(self.val_sample_array)
         pred_test = pred_test.flatten()

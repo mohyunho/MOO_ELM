@@ -89,7 +89,6 @@ class SimpleNeuroEvolutionTask(Task):
                               l2_parm, num_layer,
                               num_neuron_lst, type_neuron_lst, self.model_path, self.device)
 
-        elm_net.summary()
 
         fitness = elm_net.train_net(batch_size=self.batch)
 
