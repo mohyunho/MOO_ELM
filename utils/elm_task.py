@@ -72,6 +72,7 @@ class SimpleNeuroEvolutionTask(Task):
         num_neuron_lst = []
         type_neuron_lst = []
 
+
         for i in range(5):
             num_neuron_lst.append(0)
             type_neuron_lst.append("none")
@@ -81,7 +82,10 @@ class SimpleNeuroEvolutionTask(Task):
             num_neuron_lst[n] = genotype[n+2]*10
             type_neuron_lst[n] = type_cand_lst [genotype[n+7]-1]
 
-
+        print("l2_params:%s  num_layer:%s" % (str(l2_parm), str(num_layer)))
+        print("num_neuron_lst: ", num_neuron_lst)
+        print("type_neuron_lst: ", type_neuron_lst)
+        
 
 
         elm_net = network_fit(self.train_sample_array, self.train_label_array,

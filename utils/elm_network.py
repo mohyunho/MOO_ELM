@@ -101,13 +101,14 @@ class network_fit(object):
         elm.train(self.train_sample_array, self.train_label_array, "r")
         print ("individual trained...evaluation in progress...")
 
-        elm.summary()
+        neurons_lst, norm_check = elm.summary()
+        print ("summary: ", neurons_lst, norm_check)
 
         pred_test = elm.predict(self.val_sample_array)
         pred_test = pred_test.flatten()
         # print ("pred_test.shape", pred_test.shape)
         # print ("self.val_label_array.shape", self.val_label_array.shape)
-        score = score_calculator(pred_test, self.val_sample_array)
+        score = score_calculator(pred_test, self.val_label_array)
         print("score: ", score)
 
         rms = sqrt(mean_squared_error(pred_test, self.val_label_array))

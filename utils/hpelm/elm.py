@@ -386,9 +386,15 @@ class ELM(object):
     def summary(self):
         """Print summary of machine
         """
-        print ("neurons", self.nnet.get_neurons(),)
-        print ("norm", self.nnet.norm)
-        return
+        neurons_lst = []
+        for layer in range(len(self.nnet.get_neurons())):
+            numb = self.nnet.get_neurons()[layer][0]
+            type = self.nnet.get_neurons()[layer][1]
+            neurons_lst.append(numb)
+            neurons_lst.append(type)
+        norm = self.nnet.norm
+
+        return neurons_lst, norm
 
     def save(self, fname):
         """Save ELM model with current parameters.
