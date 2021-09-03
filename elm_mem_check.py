@@ -388,7 +388,7 @@ def main():
         print("HoF type_neuron_lst: ", type_neuron_lst)
 
         feat_len = train_sample_array.shape[1]
-        model = HPELM(feat_len, 1, accelerator=device, batch=500000, norm=l2_parm)
+        model = HPELM(feat_len, 1, accelerator=device, batch=5000, norm=l2_parm)
         for idx in range(4):
             model.add_neurons(num_neuron_lst[idx], type_neuron_lst[idx])
         if lin_check == 1:
@@ -417,9 +417,13 @@ def main():
         # score = score_calculator(pred_test, self.val_label_array)
         # print("score: ", score)
 
+
+
         rms = sqrt(mean_squared_error(pred_test, val_label_array))
         # print(rms)
         rms = round(rms, 4)
+
+        model.net_reset()
 
         best_elm_class = []
         best_elm_net = []
@@ -431,7 +435,7 @@ def main():
         val_label_array  = []
         pred_test  = []
         model = []
-        model.net_reset()
+
         del best_elm_class, best_elm_net, sample_array, label_array, train_sample_array, train_label_array
         del val_sample_array, val_label_array, pred_test
         del model
