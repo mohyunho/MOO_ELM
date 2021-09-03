@@ -100,15 +100,10 @@ class SimpleNeuroEvolutionTask(Task):
         self.train_label_array = None
         self.val_sample_array = None
         self.val_label_array = None
-        train_sample_array = None
-        train_label_array = None
-        val_sample_array = None
-        val_label_array = None
 
         elm_net = None
 
         del self.train_sample_array, self.train_label_array, self.val_sample_array, self.val_label_array
-        del train_sample_array, train_label_array, val_sample_array, val_label_array
         del elm_net
 
 
