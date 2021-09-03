@@ -409,15 +409,15 @@ def main():
         print("summary: ", neurons_lst, norm_check)
 
 
-        pred_test = model.predict(val_sample_array)
-        pred_test = pred_test.flatten()
+        # pred_test = model.predict(val_sample_array)
+        # pred_test = pred_test.flatten()
         # print ("pred_test.shape", pred_test.shape)
         # print ("self.val_label_array.shape", self.val_label_array.shape)
 
         # score = score_calculator(pred_test, self.val_label_array)
         # print("score: ", score)
 
-        rms = sqrt(mean_squared_error(pred_test, val_label_array))
+        rms = sqrt(mean_squared_error(val_label_array, val_label_array))
         # print(rms)
         rms = round(rms, 4)
 
