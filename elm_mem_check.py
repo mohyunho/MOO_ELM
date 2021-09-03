@@ -388,7 +388,7 @@ def main():
         print("HoF type_neuron_lst: ", type_neuron_lst)
 
         feat_len = train_sample_array.shape[1]
-        model = HPELM(feat_len, 1, accelerator=device, batch=50, norm=l2_parm)
+        model = HPELM(feat_len, 1, accelerator=device, batch=500000, norm=l2_parm)
         for idx in range(4):
             model.add_neurons(num_neuron_lst[idx], type_neuron_lst[idx])
         if lin_check == 1:
