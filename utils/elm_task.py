@@ -9,6 +9,12 @@ from abc import abstractmethod
 # from input_creator import input_gen
 from utils.elm_network import network_fit
 
+
+
+def release_list(lst):
+   del lst[:]
+   del lst
+
 class Task:
     @abstractmethod
     def get_n_parameters(self):
@@ -88,6 +94,23 @@ class SimpleNeuroEvolutionTask(Task):
 
 
         fitness = elm_net.train_net(batch_size=self.batch)
+
+
+        self.train_sample_array = None
+        self.train_label_array = None
+        self.val_sample_array = None
+        self.val_label_array = None
+        train_sample_array = None
+        train_label_array = None
+        val_sample_array = None
+        val_label_array = None
+
+        elm_net = None
+
+        del self.train_sample_array, self.train_label_array, self.val_sample_array, self.val_label_array
+        del train_sample_array, train_label_array, val_sample_array, val_label_array
+        del elm_net
+
 
         return fitness
 
