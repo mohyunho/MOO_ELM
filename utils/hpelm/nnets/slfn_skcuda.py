@@ -157,6 +157,7 @@ class SLFNSkCUDA(SLFN):
         self.reset()
         self.B = None
 
+
     def reset(self):
         """ Resets intermediate training results, releases memory that they use.
 

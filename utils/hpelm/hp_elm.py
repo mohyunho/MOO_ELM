@@ -164,10 +164,10 @@ class HPELM(ELM):
                 t = time()
 
         # if storing output to disk
-        if fHH is not None and fHT is not None:
-            HH, HT = self.nnet.get_corr()
-            HH[np.diag_indices_from(HH)] -= self.nnet.norm  # norm is already included
-            _write_fHH(fHH, fHT, HH, HT)
+        # if fHH is not None and fHT is not None:
+        #     HH, HT = self.nnet.get_corr()
+        #     HH[np.diag_indices_from(HH)] -= self.nnet.norm  # norm is already included
+        #     _write_fHH(fHH, fHT, HH, HT)
 
     def solve_corr(self, fHH, fHT):
         """Solves an ELM model with the given (covariance) fHH and (correlation) fHT HDF5 files.
