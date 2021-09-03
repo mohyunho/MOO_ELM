@@ -439,11 +439,23 @@ def main():
 
 
     rms_lst = []
-    for i in range(10):
-        print ("i", i)
-        rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
-        rms_lst.append(rms)
+    # for i in range(10):
+    #     print ("i", i)
+    #     rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
+    #     rms_lst.append(rms)
 
+    print ("1")
+    rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
+    rms_lst.append(rms)
+    print("2")
+    rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
+    rms_lst.append(rms)
+    print("3")
+    rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
+    rms_lst.append(rms)
+    print("4")
+    rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
+    rms_lst.append(rms)
 
 
 
