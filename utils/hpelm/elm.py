@@ -105,6 +105,10 @@ class ELM(object):
         s = s[:-2]
         return s
 
+
+    def net_reset(self):
+        self.nnet.reset()
+
     def _train_parse_args(self, args, kwargs):
         """Parse training args and set corresponding class variables."""
         assert len(self.nnet.neurons) > 0, "Add neurons to ELM before training it"
@@ -203,7 +207,6 @@ class ELM(object):
             self.add_data(X, T)
             self.nnet.solve()
         # TODO: Adaptive ELM model for timeseries (someday)
-
         X = None
         T = None
         del X, T
