@@ -242,6 +242,13 @@ class SLFNSkCUDA(SLFN):
             cublas.cublasSsyrk(self.handle, 'L', 'N', self.L, X.shape[0], 1, devH.ptr, self.L, 1, self.HH.ptr, self.L)
 #        self.ctx.synchronize()  # GPU runs asyncronously without that
 
+        devH = None
+        devT = None
+        devWC = None
+        del devH, devT, devWC
+
+
+
     def solve(self):
         """Compute output weights B, with fix for unstable solution.
         """
