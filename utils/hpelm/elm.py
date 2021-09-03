@@ -297,6 +297,11 @@ class ELM(object):
         # add prepared neurons to the model
         self.nnet.add_neurons(number, func, W, B)
 
+        W = None
+        B = None
+        del W, B
+
+
     def error(self, T, Y):
         """Calculate error of model predictions.
 
