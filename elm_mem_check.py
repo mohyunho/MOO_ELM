@@ -430,9 +430,11 @@ def main():
         val_sample_array  = []
         val_label_array  = []
         pred_test  = []
+        model = []
 
         del best_elm_class, best_elm_net, sample_array, label_array, train_sample_array, train_label_array
         del val_sample_array, val_label_array, pred_test
+        del model
         gc.collect()
         return rms
 
