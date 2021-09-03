@@ -354,7 +354,7 @@ def main():
     lin_check = hof[0][5]
     num_neuron_lst = []
     for n in range(4):
-        num_neuron_lst.append(hof[0][n + 1] * 20)
+        num_neuron_lst.append(hof[0][n + 1] * 10)
     if lin_check == 1:
         num_neuron_lst.append(20)
     else:
