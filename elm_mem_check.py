@@ -301,7 +301,7 @@ def main():
 
 
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
-    def eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array):
+    def eval_loop_class(train_sample_array,train_label_array, val_sample_array , val_label_array):
         l2_parms_lst = [0.1, 0.01, 0.001, 0.0001, 0.00001]
         l2_parm = l2_parms_lst[3 - 1]
         type_neuron_lst = ["tanh", "sigm", "rbf_l2", "rbf_linf", "lin"]
@@ -365,6 +365,78 @@ def main():
         del val_sample_array, val_label_array, pred_test
         gc.collect()
         return rms
+
+
+    def eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array):
+        l2_parms_lst = [0.1, 0.01, 0.001, 0.0001, 0.00001]
+        l2_parm = l2_parms_lst[3 - 1]
+        type_neuron_lst = ["tanh", "sigm", "rbf_l2", "rbf_linf", "lin"]
+
+        lin_check = 1
+        num_neuron_lst = []
+        hof = [[10,10,10,10,10,10,10,10,10,10,10,10], [10,10,10,10,10,10,10,10,10,10,10,10]]
+        for n in range(4):
+            num_neuron_lst.append(hof[0][n + 1] * 10)
+        if lin_check == 1:
+            num_neuron_lst.append(20)
+        else:
+            num_neuron_lst.append(0)
+
+        print("HoF l2_params: ", l2_parm)
+        print("HoF lin_check: ", lin_check)
+        print("HoF num_neuron_lst: ", num_neuron_lst)
+        print("HoF type_neuron_lst: ", type_neuron_lst)
+
+        feat_len = train_sample_array.shape[1]
+        model = HPELM(feat_len, 1, accelerator=device, batch=1000, norm=l2_parm)
+        for idx in range(4):
+            model.add_neurons(num_neuron_lst[idx], type_neuron_lst[idx])
+        if lin_check == 1:
+            model.add_neurons(num_neuron_lst[4], type_neuron_lst[4])
+        else:
+            pass
+
+
+        # Train the best network
+        sample_array = np.concatenate((train_sample_array, val_sample_array))
+        label_array = np.concatenate((train_label_array, val_label_array))
+
+        print ("sample_array.shape", sample_array.shape)
+        print("label_array.shape", label_array.shape)
+        model.train(train_sample_array, train_label_array, "R")
+        print("individual trained...evaluation in progress...")
+        neurons_lst, norm_check = model.summary()
+        print("summary: ", neurons_lst, norm_check)
+
+
+        pred_test = model.predict(val_sample_array)
+        pred_test = pred_test.flatten()
+        # print ("pred_test.shape", pred_test.shape)
+        # print ("self.val_label_array.shape", self.val_label_array.shape)
+
+        # score = score_calculator(pred_test, self.val_label_array)
+        # print("score: ", score)
+
+        rms = sqrt(mean_squared_error(pred_test, val_label_array))
+        # print(rms)
+        rms = round(rms, 4)
+
+        best_elm_class = []
+        best_elm_net = []
+        sample_array = []
+        label_array  = []
+        train_sample_array  = []
+        train_label_array  = []
+        val_sample_array  = []
+        val_label_array  = []
+        pred_test  = []
+
+        del best_elm_class, best_elm_net, sample_array, label_array, train_sample_array, train_label_array
+        del val_sample_array, val_label_array, pred_test
+        gc.collect()
+        return rms
+
+
 
     rms_lst = []
     for i in range(10):
