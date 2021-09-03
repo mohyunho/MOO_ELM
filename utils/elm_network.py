@@ -50,7 +50,7 @@ def gen_net(train_sample_array, l2_norm, lin_check, num_neurons_lst, type_lst, d
     :return:
     '''
 
-    model = HPELM(train_sample_array.shape[1], 1, accelerator=device, batch=5000, norm=l2_norm)
+    model = HPELM(train_sample_array.shape[1], 1, accelerator=device, batch=1000, norm=l2_norm)
     for idx in range(4):
         # print ("idx", idx)
         # print ("num_neurons_lst[idx]", num_neurons_lst[idx])

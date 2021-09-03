@@ -239,7 +239,8 @@ def main():
     print ("val_sample_array.shape", val_sample_array.shape)
     print ("val_label_array.shape", val_label_array.shape)
 
-
+    sample_array = []
+    label_array = []
 
     ## Parameters for the GA
     pop_size = args.pop
@@ -347,7 +348,7 @@ def main():
 
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
 
-    l2_parms_lst = [1, 0.1, 0.01, 0.001, 0.0001]
+    l2_parms_lst = [0.1, 0.01, 0.001, 0.0001, 0.00001]
     l2_parm = l2_parms_lst[hof[0][0] - 1]
     type_neuron_lst = ["tanh", "sigm", "rbf_l2", "rbf_linf", "lin"]
 
@@ -372,6 +373,9 @@ def main():
     best_elm_net = best_elm_class.trained_model()
 
     # Train the best network
+    sample_array = np.concatenate(train_sample_array, val_sample_array)
+    label_array = np.concatenate(train_label_array, val_label_array)
+
     print ("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
     best_elm_net.train(sample_array, label_array, "R")

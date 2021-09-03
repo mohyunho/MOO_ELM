@@ -58,7 +58,7 @@ class SimpleNeuroEvolutionTask(Task):
         :return:
         '''
         print ("######################################################################################")
-        l2_parms_lst = [1, 0.1, 0.01, 0.001, 0.0001]
+        l2_parms_lst = [0.1, 0.01, 0.001, 0.0001, 0.00001]
         l2_parm = l2_parms_lst[genotype[0]-1]
         type_neuron_lst = ["tanh", "sigm", "rbf_l2", "rbf_linf", "lin"]
 
