@@ -452,11 +452,10 @@ def main():
         fig_verify.savefig(pic_dir + "/best_elm_unit%s_test_pop%s_gen%s_rmse-%s_score-%s.png" %(str(int(units_index_test[idx])),
                                                                               str(args.pop), str(args.gen), str(rms), str(score)))
 
-
-
-
+    print("HOF phenotype: ", [l2_parms_lst[hof[0][0] - 1], hof[0][1] * 10, hof[0][2] * 10, hof[0][3]])
     print(" test RMSE: ", rms)
     print(" test Score: ", score)
+
 
 
 
