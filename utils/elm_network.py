@@ -125,6 +125,12 @@ class network_fit(object):
         print("training network is successfully completed, time: ", end_itr - start_itr)
         print("fitness in rmse: ", fitness_net[0])
 
+        elm = None
+        pred_test = None
+        pred_test = None
+        del elm, pred_test, pred_test
+
+
         return fitness_net
 
 

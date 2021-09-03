@@ -94,7 +94,9 @@ class SimpleNeuroEvolutionTask(Task):
         fitness = elm_class.train_net(elm_net, self.train_sample_array, self.train_label_array, self.val_sample_array,
                                     self.val_label_array, batch_size=self.batch)
 
-
+        elm_class = None
+        elm_net  = None
+        del elm_class, elm_net
 
         return fitness
 
