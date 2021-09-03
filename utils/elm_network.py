@@ -127,8 +127,7 @@ class network_fit(object):
 
         elm = None
         pred_test = None
-        pred_test = None
-        del elm, pred_test, pred_test
+        del elm, pred_test
 
 
         return fitness_net
