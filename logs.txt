@@ -644,3 +644,9 @@ python3 inference_cnnlstm.py -w 50 -s 50 -f 3 -k 3 -bs 128 -ep 40 -pt 10 -lr 0.0
 
 python3 inference_cnnlstm.py -w 50 -s 50 -f 3 -k 3 -bs 256 -ep 40 -pt 10 -lr 0.001 -vs 0.1 -sub 1 -s_stride 1 -s_len 30 -n_conv 1 -lstm1 10 -lstm2 5
 
+
+-----------------
+
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 --pop 1 --gen 1
+
+

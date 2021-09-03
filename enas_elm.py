@@ -373,8 +373,8 @@ def main():
     best_elm_net = best_elm_class.trained_model()
 
     # Train the best network
-    sample_array = np.concatenate(train_sample_array, val_sample_array)
-    label_array = np.concatenate(train_label_array, val_label_array)
+    sample_array = np.concatenate((train_sample_array, val_sample_array))
+    label_array = np.concatenate((train_label_array, val_label_array))
 
     print ("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
