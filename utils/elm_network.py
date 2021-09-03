@@ -43,14 +43,14 @@ from utils.hpelm import ELM, HPELM
 #     return score
 
 
-def gen_net(feat_len, l2_norm, lin_check, num_neurons_lst, type_lst, device = "GPU"):
+def gen_net(feat_len, l2_norm, lin_check, num_neurons_lst, type_lst, batch, device = "GPU"):
     '''
     Generate and evaluate any ELM
     :param
     :return:
     '''
 
-    model = HPELM(feat_len, 1, accelerator=device, batch=1000, norm=l2_norm)
+    model = HPELM(feat_len, 1, accelerator=device, batch=batch, norm=l2_norm)
     for idx in range(2):
         # print ("idx", idx)
         # print ("num_neurons_lst[idx]", num_neurons_lst[idx])
@@ -71,7 +71,7 @@ class network_fit(object):
     '''
 
     def __init__(self, feat_len,
-                 l2_parm, lin_check, num_neurons_lst, type_lst, model_path, device):
+                 l2_parm, lin_check, num_neurons_lst, type_lst, model_path, device, batch):
         '''
         Constructor
         Generate a NN and train
@@ -85,6 +85,7 @@ class network_fit(object):
         self.type_lst = type_lst
         self.model_path = model_path
         self.device = device
+        self.batch = batch
 
 
         # self.model= gen_net(self.feat_len, self.l2_parm, self.lin_check,
@@ -92,7 +93,7 @@ class network_fit(object):
 
 
 
-    def train_net(self, model, train_sample_array, train_label_array, val_sample_array, val_label_array, batch_size= 1000):
+    def train_net(self, model, train_sample_array, train_label_array, val_sample_array, val_label_array):
         '''
         specify the optimizers and train the network
         :param epochs:
@@ -135,5 +136,5 @@ class network_fit(object):
 
     def trained_model(self):
         model = gen_net(self.feat_len, self.l2_parm, self.lin_check,
-                             self.num_neurons_lst, self.type_lst, self.device)
+                             self.num_neurons_lst, self.type_lst, self.batch, self.device)
         return model

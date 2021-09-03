@@ -86,11 +86,11 @@ class SimpleNeuroEvolutionTask(Task):
         feat_len = self.train_sample_array.shape[1]
 
         elm_class = network_fit(feat_len, l2_parm, lin_check,
-                                num_neuron_lst, type_neuron_lst, self.model_path, self.device)
+                                num_neuron_lst, type_neuron_lst, self.model_path, self.device, self.batch)
 
         elm_net = elm_class.trained_model()
         fitness = elm_class.train_net(elm_net, self.train_sample_array, self.train_label_array, self.val_sample_array,
-                                    self.val_label_array, batch_size=self.batch)
+                                    self.val_label_array)
 
         elm_class = None
         elm_net  = None
