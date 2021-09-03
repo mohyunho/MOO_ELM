@@ -449,15 +449,19 @@ def main():
     print ("1")
     rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
     rms_lst.append(rms)
+    print(dir())
     print("2")
     rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
     rms_lst.append(rms)
+    print(dir())
     print("3")
     rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
     rms_lst.append(rms)
+    print(dir())
     print("4")
     rms = eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array)
     rms_lst.append(rms)
+    print(dir())
 
 
 
