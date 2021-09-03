@@ -92,7 +92,7 @@ class network_fit(object):
 
 
 
-    def train_net(self, train_sample_array, train_label_array, val_sample_array, val_label_array, batch_size= 1000):
+    def train_net(self, model, train_sample_array, train_label_array, val_sample_array, val_label_array, batch_size= 1000):
         '''
         specify the optimizers and train the network
         :param epochs:
@@ -102,7 +102,7 @@ class network_fit(object):
         '''
         print("Initializing network...")
         start_itr = time.time()
-        elm = self.model
+        elm = model
         elm.train(train_sample_array, train_label_array, "R")
         print ("individual trained...evaluation in progress...")
 
