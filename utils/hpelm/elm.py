@@ -204,6 +204,11 @@ class ELM(object):
             self.nnet.solve()
         # TODO: Adaptive ELM model for timeseries (someday)
 
+        X = None
+        T = None
+        del X, T
+
+
     def add_data(self, X, T):
         """Feed new training data (X,T) to ELM model in batches; does not solve ELM itself.
 
@@ -231,6 +236,12 @@ class ELM(object):
             if self.classification == "wc":
                 wc_vector = self.wc[np.where(T0 == 1)[1]]  # weights for samples in the batch
             self.nnet.add_batch(X0, T0, wc_vector)
+
+        X = None
+        T = None
+        del X, T
+
+
 
     def add_neurons(self, number, func, W=None, B=None):
         """Adds neurons to ELM model. ELM is created empty, and needs some neurons to work.
