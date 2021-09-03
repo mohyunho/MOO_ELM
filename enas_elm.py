@@ -447,6 +447,7 @@ def main():
         plt.ylabel('RUL', fontdict={'fontsize': 24})
         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
+        plt.ylim([-20, 80])
         plt.show()
         fig_verify.savefig(pic_dir + "/best_elm_unit%s_test_pop%s_gen%s_rmse-%s_score-%s.png" %(str(int(units_index_test[idx])),
                                                                               str(args.pop), str(args.gen), str(rms), str(score)))
