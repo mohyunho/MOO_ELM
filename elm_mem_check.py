@@ -403,7 +403,7 @@ def main():
 
         print ("sample_array.shape", sample_array.shape)
         print("label_array.shape", label_array.shape)
-        model.train(train_sample_array, train_label_array, "R")
+        # model.train(train_sample_array, train_label_array, "R")
         print("individual trained...evaluation in progress...")
         neurons_lst, norm_check = model.summary()
         print("summary: ", neurons_lst, norm_check)
