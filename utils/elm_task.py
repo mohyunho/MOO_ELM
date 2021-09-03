@@ -85,25 +85,15 @@ class SimpleNeuroEvolutionTask(Task):
         print("num_neuron_lst: ", num_neuron_lst)
         print("type_neuron_lst: ", type_neuron_lst)
 
+        feat_len = self.train_sample_array.shape[1]
 
+        elm_class = network_fit(feat_len, l2_parm, lin_check,
+                                num_neuron_lst, type_neuron_lst, self.model_path, self.device)
 
-        elm_net = network_fit(self.train_sample_array, self.train_label_array,
-                              self.val_sample_array, self.val_label_array,
-                              l2_parm, lin_check,
-                              num_neuron_lst, type_neuron_lst, self.model_path, self.device)
+        elm_net = elm_class.trained_model()
+        fitness = elm_net.train_net(self.train_sample_array, self.train_label_array, self.val_sample_array,
+                                    self.val_label_array, batch_size=self.batch)
 
-
-        fitness = elm_net.train_net(batch_size=self.batch)
-
-
-        # self.train_sample_array = None
-        # self.train_label_array = None
-        # self.val_sample_array = None
-        # self.val_label_array = None
-        elm_net = None
-
-        # del self.train_sample_array, self.train_label_array, self.val_sample_array, self.val_label_array
-        del elm_net
 
 
         return fitness

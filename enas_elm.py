@@ -366,8 +366,8 @@ def main():
     print("HoF num_neuron_lst: ", num_neuron_lst)
     print("HoF type_neuron_lst: ", type_neuron_lst)
 
-    best_elm_class = network_fit(train_sample_array, train_label_array,
-                          val_sample_array, val_label_array,
+    feat_len = train_sample_array.shape[1]
+    best_elm_class = network_fit(feat_len,
                           l2_parm, lin_check,
                           num_neuron_lst, type_neuron_lst, model_temp_path, device)
     best_elm_net = best_elm_class.trained_model()
