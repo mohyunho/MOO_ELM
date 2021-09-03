@@ -352,7 +352,7 @@ def main():
     l2_parm = l2_parms_lst[hof[0][0] - 1]
     type_neuron_lst = ["tanh", "sigm", "lin"]
 
-    lin_check = hof[0][5]
+    lin_check = hof[0][3]
     num_neuron_lst = []
     for n in range(2):
         num_neuron_lst.append(hof[0][n + 1] * 10)
