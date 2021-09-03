@@ -35,7 +35,7 @@ from utils.elm_network import network_fit
 from utils.hpelm import ELM, HPELM
 from utils.elm_task import SimpleNeuroEvolutionTask
 from utils.ea import GeneticAlgorithm
-
+import gc
 
 # random seed predictable
 jobs = 1
@@ -363,7 +363,7 @@ def main():
 
         del best_elm_class, best_elm_net, sample_array, label_array, train_sample_array, train_label_array
         del val_sample_array, val_label_array, pred_test
-
+        gc.collect()
         return rms
 
     rms_lst = []
