@@ -156,11 +156,13 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
 
     # Evaluate the individuals with an invalid fitness
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
+    print ("check point 1")
     fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+    print("check point 2")
     for ind, fit in zip(invalid_ind, fitnesses): # main loop for evaluation process for EA
         ind.fitness.values = fit
         individual_map[str(ind)] = fit
-
+    print("check point 3")
     if halloffame is not None:
         halloffame.update(population)
 
@@ -168,7 +170,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
     logbook.record(gen=0, nevals=len(invalid_ind), **record)
     if verbose:
         print(logbook.stream)
-
+    print("check point 4")
     # Begin the generational process
     for gen in range(1, ngen + 1):
         # Select the next generation individuals
@@ -179,7 +181,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
 
         # Evaluate the individuals with an invalid fitness
         invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-
+        print("check point 5")
         to_evaluate = []
         redundant = []
         for ind in invalid_ind:
@@ -195,7 +197,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
             individual_map[str(ind)] = fit
-
+        print("check point 6")
         # Update the hall of fame with the generated individuals
         if halloffame is not None:
             halloffame.update(offspring)
@@ -234,7 +236,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
         logbook.record(gen=gen, nevals=len(invalid_ind), **record)
         if verbose:
             print(logbook.stream)
-
+    print("check point 7")
 
     # with open("EA_log/logbook.pkl", "w") as lb_file:
     #     pickle.dump(logbook, lb_file)
