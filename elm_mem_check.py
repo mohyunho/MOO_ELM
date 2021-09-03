@@ -370,7 +370,7 @@ def main():
     def eval_loop(train_sample_array,train_label_array, val_sample_array , val_label_array):
         l2_parms_lst = [0.1, 0.01, 0.001, 0.0001, 0.00001]
         l2_parm = l2_parms_lst[3 - 1]
-        type_neuron_lst = ["tanh", "sigm", "rbf_l2", "rbf_linf", "lin"]
+        type_neuron_lst = ["tanh", "sigm", "tanh", "sigm", "lin"]
 
         lin_check = 1
         num_neuron_lst = []
