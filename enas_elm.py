@@ -376,6 +376,8 @@ def main():
     sample_array = np.concatenate((train_sample_array, val_sample_array))
     label_array = np.concatenate((train_label_array, val_label_array))
 
+    start = time.time()
+
     print ("sample_array.shape", sample_array.shape)
     print("label_array.shape", label_array.shape)
     best_elm_net.train(sample_array, label_array, "R")
@@ -383,6 +385,7 @@ def main():
     neurons_lst, norm_check = best_elm_net.summary()
     print("summary: ", neurons_lst, norm_check)
 
+    end = time.time()
 
 
     output_lst = []
@@ -452,6 +455,7 @@ def main():
         fig_verify.savefig(pic_dir + "/best_elm_unit%s_test_pop%s_gen%s_rmse-%s_score-%s.png" %(str(int(units_index_test[idx])),
                                                                               str(args.pop), str(args.gen), str(rms), str(score)))
 
+    print("BEST model training time: ", end - start)
     print("HOF phenotype: ", [l2_parms_lst[hof[0][0] - 1], hof[0][1] * 10, hof[0][2] * 10, hof[0][3]])
     print(" test RMSE: ", rms)
     print(" test Score: ", score)
