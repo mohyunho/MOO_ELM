@@ -51,7 +51,7 @@ def gen_net(feat_len, l2_norm, lin_check, num_neurons_lst, type_lst, device = "G
     '''
 
     model = HPELM(feat_len, 1, accelerator=device, batch=1000, norm=l2_norm)
-    for idx in range(4):
+    for idx in range(2):
         # print ("idx", idx)
         # print ("num_neurons_lst[idx]", num_neurons_lst[idx])
         # print ("type_lst[idx]", type_lst[idx])
