@@ -249,6 +249,9 @@ class SLFNSkCUDA(SLFN):
         HT = self.HT.get()
         B = self.solve_corr(HH, HT)
         self.B = gpuarray.to_gpu(B)
+        HH = None
+        HT = None
+        B = None
 
     def solve_corr(self, HH, HT):
         """Compute output weights B for given HH and HT.
