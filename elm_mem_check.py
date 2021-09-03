@@ -350,6 +350,20 @@ def main():
         rms = sqrt(mean_squared_error(pred_test, val_label_array))
         # print(rms)
         rms = round(rms, 4)
+
+        best_elm_class = None
+        best_elm_net = None
+        sample_array = None
+        label_array = None
+        train_sample_array = None
+        train_label_array = None
+        val_sample_array = None
+        val_label_array = None
+        pred_test = None
+
+        del best_elm_class, best_elm_net, sample_array, label_array, train_sample_array, train_label_array
+        del val_sample_array, val_label_array, pred_test
+
         return rms
 
     rms_lst = []
