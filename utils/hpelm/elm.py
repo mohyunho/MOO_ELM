@@ -105,10 +105,6 @@ class ELM(object):
         s = s[:-2]
         return s
 
-
-    def net_reset(self):
-        self.nnet.reset()
-
     def _train_parse_args(self, args, kwargs):
         """Parse training args and set corresponding class variables."""
         assert len(self.nnet.neurons) > 0, "Add neurons to ELM before training it"
@@ -207,10 +203,6 @@ class ELM(object):
             self.add_data(X, T)
             self.nnet.solve()
         # TODO: Adaptive ELM model for timeseries (someday)
-        X = None
-        T = None
-        del X, T
-
 
     def add_data(self, X, T):
         """Feed new training data (X,T) to ELM model in batches; does not solve ELM itself.
@@ -239,12 +231,6 @@ class ELM(object):
             if self.classification == "wc":
                 wc_vector = self.wc[np.where(T0 == 1)[1]]  # weights for samples in the batch
             self.nnet.add_batch(X0, T0, wc_vector)
-
-        X = None
-        T = None
-        del X, T
-
-
 
     def add_neurons(self, number, func, W=None, B=None):
         """Adds neurons to ELM model. ELM is created empty, and needs some neurons to work.
@@ -299,11 +285,6 @@ class ELM(object):
 
         # add prepared neurons to the model
         self.nnet.add_neurons(number, func, W, B)
-
-        W = None
-        B = None
-        del W, B
-
 
     def error(self, T, Y):
         """Calculate error of model predictions.

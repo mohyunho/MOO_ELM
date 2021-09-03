@@ -157,7 +157,6 @@ class SLFNSkCUDA(SLFN):
         self.reset()
         self.B = None
 
-
     def reset(self):
         """ Resets intermediate training results, releases memory that they use.
 
@@ -243,13 +242,6 @@ class SLFNSkCUDA(SLFN):
             cublas.cublasSsyrk(self.handle, 'L', 'N', self.L, X.shape[0], 1, devH.ptr, self.L, 1, self.HH.ptr, self.L)
 #        self.ctx.synchronize()  # GPU runs asyncronously without that
 
-        devH = None
-        devT = None
-        devWC = None
-        del devH, devT, devWC
-
-
-
     def solve(self):
         """Compute output weights B, with fix for unstable solution.
         """
@@ -257,9 +249,6 @@ class SLFNSkCUDA(SLFN):
         HT = self.HT.get()
         B = self.solve_corr(HH, HT)
         self.B = gpuarray.to_gpu(B)
-        HH = None
-        HT = None
-        B = None
 
     def solve_corr(self, HH, HT):
         """Compute output weights B for given HH and HT.
