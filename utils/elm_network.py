@@ -58,7 +58,7 @@ def gen_net(feat_len, l2_norm, lin_check, num_neurons_lst, type_lst, device = "G
         model.add_neurons(num_neurons_lst[idx], type_lst[idx])
 
     if lin_check == 1:
-        model.add_neurons(num_neurons_lst[4], type_lst[4])
+        model.add_neurons(num_neurons_lst[2], type_lst[2])
     else:
         pass
 
