@@ -650,3 +650,9 @@ python3 inference_cnnlstm.py -w 50 -s 50 -f 3 -k 3 -bs 256 -ep 40 -pt 10 -lr 0.0
 python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 --pop 1 --gen 1
 
 
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 --pop 3 --gen 3 -bs 50000
+
+
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 --pop 30 --gen 30 -bs 50000
+
+
