@@ -121,17 +121,17 @@ class network_fit(object):
         rms = sqrt(mean_squared_error(pred_test, val_label_array))
         # print(rms)
         rms = round(rms, 4)
-        fitness_net = (rms,)
+        val_net = (rms,)
         end_itr = time.time()
         print("training network is successfully completed, time: ", end_itr - start_itr)
-        print("fitness in rmse: ", fitness_net[0])
+        print("val_net in rmse: ", val_net[0])
 
         elm = None
         pred_test = None
         del elm, pred_test
 
 
-        return fitness_net
+        return val_net
 
 
     def trained_model(self):

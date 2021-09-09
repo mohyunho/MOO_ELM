@@ -34,11 +34,12 @@ class SimpleNeuroEvolutionTask(Task):
     TODO: Consider hyperparameters of ELM instead of the number of neurons in hidden layers of MLPs.
     Class for EA Task
     '''
-    def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array, batch, model_path, device):
+    def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array, constant, batch, model_path, device):
         self.train_sample_array = train_sample_array
         self.train_label_array = train_label_array
         self.val_sample_array = val_sample_array
         self.val_label_array = val_label_array
+        self.constant = constant
         self.batch = batch
         self.model_path = model_path
         self.device = device
@@ -62,7 +63,7 @@ class SimpleNeuroEvolutionTask(Task):
         :return:
         '''
         print ("######################################################################################")
-        l2_parms_lst = [1e-3, 1e-4, 1e-5, 1e-6, 1e-7]
+        l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
         l2_parm = l2_parms_lst[genotype[0]-1]
         type_neuron_lst = ["tanh", "sigm", "lin"]
 
@@ -89,9 +90,16 @@ class SimpleNeuroEvolutionTask(Task):
                                 num_neuron_lst, type_neuron_lst, self.model_path, self.device, self.batch)
 
         elm_net = elm_class.trained_model()
-        fitness = elm_class.train_net(elm_net, self.train_sample_array, self.train_label_array, self.val_sample_array,
+        validation = elm_class.train_net(elm_net, self.train_sample_array, self.train_label_array, self.val_sample_array,
                                     self.val_label_array)
 
+        print ("num_neuron_lst", num_neuron_lst)
+        penalty = self.constant * sum(num_neuron_lst)
+
+        fitness = validation + penalty
+
+        print ("validation rmse-%s, penalty-%s, num_neurons-%s, const-%s" %(str(validation), str(penalty), str(self.constant), str(sum(num_neuron_lst))))
+        print ("fitness: ", fitness)
         elm_class = None
         elm_net  = None
         del elm_class, elm_net

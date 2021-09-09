@@ -157,6 +157,7 @@ def main():
     parser = argparse.ArgumentParser(description='RPs creator')
     parser.add_argument('-w', type=int, default=50, help='sequence length', required=True)
     parser.add_argument('-s', type=int, default=1, help='stride of filter')
+    parser.add_argument('-constant', type=float, default=1e-4, help='constant for #neurons penalty')
     parser.add_argument('-bs', type=int, default=1000, help='batch size')
     parser.add_argument('-ep', type=int, default=30, help='max epoch')
     parser.add_argument('-pt', type=int, default=20, help='patience')
@@ -177,6 +178,7 @@ def main():
     win_stride = args.s
     partition = 3
     lr = args.lr
+    cs = args.constant
     bs = args.bs
     ep = args.ep
     pt = args.pt
@@ -304,6 +306,7 @@ def main():
         train_label_array = train_label_array,
         val_sample_array = val_sample_array,
         val_label_array = val_label_array,
+        constant = cs,
         batch=bs,
         model_path = model_temp_path,
         device = device
@@ -348,7 +351,7 @@ def main():
 
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
 
-    l2_parms_lst = [1e-3, 1e-4, 1e-5, 1e-6, 1e-7]
+    l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
     l2_parm = l2_parms_lst[hof[0][0] - 1]
     type_neuron_lst = ["tanh", "sigm", "lin"]
 
