@@ -93,13 +93,18 @@ class SimpleNeuroEvolutionTask(Task):
         validation = elm_class.train_net(elm_net, self.train_sample_array, self.train_label_array, self.val_sample_array,
                                     self.val_label_array)
 
+        val_value = validation[0]
+
         print ("num_neuron_lst", num_neuron_lst)
         penalty = self.constant * sum(num_neuron_lst)
 
-        fitness = validation + penalty
+        fitness = val_value + penalty
 
-        print ("validation rmse-%s, penalty-%s, num_neurons-%s, const-%s" %(str(validation), str(penalty), str(self.constant), str(sum(num_neuron_lst))))
+        print ("validation rmse-%s, penalty-%s, num_neurons-%s, const-%s" %(str(val_value), str(penalty),
+                                                                            str(self.constant), str(sum(num_neuron_lst))))
         print ("fitness: ", fitness)
+        fitness = (fitness,)
+
         elm_class = None
         elm_net  = None
         del elm_class, elm_net
