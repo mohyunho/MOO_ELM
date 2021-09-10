@@ -285,23 +285,34 @@ def main():
 
     def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
         for i in range(len(population)):
-            if population[i] == []:
+            indiv = population[i]
+            lin_check = indiv.params_4.values[0]
+            if  indiv == []:
                 "non_mutated empty"
                 pass
             else:
                 # print ("i: ", i)
-                population[i].append(population[i].fitness.values[0])
-                print ("population[i]", population[i])
-                print ("population[i].fitness", population[i].fitness)
-                print ("population[i].fitness.values[0]", population[i].fitness.values[0])
-                # append penalty
-                # num_nrn =
+                indiv.append(indiv.fitness.values[0])
+                print ("population[i]", indiv)
+                print ("population[i].fitness", indiv.fitness)
+                print ("population[i].fitness.values[0]", indiv.fitness.values[0])
 
+                # append penalty
+                if lin_check == 1:
+                    lin_nrn = 20
+                else:
+                    lin_nrn = 0
+
+
+                num_nrn = indiv.params_2.values[0]*10 + indiv.params_3.values[0]*10 + lin_nrn
+                penalty = num_nrn * cs
+                val_rmse = indiv.fitness.values[0] - penalty
+
+                indiv.append(penalty)
+                indiv.append(val_rmse)
 
                 # append val_rmse
-
-
-                population[i].append(gen)
+                indiv.append(gen)
 
         temp_df = pd.DataFrame(np.array(population), index=None)
         temp_df.to_csv(mutate_log_path, mode='a', header=None)

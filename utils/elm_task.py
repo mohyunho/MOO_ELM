@@ -99,6 +99,7 @@ class SimpleNeuroEvolutionTask(Task):
         penalty = self.constant * sum(num_neuron_lst)
 
         fitness = val_value + penalty
+        fitness = round(fitness, 4)
 
         print ("validation rmse-%s, penalty-%s, num_neurons-%s, const-%s" %(str(val_value), str(penalty),
                                                                             str(self.constant), str(sum(num_neuron_lst))))
