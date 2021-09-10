@@ -88,7 +88,7 @@ def varAnd(population, toolbox, cxpb, mutpb):
     return offspring, unmodified
 
 
-def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
+def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, stats=None,
              halloffame=None, verbose=__debug__, log_function=None):
     """This algorithm reproduce the simplest evolutionary algorithm as
     presented in chapter 7 of [Back2000]_.
@@ -209,7 +209,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, stats=None,
 
 
         population_temp = copy.deepcopy(population)
-        log_function(population_temp, gen)
+        log_function(population_temp, gen, cs)
         # not_mutated = [population_temp[u] for u in unmodified]
         # if len(unmodified) > 0 and log_function is not None:
         #     # print ([population_temp[u] for u in unmodified])
@@ -261,7 +261,9 @@ def checkBounds(bounds):
 
 
 class GeneticAlgorithm:
-    def __init__(self, task: Task, population_size: int, n_generations: int, cx_probability: float, mut_probability: float, crossover_operator: str = "one_point", mutation_operator: str = "uniform", selection_operator: str = "best", seed=None, jobs=1, log_function=None, **kwargs):
+    def __init__(self, task: Task, population_size: int, n_generations: int, cx_probability: float,
+                 mut_probability: float, crossover_operator: str = "one_point", mutation_operator: str = "uniform",
+                 selection_operator: str = "best", seed=None, jobs=1, log_function=None, cs = 0.0001, **kwargs):
         """
         Initializes an instance of the genetic algorithm.
         Parameters:
@@ -320,6 +322,7 @@ class GeneticAlgorithm:
         self.jobs = jobs
         self.kwargs = kwargs
         self.log_function = log_function
+        self.cs = cs
 
         self._initialize_deap()
 
@@ -439,6 +442,7 @@ class GeneticAlgorithm:
             cxpb=self.cx_probability,
             mutpb=self.mut_probability,
             ngen=self.n_generations,
+            cs=self.cs,
             stats=stats,
             halloffame=hof,
             verbose=True,

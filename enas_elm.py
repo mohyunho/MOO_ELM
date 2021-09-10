@@ -276,14 +276,14 @@ def main():
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
     mutate_log_path = 'EA_log/mute_log_%s_%s.csv' % (pop_size, n_generations)
-    mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'fitness', 'gen']
+    mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'fitness', 'penalty', 'val_rmse', 'gen']
     mutate_log_df = pd.DataFrame(columns=mutate_log_col, index=None)
     mutate_log_df.to_csv(mutate_log_path, index=False)
 
 
 
 
-    def log_function(population, gen, mutate_log_path = mutate_log_path):
+    def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
         for i in range(len(population)):
             if population[i] == []:
                 "non_mutated empty"
@@ -291,6 +291,16 @@ def main():
             else:
                 # print ("i: ", i)
                 population[i].append(population[i].fitness.values[0])
+                print ("population[i]", population[i])
+                print ("population[i].fitness", population[i].fitness)
+                print ("population[i].fitness.values[0]", population[i].fitness.values[0])
+                # append penalty
+                # num_nrn =
+
+
+                # append val_rmse
+
+
                 population[i].append(gen)
 
         temp_df = pd.DataFrame(np.array(population), index=None)
@@ -325,6 +335,7 @@ def main():
         selection_operator=sel_op,
         jobs=jobs,
         log_function=log_function,
+        cs = cs,
         **other_args
     )
 
