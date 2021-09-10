@@ -293,9 +293,6 @@ def main():
             else:
                 # print ("i: ", i)
                 indiv.append(indiv.fitness.values[0])
-                print ("population[i]", indiv)
-                print ("population[i].fitness", indiv.fitness)
-                print ("population[i].fitness.values[0]", indiv.fitness.values[0])
 
                 # append penalty
                 if lin_check == 1:

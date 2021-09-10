@@ -1,0 +1,3883 @@
+(hmo) hyunho@gi-office:~/hmo/N-CMAPSS_DL$ python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 20 --gen 20 -bs 50000
+2021-09-10 18:35:36.820919: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+Load data index:  2.0
+sample_array.shape (853142, 1, 20)
+label_array.shape (853142,)
+sub sample_array.shape (853142, 1, 20)
+sub label_array.shape (853142,)
+Load data index:  5.0
+sample_array.shape (1033420, 1, 20)
+label_array.shape (1033420,)
+sub sample_array.shape (1033420, 1, 20)
+sub label_array.shape (1033420,)
+Load data index:  10.0
+sample_array.shape (952711, 1, 20)
+label_array.shape (952711,)
+sub sample_array.shape (952711, 1, 20)
+sub label_array.shape (952711,)
+Load data index:  16.0
+sample_array.shape (765295, 1, 20)
+label_array.shape (765295,)
+sub sample_array.shape (765295, 1, 20)
+sub label_array.shape (765295,)
+Load data index:  18.0
+sample_array.shape (890719, 1, 20)
+label_array.shape (890719,)
+sub sample_array.shape (890719, 1, 20)
+sub label_array.shape (890719,)
+Load data index:  20.0
+sample_array.shape (768160, 1, 20)
+label_array.shape (768160,)
+sub sample_array.shape (768160, 1, 20)
+sub label_array.shape (768160,)
+samples are aggregated
+Memory released
+ind_list befor:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+ind_list befor:  [5263437, 5263438, 5263439, 5263440, 5263441, 5263442, 5263443, 5263444, 5263445, 5263446]
+ind_list after:  [2674951, 1622879, 8682, 2206036, 1496697, 3806169, 3932585, 3088012, 1376763, 3867235]
+ind_list after:  [310744, 4930630, 2832983, 374564, 2219731, 2249467, 5157699, 2215104, 1484405, 4500015]
+Shuffeling in progress
+samples are shuffled
+sample_array.shape (5263447, 1, 20)
+label_array.shape (5263447,)
+sample_array_reshape.shape (5263447, 20)
+label_array_reshape.shape (5263447,)
+feat_len 20
+train_sample_array.shape (4210757, 20)
+train_label_array.shape (4210757,)
+val_sample_array.shape (1052689, 20)
+val_label_array.shape (1052689,)
+######################################################################################
+l2_params:  1e-05
+lin_check:  1
+num_neuron_lst:  [1950, 1080, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 24/85, eta 0:02:36
+processing batch 48/85, eta 0:01:34
+processing batch 72/85, eta 0:00:33
+individual trained...evaluation in progress...
+summary:  [1950, 'tanh', 1080, 'sigm', 20, 'lin'] 1e-05
+training network is successfully completed, time:  220.0682499408722
+val_net in rmse:  6.7316
+num_neuron_lst [1950, 1080, 20]
+validation rmse-6.7316, penalty-0.305, num_neurons-0.0001, const-3050
+fitness:  7.0366
+######################################################################################
+l2_params:  0.0001
+lin_check:  2
+num_neuron_lst:  [1310, 1250, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 33/85, eta 0:01:35
+processing batch 66/85, eta 0:00:34
+individual trained...evaluation in progress...
+summary:  [1310, 'tanh', 1250, 'sigm'] 0.0001
+training network is successfully completed, time:  159.34096837043762
+val_net in rmse:  6.9823
+num_neuron_lst [1310, 1250, 0]
+validation rmse-6.9823, penalty-0.256, num_neurons-0.0001, const-2560
+fitness:  7.2383
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1230, 920, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:53
+individual trained...evaluation in progress...
+summary:  [1230, 'tanh', 920, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  116.62514638900757
+val_net in rmse:  7.031
+num_neuron_lst [1230, 920, 20]
+validation rmse-7.031, penalty-0.217, num_neurons-0.0001, const-2170
+fitness:  7.248
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [360, 730, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [360, 'tanh', 730, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  41.493993043899536
+val_net in rmse:  6.9739
+num_neuron_lst [360, 730, 20]
+validation rmse-6.9739, penalty-0.111, num_neurons-0.0001, const-1110
+fitness:  7.0849
+######################################################################################
+l2_params:  0.01
+lin_check:  1
+num_neuron_lst:  [1590, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 42/85, eta 0:01:02
+processing batch 84/85, eta 0:00:01
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 650, 'sigm', 20, 'lin'] 0.01
+training network is successfully completed, time:  127.45656943321228
+val_net in rmse:  7.9387
+num_neuron_lst [1590, 650, 20]
+validation rmse-7.9387, penalty-0.226, num_neurons-0.0001, const-2260
+fitness:  8.1647
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [260, 1870, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:54
+individual trained...evaluation in progress...
+summary:  [260, 'tanh', 1870, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  118.1839427947998
+val_net in rmse:  7.6303
+num_neuron_lst [260, 1870, 20]
+validation rmse-7.6303, penalty-0.215, num_neurons-0.0001, const-2150
+fitness:  7.8453
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1210, 1440, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:47
+processing batch 62/85, eta 0:00:45
+individual trained...evaluation in progress...
+summary:  [1210, 'tanh', 1440, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  172.5951633453369
+val_net in rmse:  7.0184
+num_neuron_lst [1210, 1440, 20]
+validation rmse-7.0184, penalty-0.267, num_neurons-0.0001, const-2670
+fitness:  7.2854
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1120, 810, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 52/85, eta 0:00:38
+individual trained...evaluation in progress...
+summary:  [1120, 'tanh', 810, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  101.892582654953
+val_net in rmse:  7.1864
+num_neuron_lst [1120, 810, 20]
+validation rmse-7.1864, penalty-0.195, num_neurons-0.0001, const-1950
+fitness:  7.3814
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1230, 1140, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 35/85, eta 0:01:26
+processing batch 70/85, eta 0:00:25
+individual trained...evaluation in progress...
+summary:  [1230, 'tanh', 1140, 'sigm'] 1e-06
+training network is successfully completed, time:  149.80950021743774
+val_net in rmse:  6.682
+num_neuron_lst [1230, 1140, 0]
+validation rmse-6.682, penalty-0.23700000000000002, num_neurons-0.0001, const-2370
+fitness:  6.919
+######################################################################################
+l2_params:  0.01
+lin_check:  1
+num_neuron_lst:  [1410, 40, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1410, 'tanh', 40, 'sigm', 20, 'lin'] 0.01
+training network is successfully completed, time:  62.545191049575806
+val_net in rmse:  7.9507
+num_neuron_lst [1410, 40, 20]
+validation rmse-7.9507, penalty-0.14700000000000002, num_neurons-0.0001, const-1470
+fitness:  8.0977
+######################################################################################
+l2_params:  1e-05
+lin_check:  1
+num_neuron_lst:  [1820, 1720, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 18/85, eta 0:03:47
+processing batch 36/85, eta 0:02:46
+processing batch 54/85, eta 0:01:45
+processing batch 72/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [1820, 'tanh', 1720, 'sigm', 20, 'lin'] 1e-05
+training network is successfully completed, time:  291.6565487384796
+val_net in rmse:  6.7408
+num_neuron_lst [1820, 1720, 20]
+validation rmse-6.7408, penalty-0.35600000000000004, num_neurons-0.0001, const-3560
+fitness:  7.0968
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1270, 860, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:54
+individual trained...evaluation in progress...
+summary:  [1270, 'tanh', 860, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  117.66840934753418
+val_net in rmse:  6.6925
+num_neuron_lst [1270, 860, 20]
+validation rmse-6.6925, penalty-0.215, num_neurons-0.0001, const-2150
+fitness:  6.9075
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1810, 170, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 50/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1810, 'tanh', 170, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  104.50882840156555
+val_net in rmse:  6.9372
+num_neuron_lst [1810, 170, 20]
+validation rmse-6.9372, penalty-0.2, num_neurons-0.0001, const-2000
+fitness:  7.1372
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [570, 620, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [570, 'tanh', 620, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  45.32196497917175
+val_net in rmse:  6.8852
+num_neuron_lst [570, 620, 20]
+validation rmse-6.8852, penalty-0.12100000000000001, num_neurons-0.0001, const-1210
+fitness:  7.0062
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1150, 240, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 240, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  62.538233518600464
+val_net in rmse:  6.7056
+num_neuron_lst [1150, 240, 20]
+validation rmse-6.7056, penalty-0.14100000000000001, num_neurons-0.0001, const-1410
+fitness:  6.8466
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1310, 1260, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:46
+processing batch 62/85, eta 0:00:45
+individual trained...evaluation in progress...
+summary:  [1310, 'tanh', 1260, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  170.28538584709167
+val_net in rmse:  6.9876
+num_neuron_lst [1310, 1260, 20]
+validation rmse-6.9876, penalty-0.259, num_neurons-0.0001, const-2590
+fitness:  7.2466
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1420, 750, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 43/85, eta 0:00:59
+individual trained...evaluation in progress...
+summary:  [1420, 'tanh', 750, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  123.16061329841614
+val_net in rmse:  7.0305
+num_neuron_lst [1420, 750, 20]
+validation rmse-7.0305, penalty-0.219, num_neurons-0.0001, const-2190
+fitness:  7.2495
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [860, 1390, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 41/85, eta 0:01:04
+processing batch 82/85, eta 0:00:04
+individual trained...evaluation in progress...
+summary:  [860, 'tanh', 1390, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  128.16973161697388
+val_net in rmse:  6.7524
+num_neuron_lst [860, 1390, 20]
+validation rmse-6.7524, penalty-0.227, num_neurons-0.0001, const-2270
+fitness:  6.9794
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1410, 1510, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 53/85, eta 0:01:13
+processing batch 79/85, eta 0:00:13
+individual trained...evaluation in progress...
+summary:  [1410, 'tanh', 1510, 'sigm'] 1e-06
+training network is successfully completed, time:  200.16595077514648
+val_net in rmse:  6.6469
+num_neuron_lst [1410, 1510, 0]
+validation rmse-6.6469, penalty-0.29200000000000004, num_neurons-0.0001, const-2920
+fitness:  6.9389
+######################################################################################
+l2_params:  1e-05
+lin_check:  2
+num_neuron_lst:  [240, 1530, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 63/85, eta 0:00:21
+individual trained...evaluation in progress...
+summary:  [240, 'tanh', 1530, 'sigm'] 1e-05
+training network is successfully completed, time:  83.38125801086426
+val_net in rmse:  7.1784
+num_neuron_lst [240, 1530, 0]
+validation rmse-7.1784, penalty-0.17700000000000002, num_neurons-0.0001, const-1770
+fitness:  7.3554
+gen	nevals	avg    	std     	min   	max   
+0  	20    	7.25327	0.365189	6.8466	8.1647
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [610, 1510, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 46/85, eta 0:00:51
+individual trained...evaluation in progress...
+summary:  [610, 'tanh', 1510, 'sigm'] 1e-06
+training network is successfully completed, time:  116.50778985023499
+val_net in rmse:  6.7955
+num_neuron_lst [610, 1510, 0]
+validation rmse-6.7955, penalty-0.21200000000000002, num_neurons-0.0001, const-2120
+fitness:  7.0075
+######################################################################################
+l2_params:  1e-05
+lin_check:  2
+num_neuron_lst:  [570, 170, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [570, 'tanh', 170, 'sigm'] 1e-05
+training network is successfully completed, time:  21.033710479736328
+val_net in rmse:  7.2237
+num_neuron_lst [570, 170, 0]
+validation rmse-7.2237, penalty-0.07400000000000001, num_neurons-0.0001, const-740
+fitness:  7.2977
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1820, 1720, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 18/85, eta 0:03:48
+processing batch 36/85, eta 0:02:47
+processing batch 54/85, eta 0:01:45
+processing batch 72/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [1820, 'tanh', 1720, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  293.6703462600708
+val_net in rmse:  6.981
+num_neuron_lst [1820, 1720, 20]
+validation rmse-6.981, penalty-0.35600000000000004, num_neurons-0.0001, const-3560
+fitness:  7.337
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1470, 1260, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 29/85, eta 0:01:57
+processing batch 58/85, eta 0:00:56
+individual trained...evaluation in progress...
+summary:  [1470, 'tanh', 1260, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  182.14646410942078
+val_net in rmse:  6.6351
+num_neuron_lst [1470, 1260, 20]
+validation rmse-6.6351, penalty-0.275, num_neurons-0.0001, const-2750
+fitness:  6.9101
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1230, 920, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 44/85, eta 0:00:56
+individual trained...evaluation in progress...
+summary:  [1230, 'tanh', 920, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  120.2087414264679
+val_net in rmse:  6.6845
+num_neuron_lst [1230, 920, 20]
+validation rmse-6.6845, penalty-0.217, num_neurons-0.0001, const-2170
+fitness:  6.9015
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [60, 480, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [60, 'tanh', 480, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  15.066012144088745
+val_net in rmse:  8.0976
+num_neuron_lst [60, 480, 20]
+validation rmse-8.0976, penalty-0.056, num_neurons-0.0001, const-560
+fitness:  8.1536
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1740, 1090, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 52/85, eta 0:01:16
+processing batch 78/85, eta 0:00:16
+individual trained...evaluation in progress...
+summary:  [1740, 'tanh', 1090, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  201.04111218452454
+val_net in rmse:  6.894
+num_neuron_lst [1740, 1090, 20]
+validation rmse-6.894, penalty-0.28500000000000003, num_neurons-0.0001, const-2850
+fitness:  7.179
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1120, 1290, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 35/85, eta 0:01:26
+processing batch 70/85, eta 0:00:26
+individual trained...evaluation in progress...
+summary:  [1120, 'tanh', 1290, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  151.242684841156
+val_net in rmse:  6.6981
+num_neuron_lst [1120, 1290, 20]
+validation rmse-6.6981, penalty-0.24300000000000002, num_neurons-0.0001, const-2430
+fitness:  6.9411
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1590, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 41/85, eta 0:01:05
+processing batch 82/85, eta 0:00:04
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  129.48966026306152
+val_net in rmse:  6.6087
+num_neuron_lst [1590, 650, 20]
+validation rmse-6.6087, penalty-0.226, num_neurons-0.0001, const-2260
+fitness:  6.8347
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 61, 151, 2, 7.0075]
+population[i].fitness (7.0075,)
+population[i].fitness.values[0] 7.0075
+population[i] [5, 123, 114, 2, 6.919]
+population[i].fitness (6.919,)
+population[i].fitness.values[0] 6.919
+population[i] [5, 86, 139, 1, 6.9794]
+population[i].fitness (6.9794,)
+population[i].fitness.values[0] 6.9794
+population[i] [5, 57, 62, 1, 7.0062]
+population[i].fitness (7.0062,)
+population[i].fitness.values[0] 7.0062
+population[i] [4, 195, 108, 1, 7.0366]
+population[i].fitness (7.0366,)
+population[i].fitness.values[0] 7.0366
+population[i] [5, 36, 73, 1, 7.0849]
+population[i].fitness (7.0849,)
+population[i].fitness.values[0] 7.0849
+population[i] [5, 123, 114, 2, 6.919]
+population[i].fitness (6.919,)
+population[i].fitness.values[0] 6.919
+population[i] [3, 182, 172, 1, 7.337]
+population[i].fitness (7.337,)
+population[i].fitness.values[0] 7.337
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 57, 62, 1, 7.0062]
+population[i].fitness (7.0062,)
+population[i].fitness.values[0] 7.0062
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [3, 131, 126, 1, 7.2466]
+population[i].fitness (7.2466,)
+population[i].fitness.values[0] 7.2466
+population[i] [5, 112, 129, 1, 6.9411]
+population[i].fitness (6.9411,)
+population[i].fitness.values[0] 6.9411
+population[i] [5, 86, 139, 1, 6.9794]
+population[i].fitness (6.9794,)
+population[i].fitness.values[0] 6.9794
+population[i] [5, 141, 151, 2, 6.9389]
+population[i].fitness (6.9389,)
+population[i].fitness.values[0] 6.9389
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 127, 86, 1], [5, 115, 24, 1], [5, 61, 151, 2], [5, 123, 114, 2], [5, 86, 139, 1], [5, 57, 62, 1], [4, 195, 108, 1], [5, 36, 73, 1], [5, 123, 114, 2], [3, 182, 172, 1], [5, 147, 126, 1], [5, 127, 86, 1], [5, 123, 92, 1], [5, 57, 62, 1], [5, 115, 24, 1], [3, 131, 126, 1], [5, 112, 129, 1], [5, 86, 139, 1], [5, 141, 151, 2], [5, 159, 65, 1]]
+[6.9075, 6.8466, 7.0075, 6.919, 6.9794, 7.0062, 7.0366, 7.0849, 6.919, 7.337, 6.9101, 6.9075, 6.9015, 7.0062, 6.8466, 7.2466, 6.9411, 6.9794, 6.9389, 6.8347]
+min: 6.8347, max:7.337, avg:6.977815
+1  	9     	6.97781	0.123222	6.8347	7.337 
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1770, 1900, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 17/85, eta 0:04:07
+processing batch 34/85, eta 0:03:05
+processing batch 51/85, eta 0:02:03
+processing batch 68/85, eta 0:01:01
+individual trained...evaluation in progress...
+summary:  [1770, 'tanh', 1900, 'sigm'] 1e-06
+training network is successfully completed, time:  310.41362833976746
+val_net in rmse:  6.5674
+num_neuron_lst [1770, 1900, 0]
+validation rmse-6.5674, penalty-0.367, num_neurons-0.0001, const-3670
+fitness:  6.9344
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1230, 1510, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 29/85, eta 0:01:56
+processing batch 58/85, eta 0:00:56
+individual trained...evaluation in progress...
+summary:  [1230, 'tanh', 1510, 'sigm'] 1e-06
+training network is successfully completed, time:  180.0984890460968
+val_net in rmse:  6.6994
+num_neuron_lst [1230, 1510, 0]
+validation rmse-6.6994, penalty-0.274, num_neurons-0.0001, const-2740
+fitness:  6.9734
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1640, 1140, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 28/85, eta 0:02:04
+processing batch 56/85, eta 0:01:03
+processing batch 84/85, eta 0:00:02
+individual trained...evaluation in progress...
+summary:  [1640, 'tanh', 1140, 'sigm'] 1e-06
+training network is successfully completed, time:  188.42679071426392
+val_net in rmse:  6.6345
+num_neuron_lst [1640, 1140, 0]
+validation rmse-6.6345, penalty-0.278, num_neurons-0.0001, const-2780
+fitness:  6.9125
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1120, 1390, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 33/85, eta 0:01:35
+processing batch 66/85, eta 0:00:34
+individual trained...evaluation in progress...
+summary:  [1120, 'tanh', 1390, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  159.26913237571716
+val_net in rmse:  6.6811
+num_neuron_lst [1120, 1390, 20]
+validation rmse-6.6811, penalty-0.253, num_neurons-0.0001, const-2530
+fitness:  6.9341
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [860, 1290, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:54
+individual trained...evaluation in progress...
+summary:  [860, 'tanh', 1290, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  118.45126104354858
+val_net in rmse:  6.7486
+num_neuron_lst [860, 1290, 20]
+validation rmse-6.7486, penalty-0.217, num_neurons-0.0001, const-2170
+fitness:  6.9656
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1360, 620, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 50/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 620, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  106.95313549041748
+val_net in rmse:  6.6564
+num_neuron_lst [1360, 620, 20]
+validation rmse-6.6564, penalty-0.2, num_neurons-0.0001, const-2000
+fitness:  6.8564
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [570, 620, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [570, 'tanh', 620, 'sigm'] 1e-06
+training network is successfully completed, time:  44.63822960853577
+val_net in rmse:  6.8874
+num_neuron_lst [570, 620, 0]
+validation rmse-6.8874, penalty-0.11900000000000001, num_neurons-0.0001, const-1190
+fitness:  7.0064
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [610, 1510, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:54
+individual trained...evaluation in progress...
+summary:  [610, 'tanh', 1510, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  118.08423280715942
+val_net in rmse:  6.7874
+num_neuron_lst [610, 1510, 20]
+validation rmse-6.7874, penalty-0.21400000000000002, num_neurons-0.0001, const-2140
+fitness:  7.0014
+######################################################################################
+l2_params:  0.0001
+lin_check:  2
+num_neuron_lst:  [1310, 1860, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 23/85, eta 0:02:46
+processing batch 46/85, eta 0:01:44
+processing batch 69/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1310, 'tanh', 1860, 'sigm'] 0.0001
+training network is successfully completed, time:  230.7489275932312
+val_net in rmse:  7.0683
+num_neuron_lst [1310, 1860, 0]
+validation rmse-7.0683, penalty-0.317, num_neurons-0.0001, const-3170
+fitness:  7.3853
+######################################################################################
+l2_params:  0.0001
+lin_check:  1
+num_neuron_lst:  [1820, 1840, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 17/85, eta 0:04:04
+processing batch 34/85, eta 0:03:04
+processing batch 51/85, eta 0:02:03
+processing batch 68/85, eta 0:01:01
+individual trained...evaluation in progress...
+summary:  [1820, 'tanh', 1840, 'sigm', 20, 'lin'] 0.0001
+training network is successfully completed, time:  311.1605887413025
+val_net in rmse:  6.9381
+num_neuron_lst [1820, 1840, 20]
+validation rmse-6.9381, penalty-0.368, num_neurons-0.0001, const-3680
+fitness:  7.3061
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 177, 190, 2, 6.9344]
+population[i].fitness (6.9344,)
+population[i].fitness.values[0] 6.9344
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 123, 114, 2, 6.919]
+population[i].fitness (6.919,)
+population[i].fitness.values[0] 6.919
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 123, 114, 2, 6.919]
+population[i].fitness (6.919,)
+population[i].fitness.values[0] 6.919
+population[i] [5, 164, 114, 2, 6.9125]
+population[i].fitness (6.9125,)
+population[i].fitness.values[0] 6.9125
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 61, 151, 1, 7.0014]
+population[i].fitness (7.0014,)
+population[i].fitness.values[0] 7.0014
+population[i] [5, 112, 129, 1, 6.9411]
+population[i].fitness (6.9411,)
+population[i].fitness.values[0] 6.9411
+population[i] [5, 86, 139, 1, 6.9794]
+population[i].fitness (6.9794,)
+population[i].fitness.values[0] 6.9794
+population[i] [5, 141, 151, 2, 6.9389]
+population[i].fitness (6.9389,)
+population[i].fitness.values[0] 6.9389
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 159, 65, 1], [5, 115, 24, 1], [5, 177, 190, 2], [5, 115, 24, 1], [5, 127, 86, 1], [5, 127, 86, 1], [5, 123, 114, 2], [5, 147, 126, 1], [5, 123, 114, 2], [5, 164, 114, 2], [5, 147, 126, 1], [5, 127, 86, 1], [5, 123, 92, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 61, 151, 1], [5, 112, 129, 1], [5, 86, 139, 1], [5, 141, 151, 2], [5, 159, 65, 1]]
+[6.8347, 6.8466, 6.9344, 6.8466, 6.9075, 6.9075, 6.919, 6.9101, 6.919, 6.9125, 6.9101, 6.9075, 6.9015, 6.8564, 6.8466, 7.0014, 6.9411, 6.9794, 6.9389, 6.8347]
+min: 6.8347, max:7.0014, avg:6.902774999999998
+2  	10    	6.90278	0.0453074	6.8347	7.0014
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [670, 240, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [670, 'tanh', 240, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  29.66404390335083
+val_net in rmse:  6.8953
+num_neuron_lst [670, 240, 20]
+validation rmse-6.8953, penalty-0.093, num_neurons-0.0001, const-930
+fitness:  6.9883
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1510, 360, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 56/85, eta 0:00:31
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 360, 'sigm'] 1e-06
+training network is successfully completed, time:  95.0864737033844
+val_net in rmse:  6.6468
+num_neuron_lst [1510, 360, 0]
+validation rmse-6.6468, penalty-0.187, num_neurons-0.0001, const-1870
+fitness:  6.8338
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [2000, 1260, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 21/85, eta 0:03:05
+processing batch 42/85, eta 0:02:04
+processing batch 63/85, eta 0:01:03
+processing batch 84/85, eta 0:00:02
+individual trained...evaluation in progress...
+summary:  [2000, 'tanh', 1260, 'sigm'] 1e-06
+training network is successfully completed, time:  249.6116030216217
+val_net in rmse:  6.5842
+num_neuron_lst [2000, 1260, 0]
+validation rmse-6.5842, penalty-0.326, num_neurons-0.0001, const-3260
+fitness:  6.9102
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1470, 1260, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 30/85, eta 0:01:53
+processing batch 59/85, eta 0:00:53
+individual trained...evaluation in progress...
+summary:  [1470, 'tanh', 1260, 'sigm'] 1e-06
+training network is successfully completed, time:  179.4778106212616
+val_net in rmse:  6.6394
+num_neuron_lst [1470, 1260, 0]
+validation rmse-6.6394, penalty-0.273, num_neurons-0.0001, const-2730
+fitness:  6.9124
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [280, 1240, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [280, 'tanh', 1240, 'sigm'] 1e-06
+training network is successfully completed, time:  62.82186460494995
+val_net in rmse:  6.8685
+num_neuron_lst [280, 1240, 0]
+validation rmse-6.8685, penalty-0.152, num_neurons-0.0001, const-1520
+fitness:  7.0205
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1230, 1900, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 23/85, eta 0:02:45
+processing batch 46/85, eta 0:01:44
+processing batch 69/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1230, 'tanh', 1900, 'sigm'] 1e-06
+training network is successfully completed, time:  230.30869913101196
+val_net in rmse:  6.6572
+num_neuron_lst [1230, 1900, 0]
+validation rmse-6.6572, penalty-0.313, num_neurons-0.0001, const-3130
+fitness:  6.9702
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1770, 1140, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 27/85, eta 0:02:12
+processing batch 54/85, eta 0:01:11
+processing batch 81/85, eta 0:00:09
+individual trained...evaluation in progress...
+summary:  [1770, 'tanh', 1140, 'sigm'] 1e-06
+training network is successfully completed, time:  198.40555810928345
+val_net in rmse:  6.6151
+num_neuron_lst [1770, 1140, 0]
+validation rmse-6.6151, penalty-0.29100000000000004, num_neurons-0.0001, const-2910
+fitness:  6.9061
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [860, 1510, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 35/85, eta 0:01:25
+processing batch 70/85, eta 0:00:25
+individual trained...evaluation in progress...
+summary:  [860, 'tanh', 1510, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  149.64679956436157
+val_net in rmse:  6.7499
+num_neuron_lst [860, 1510, 20]
+validation rmse-6.7499, penalty-0.23900000000000002, num_neurons-0.0001, const-2390
+fitness:  6.9889
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [610, 1390, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 49/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [610, 'tanh', 1390, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  108.51355290412903
+val_net in rmse:  6.797
+num_neuron_lst [610, 1390, 20]
+validation rmse-6.797, penalty-0.202, num_neurons-0.0001, const-2020
+fitness:  6.999
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 127, 86, 1, 6.9075]
+population[i].fitness (6.9075,)
+population[i].fitness.values[0] 6.9075
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 177, 114, 2, 6.9061]
+population[i].fitness (6.9061,)
+population[i].fitness.values[0] 6.9061
+population[i] [5, 141, 151, 2, 6.9389]
+population[i].fitness (6.9389,)
+population[i].fitness.values[0] 6.9389
+population[i] [5, 112, 129, 1, 6.9411]
+population[i].fitness (6.9411,)
+population[i].fitness.values[0] 6.9411
+population[i] [5, 141, 151, 2, 6.9389]
+population[i].fitness (6.9389,)
+population[i].fitness.values[0] 6.9389
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 159, 65, 1], [5, 159, 65, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 136, 62, 1], [5, 123, 92, 1], [5, 127, 86, 1], [5, 127, 86, 1], [5, 151, 36, 2], [5, 147, 126, 1], [5, 127, 86, 1], [5, 123, 92, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 177, 114, 2], [5, 141, 151, 2], [5, 112, 129, 1], [5, 141, 151, 2], [5, 159, 65, 1]]
+[6.8347, 6.8347, 6.8466, 6.8466, 6.8466, 6.8564, 6.9015, 6.9075, 6.9075, 6.8338, 6.9101, 6.9075, 6.9015, 6.8564, 6.8466, 6.9061, 6.9389, 6.9411, 6.9389, 6.8347]
+min: 6.8338, max:6.9411, avg:6.879884999999999
+3  	9     	6.87988	0.0382875	6.8338	6.9411
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1510, 1990, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 19/85, eta 0:03:37
+processing batch 38/85, eta 0:02:34
+processing batch 57/85, eta 0:01:32
+processing batch 76/85, eta 0:00:29
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 1990, 'sigm'] 1e-06
+training network is successfully completed, time:  283.7852921485901
+val_net in rmse:  6.6544
+num_neuron_lst [1510, 1990, 0]
+validation rmse-6.6544, penalty-0.35000000000000003, num_neurons-0.0001, const-3500
+fitness:  7.0044
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1350, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 49/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [1350, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  107.82568073272705
+val_net in rmse:  6.6962
+num_neuron_lst [1350, 650, 20]
+validation rmse-6.6962, penalty-0.202, num_neurons-0.0001, const-2020
+fitness:  6.8982
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [110, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [110, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  24.154289722442627
+val_net in rmse:  7.2023
+num_neuron_lst [110, 650, 20]
+validation rmse-7.2023, penalty-0.078, num_neurons-0.0001, const-780
+fitness:  7.2803
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1150, 240, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 240, 'sigm'] 1e-06
+training network is successfully completed, time:  56.29148268699646
+val_net in rmse:  6.7381
+num_neuron_lst [1150, 240, 0]
+validation rmse-6.7381, penalty-0.139, num_neurons-0.0001, const-1390
+fitness:  6.8771
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 620, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 53/85, eta 0:00:36
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 620, 'sigm'] 1e-06
+training network is successfully completed, time:  99.15761709213257
+val_net in rmse:  6.6659
+num_neuron_lst [1360, 620, 0]
+validation rmse-6.6659, penalty-0.198, num_neurons-0.0001, const-1980
+fitness:  6.8639
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1810, 860, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 32/85, eta 0:01:41
+processing batch 64/85, eta 0:00:40
+individual trained...evaluation in progress...
+summary:  [1810, 'tanh', 860, 'sigm'] 1e-06
+training network is successfully completed, time:  167.00451397895813
+val_net in rmse:  6.6112
+num_neuron_lst [1810, 860, 0]
+validation rmse-6.6112, penalty-0.267, num_neurons-0.0001, const-2670
+fitness:  6.8782
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1150, 1510, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:45
+processing batch 62/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 1510, 'sigm'] 1e-06
+training network is successfully completed, time:  169.75988745689392
+val_net in rmse:  6.6813
+num_neuron_lst [1150, 1510, 0]
+validation rmse-6.6813, penalty-0.266, num_neurons-0.0001, const-2660
+fitness:  6.9473
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1120, 1290, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 36/85, eta 0:01:23
+processing batch 72/85, eta 0:00:22
+individual trained...evaluation in progress...
+summary:  [1120, 'tanh', 1290, 'sigm'] 1e-06
+training network is successfully completed, time:  148.32311367988586
+val_net in rmse:  6.7166
+num_neuron_lst [1120, 1290, 0]
+validation rmse-6.7166, penalty-0.24100000000000002, num_neurons-0.0001, const-2410
+fitness:  6.9576
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 177, 114, 2, 6.9061]
+population[i].fitness (6.9061,)
+population[i].fitness.values[0] 6.9061
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 112, 129, 1, 6.9411]
+population[i].fitness (6.9411,)
+population[i].fitness.values[0] 6.9411
+population[i] [5, 141, 151, 2, 6.9389]
+population[i].fitness (6.9389,)
+population[i].fitness.values[0] 6.9389
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 159, 65, 1], [5, 159, 65, 1], [5, 115, 24, 1], [5, 159, 65, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 136, 62, 2], [5, 151, 36, 2], [5, 123, 92, 1], [5, 123, 92, 1], [5, 123, 92, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 177, 114, 2], [5, 147, 126, 1], [5, 112, 129, 1], [5, 141, 151, 2], [5, 159, 65, 1]]
+[6.8347, 6.8347, 6.8466, 6.8347, 6.8466, 6.8466, 6.8466, 6.8466, 6.8639, 6.8338, 6.9015, 6.9015, 6.9015, 6.8564, 6.8466, 6.9061, 6.9101, 6.9411, 6.9389, 6.8347]
+min: 6.8338, max:6.9411, avg:6.86866
+4  	8     	6.86866	0.0356769	6.8338	6.9411
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [10, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [10, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  18.158751487731934
+val_net in rmse:  7.301
+num_neuron_lst [10, 650, 20]
+validation rmse-7.301, penalty-0.068, num_neurons-0.0001, const-680
+fitness:  7.369
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [780, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 84/85, eta 0:00:00
+individual trained...evaluation in progress...
+summary:  [780, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  63.07807421684265
+val_net in rmse:  6.781
+num_neuron_lst [780, 650, 20]
+validation rmse-6.781, penalty-0.14500000000000002, num_neurons-0.0001, const-1450
+fitness:  6.926
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 240, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 48/85, eta 0:00:46
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 240, 'sigm'] 1e-06
+training network is successfully completed, time:  109.52508211135864
+val_net in rmse:  6.5746
+num_neuron_lst [1870, 240, 0]
+validation rmse-6.5746, penalty-0.21100000000000002, num_neurons-0.0001, const-2110
+fitness:  6.7856
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1150, 1210, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 36/85, eta 0:01:23
+processing batch 72/85, eta 0:00:22
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 1210, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  147.04877281188965
+val_net in rmse:  6.7022
+num_neuron_lst [1150, 1210, 20]
+validation rmse-6.7022, penalty-0.23800000000000002, num_neurons-0.0001, const-2380
+fitness:  6.9402
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [830, 1410, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 41/85, eta 0:01:05
+processing batch 82/85, eta 0:00:04
+individual trained...evaluation in progress...
+summary:  [830, 'tanh', 1410, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  128.43105554580688
+val_net in rmse:  6.7519
+num_neuron_lst [830, 1410, 20]
+validation rmse-6.7519, penalty-0.226, num_neurons-0.0001, const-2260
+fitness:  6.9779
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1150, 160, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 160, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  51.41070628166199
+val_net in rmse:  6.7514
+num_neuron_lst [1150, 160, 20]
+validation rmse-6.7514, penalty-0.133, num_neurons-0.0001, const-1330
+fitness:  6.8844
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1150, 1750, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:17
+processing batch 52/85, eta 0:01:16
+processing batch 78/85, eta 0:00:16
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 1750, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  201.05697679519653
+val_net in rmse:  6.6939
+num_neuron_lst [1150, 1750, 20]
+validation rmse-6.6939, penalty-0.29200000000000004, num_neurons-0.0001, const-2920
+fitness:  6.9859
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1230, 920, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 46/85, eta 0:00:51
+individual trained...evaluation in progress...
+summary:  [1230, 'tanh', 920, 'sigm'] 1e-06
+training network is successfully completed, time:  117.0295422077179
+val_net in rmse:  6.6664
+num_neuron_lst [1230, 920, 0]
+validation rmse-6.6664, penalty-0.215, num_neurons-0.0001, const-2150
+fitness:  6.8814
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1770, 1260, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 24/85, eta 0:02:36
+processing batch 48/85, eta 0:01:35
+processing batch 72/85, eta 0:00:33
+individual trained...evaluation in progress...
+summary:  [1770, 'tanh', 1260, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  222.29572319984436
+val_net in rmse:  6.6054
+num_neuron_lst [1770, 1260, 20]
+validation rmse-6.6054, penalty-0.305, num_neurons-0.0001, const-3050
+fitness:  6.9104
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1470, 1140, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:46
+processing batch 62/85, eta 0:00:45
+individual trained...evaluation in progress...
+summary:  [1470, 'tanh', 1140, 'sigm'] 1e-06
+training network is successfully completed, time:  170.54627418518066
+val_net in rmse:  6.6357
+num_neuron_lst [1470, 1140, 0]
+validation rmse-6.6357, penalty-0.261, num_neurons-0.0001, const-2610
+fitness:  6.8967
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 147, 114, 2, 6.8967]
+population[i].fitness (6.8967,)
+population[i].fitness.values[0] 6.8967
+population[i] [5, 141, 151, 2, 6.9389]
+population[i].fitness (6.9389,)
+population[i].fitness.values[0] 6.9389
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 151, 36, 2], [5, 159, 65, 1], [5, 115, 24, 1], [5, 159, 65, 1], [5, 115, 24, 1], [5, 187, 24, 2], [5, 115, 24, 1], [5, 115, 24, 1], [5, 136, 62, 2], [5, 151, 36, 2], [5, 123, 92, 1], [5, 136, 62, 2], [5, 136, 62, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 123, 92, 1], [5, 147, 126, 1], [5, 147, 114, 2], [5, 141, 151, 2], [5, 159, 65, 1]]
+[6.8338, 6.8347, 6.8466, 6.8347, 6.8466, 6.7856, 6.8466, 6.8466, 6.8639, 6.8338, 6.9015, 6.8639, 6.8564, 6.8564, 6.8466, 6.9015, 6.9101, 6.8967, 6.9389, 6.8347]
+min: 6.7856, max:6.9389, avg:6.85898
+5  	10    	6.85898	0.0341236	6.7856	6.9389
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 270, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:53
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 270, 'sigm'] 1e-06
+training network is successfully completed, time:  116.34805011749268
+val_net in rmse:  6.5714
+num_neuron_lst [1870, 270, 0]
+validation rmse-6.5714, penalty-0.21400000000000002, num_neurons-0.0001, const-2140
+fitness:  6.7854
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1510, 1150, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:46
+processing batch 62/85, eta 0:00:45
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 1150, 'sigm'] 1e-06
+training network is successfully completed, time:  170.37650418281555
+val_net in rmse:  6.6677
+num_neuron_lst [1510, 1150, 0]
+validation rmse-6.6677, penalty-0.266, num_neurons-0.0001, const-2660
+fitness:  6.9337
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [900, 600, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 81/85, eta 0:00:02
+individual trained...evaluation in progress...
+summary:  [900, 'tanh', 600, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  66.03584122657776
+val_net in rmse:  6.7523
+num_neuron_lst [900, 600, 20]
+validation rmse-6.7523, penalty-0.152, num_neurons-0.0001, const-1520
+fitness:  6.9043
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [530, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [530, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  45.992563247680664
+val_net in rmse:  6.8789
+num_neuron_lst [530, 650, 20]
+validation rmse-6.8789, penalty-0.12000000000000001, num_neurons-0.0001, const-1200
+fitness:  6.9989
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1150, 370, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 83/85, eta 0:00:01
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 370, 'sigm'] 1e-06
+training network is successfully completed, time:  64.59817695617676
+val_net in rmse:  6.7394
+num_neuron_lst [1150, 370, 0]
+validation rmse-6.7394, penalty-0.152, num_neurons-0.0001, const-1520
+fitness:  6.8914
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [80, 240, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [80, 'tanh', 240, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  8.764152765274048
+val_net in rmse:  7.8338
+num_neuron_lst [80, 240, 20]
+validation rmse-7.8338, penalty-0.034, num_neurons-0.0001, const-340
+fitness:  7.8678
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1150, 210, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 210, 'sigm'] 1e-06
+training network is successfully completed, time:  57.40168237686157
+val_net in rmse:  6.7285
+num_neuron_lst [1150, 210, 0]
+validation rmse-6.7285, penalty-0.136, num_neurons-0.0001, const-1360
+fitness:  6.8645
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [330, 240, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [330, 'tanh', 240, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  16.962576866149902
+val_net in rmse:  7.2797
+num_neuron_lst [330, 240, 20]
+validation rmse-7.2797, penalty-0.059000000000000004, num_neurons-0.0001, const-590
+fitness:  7.3387
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1080, 620, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 65/85, eta 0:00:18
+individual trained...evaluation in progress...
+summary:  [1080, 'tanh', 620, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  80.917715549469
+val_net in rmse:  6.6989
+num_neuron_lst [1080, 620, 20]
+validation rmse-6.6989, penalty-0.17200000000000001, num_neurons-0.0001, const-1720
+fitness:  6.8709
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [770, 620, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [770, 'tanh', 620, 'sigm'] 1e-06
+training network is successfully completed, time:  57.568039655685425
+val_net in rmse:  6.7519
+num_neuron_lst [770, 620, 0]
+validation rmse-6.7519, penalty-0.139, num_neurons-0.0001, const-1390
+fitness:  6.8909
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 1140, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 33/85, eta 0:01:35
+processing batch 67/85, eta 0:00:32
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 1140, 'sigm'] 1e-06
+training network is successfully completed, time:  157.95433712005615
+val_net in rmse:  6.6553
+num_neuron_lst [1360, 1140, 0]
+validation rmse-6.6553, penalty-0.25, num_neurons-0.0001, const-2500
+fitness:  6.9053
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1430, 1510, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 27/85, eta 0:02:13
+processing batch 54/85, eta 0:01:11
+processing batch 80/85, eta 0:00:11
+individual trained...evaluation in progress...
+summary:  [1430, 'tanh', 1510, 'sigm'] 1e-06
+training network is successfully completed, time:  199.5138545036316
+val_net in rmse:  6.6463
+num_neuron_lst [1430, 1510, 0]
+validation rmse-6.6463, penalty-0.29400000000000004, num_neurons-0.0001, const-2940
+fitness:  6.9403
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 147, 114, 2, 6.8967]
+population[i].fitness (6.8967,)
+population[i].fitness.values[0] 6.8967
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 147, 114, 2, 6.8967]
+population[i].fitness (6.8967,)
+population[i].fitness.values[0] 6.8967
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 159, 65, 1], [5, 151, 36, 2], [5, 159, 65, 1], [5, 115, 24, 1], [5, 187, 24, 2], [5, 115, 24, 1], [5, 115, 24, 1], [5, 136, 62, 2], [5, 151, 36, 2], [5, 123, 92, 1], [5, 136, 62, 2], [5, 136, 62, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 147, 114, 2], [5, 123, 92, 1], [5, 147, 114, 2], [5, 147, 126, 1], [5, 159, 65, 1]]
+[6.7854, 6.8347, 6.8338, 6.8347, 6.8466, 6.7856, 6.8466, 6.8466, 6.8639, 6.8338, 6.9015, 6.8639, 6.8564, 6.8564, 6.8466, 6.8967, 6.9015, 6.8967, 6.9101, 6.8347]
+min: 6.7854, max:6.9101, avg:6.853809999999998
+6  	12    	6.85381	0.0339487	6.7854	6.9101
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1280, 270, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 77/85, eta 0:00:06
+individual trained...evaluation in progress...
+summary:  [1280, 'tanh', 270, 'sigm'] 1e-06
+training network is successfully completed, time:  69.14057207107544
+val_net in rmse:  6.7176
+num_neuron_lst [1280, 270, 0]
+validation rmse-6.7176, penalty-0.155, num_neurons-0.0001, const-1550
+fitness:  6.8726
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [700, 360, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [700, 'tanh', 360, 'sigm'] 1e-06
+training network is successfully completed, time:  40.06585502624512
+val_net in rmse:  6.8782
+num_neuron_lst [700, 360, 0]
+validation rmse-6.8782, penalty-0.10600000000000001, num_neurons-0.0001, const-1060
+fitness:  6.9842
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 220, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 61/85, eta 0:00:23
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 220, 'sigm'] 1e-06
+training network is successfully completed, time:  86.90897393226624
+val_net in rmse:  6.6441
+num_neuron_lst [1590, 220, 0]
+validation rmse-6.6441, penalty-0.18100000000000002, num_neurons-0.0001, const-1810
+fitness:  6.8251
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 1960, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 18/85, eta 0:03:47
+processing batch 36/85, eta 0:02:46
+processing batch 54/85, eta 0:01:45
+processing batch 72/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 1960, 'sigm'] 1e-06
+training network is successfully completed, time:  291.1111783981323
+val_net in rmse:  6.5957
+num_neuron_lst [1590, 1960, 0]
+validation rmse-6.5957, penalty-0.35500000000000004, num_neurons-0.0001, const-3550
+fitness:  6.9507
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1150, 960, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 45/85, eta 0:00:54
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 960, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  116.67236852645874
+val_net in rmse:  6.6837
+num_neuron_lst [1150, 960, 20]
+validation rmse-6.6837, penalty-0.21300000000000002, num_neurons-0.0001, const-2130
+fitness:  6.8967
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1150, 620, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 62/85, eta 0:00:22
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 620, 'sigm'] 1e-06
+training network is successfully completed, time:  84.81697201728821
+val_net in rmse:  6.73
+num_neuron_lst [1150, 620, 0]
+validation rmse-6.73, penalty-0.17700000000000002, num_neurons-0.0001, const-1770
+fitness:  6.907
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1360, 1260, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:46
+processing batch 62/85, eta 0:00:45
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 1260, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  170.13486099243164
+val_net in rmse:  6.672
+num_neuron_lst [1360, 1260, 20]
+validation rmse-6.672, penalty-0.264, num_neurons-0.0001, const-2640
+fitness:  6.936
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [770, 1270, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 50/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [770, 'tanh', 1270, 'sigm'] 1e-06
+training network is successfully completed, time:  107.10748815536499
+val_net in rmse:  6.7526
+num_neuron_lst [770, 1270, 0]
+validation rmse-6.7526, penalty-0.20400000000000001, num_neurons-0.0001, const-2040
+fitness:  6.9566
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1470, 1140, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 31/85, eta 0:01:44
+processing batch 62/85, eta 0:00:44
+individual trained...evaluation in progress...
+summary:  [1470, 'tanh', 1140, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  168.72522497177124
+val_net in rmse:  6.6219
+num_neuron_lst [1470, 1140, 20]
+validation rmse-6.6219, penalty-0.263, num_neurons-0.0001, const-2630
+fitness:  6.8849
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [270, 1260, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 77/85, eta 0:00:06
+individual trained...evaluation in progress...
+summary:  [270, 'tanh', 1260, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  69.27098846435547
+val_net in rmse:  6.8928
+num_neuron_lst [270, 1260, 20]
+validation rmse-6.8928, penalty-0.155, num_neurons-0.0001, const-1550
+fitness:  7.0478
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1470, 920, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 36/85, eta 0:01:22
+processing batch 72/85, eta 0:00:21
+individual trained...evaluation in progress...
+summary:  [1470, 'tanh', 920, 'sigm'] 1e-06
+training network is successfully completed, time:  146.49352097511292
+val_net in rmse:  6.6316
+num_neuron_lst [1470, 920, 0]
+validation rmse-6.6316, penalty-0.23900000000000002, num_neurons-0.0001, const-2390
+fitness:  6.8706
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 22, 2, 6.8251]
+population[i].fitness (6.8251,)
+population[i].fitness.values[0] 6.8251
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 147, 114, 1, 6.8849]
+population[i].fitness (6.8849,)
+population[i].fitness.values[0] 6.8849
+population[i] [5, 123, 92, 2, 6.8814]
+population[i].fitness (6.8814,)
+population[i].fitness.values[0] 6.8814
+population[i] [5, 147, 126, 1, 6.9101]
+population[i].fitness (6.9101,)
+population[i].fitness.values[0] 6.9101
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 159, 65, 1], [5, 151, 36, 2], [5, 151, 36, 2], [5, 159, 22, 2], [5, 187, 24, 2], [5, 159, 65, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 151, 36, 2], [5, 123, 92, 1], [5, 136, 62, 2], [5, 136, 62, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 136, 62, 2], [5, 147, 114, 1], [5, 123, 92, 2], [5, 147, 126, 1], [5, 159, 65, 1]]
+[6.7854, 6.8347, 6.8338, 6.8338, 6.8251, 6.7856, 6.8347, 6.8466, 6.8466, 6.8338, 6.9015, 6.8639, 6.8564, 6.8564, 6.8466, 6.8639, 6.8849, 6.8814, 6.9101, 6.8347]
+min: 6.7854, max:6.9101, avg:6.847995
+7  	11    	6.848  	0.0310813	6.7854	6.9101
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [690, 140, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [690, 'tanh', 140, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  25.72251319885254
+val_net in rmse:  6.8815
+num_neuron_lst [690, 140, 20]
+validation rmse-6.8815, penalty-0.085, num_neurons-0.0001, const-850
+fitness:  6.9665
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  62.06081485748291
+val_net in rmse:  6.6926
+num_neuron_lst [1360, 120, 0]
+validation rmse-6.6926, penalty-0.14800000000000002, num_neurons-0.0001, const-1480
+fitness:  6.8406
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [520, 1870, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 36/85, eta 0:01:22
+processing batch 72/85, eta 0:00:22
+individual trained...evaluation in progress...
+summary:  [520, 'tanh', 1870, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  147.3593831062317
+val_net in rmse:  6.7921
+num_neuron_lst [520, 1870, 20]
+validation rmse-6.7921, penalty-0.24100000000000002, num_neurons-0.0001, const-2410
+fitness:  7.0331
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [890, 920, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 60/85, eta 0:00:25
+individual trained...evaluation in progress...
+summary:  [890, 'tanh', 920, 'sigm'] 1e-06
+training network is successfully completed, time:  87.93103051185608
+val_net in rmse:  6.7232
+num_neuron_lst [890, 920, 0]
+validation rmse-6.7232, penalty-0.18100000000000002, num_neurons-0.0001, const-1810
+fitness:  6.9042
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1470, 1060, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 34/85, eta 0:01:32
+processing batch 67/85, eta 0:00:32
+individual trained...evaluation in progress...
+summary:  [1470, 'tanh', 1060, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  158.66790318489075
+val_net in rmse:  6.6411
+num_neuron_lst [1470, 1060, 20]
+validation rmse-6.6411, penalty-0.255, num_neurons-0.0001, const-2550
+fitness:  6.8961
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 22, 2, 6.8251]
+population[i].fitness (6.8251,)
+population[i].fitness.values[0] 6.8251
+population[i] [5, 159, 22, 2, 6.8251]
+population[i].fitness (6.8251,)
+population[i].fitness.values[0] 6.8251
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 136, 62, 1, 6.8564]
+population[i].fitness (6.8564,)
+population[i].fitness.values[0] 6.8564
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 147, 114, 1, 6.8849]
+population[i].fitness (6.8849,)
+population[i].fitness.values[0] 6.8849
+population[i] [5, 123, 92, 2, 6.8814]
+population[i].fitness (6.8814,)
+population[i].fitness.values[0] 6.8814
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 187, 27, 2], [5, 151, 36, 2], [5, 159, 22, 2], [5, 159, 22, 2], [5, 187, 24, 2], [5, 159, 65, 1], [5, 159, 65, 1], [5, 115, 24, 1], [5, 151, 36, 2], [5, 115, 24, 1], [5, 136, 62, 2], [5, 136, 62, 1], [5, 136, 62, 1], [5, 115, 24, 1], [5, 136, 12, 2], [5, 147, 114, 1], [5, 123, 92, 2], [5, 123, 92, 1], [5, 159, 65, 1]]
+[6.7854, 6.7854, 6.8338, 6.8251, 6.8251, 6.7856, 6.8347, 6.8347, 6.8466, 6.8338, 6.8466, 6.8639, 6.8564, 6.8564, 6.8466, 6.8406, 6.8849, 6.8814, 6.9015, 6.8347]
+min: 6.7854, max:6.9015, avg:6.840159999999999
+8  	5     	6.84016	0.0302314	6.7854	6.9015
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [760, 220, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [760, 'tanh', 220, 'sigm'] 1e-06
+training network is successfully completed, time:  35.798482179641724
+val_net in rmse:  6.8644
+num_neuron_lst [760, 220, 0]
+validation rmse-6.8644, penalty-0.098, num_neurons-0.0001, const-980
+fitness:  6.9624
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [50, 1830, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 57/85, eta 0:00:29
+individual trained...evaluation in progress...
+summary:  [50, 'tanh', 1830, 'sigm'] 1e-06
+training network is successfully completed, time:  92.18049120903015
+val_net in rmse:  6.9092
+num_neuron_lst [50, 1830, 0]
+validation rmse-6.9092, penalty-0.188, num_neurons-0.0001, const-1880
+fitness:  7.0972
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1510, 1380, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 27/85, eta 0:02:13
+processing batch 54/85, eta 0:01:11
+processing batch 80/85, eta 0:00:11
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 1380, 'sigm'] 1e-06
+training network is successfully completed, time:  199.30135846138
+val_net in rmse:  6.6472
+num_neuron_lst [1510, 1380, 0]
+validation rmse-6.6472, penalty-0.28900000000000003, num_neurons-0.0001, const-2890
+fitness:  6.9362
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1890, 650, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 34/85, eta 0:01:32
+processing batch 68/85, eta 0:00:30
+individual trained...evaluation in progress...
+summary:  [1890, 'tanh', 650, 'sigm'] 1e-06
+training network is successfully completed, time:  156.5532124042511
+val_net in rmse:  6.585
+num_neuron_lst [1890, 650, 0]
+validation rmse-6.585, penalty-0.254, num_neurons-0.0001, const-2540
+fitness:  6.839
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1330, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 50/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1330, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  106.67715835571289
+val_net in rmse:  6.6713
+num_neuron_lst [1330, 650, 20]
+validation rmse-6.6713, penalty-0.2, num_neurons-0.0001, const-2000
+fitness:  6.8713
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 40, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 40, 'sigm'] 1e-06
+training network is successfully completed, time:  56.47931528091431
+val_net in rmse:  6.6794
+num_neuron_lst [1360, 40, 0]
+validation rmse-6.6794, penalty-0.14, num_neurons-0.0001, const-1400
+fitness:  6.8194
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [340, 240, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [340, 'tanh', 240, 'sigm'] 1e-06
+training network is successfully completed, time:  16.50892686843872
+val_net in rmse:  7.2006
+num_neuron_lst [340, 240, 0]
+validation rmse-7.2006, penalty-0.058, num_neurons-0.0001, const-580
+fitness:  7.2586
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 22, 2, 6.8251]
+population[i].fitness (6.8251,)
+population[i].fitness.values[0] 6.8251
+population[i] [5, 159, 22, 2, 6.8251]
+population[i].fitness (6.8251,)
+population[i].fitness.values[0] 6.8251
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 123, 92, 2, 6.8814]
+population[i].fitness (6.8814,)
+population[i].fitness.values[0] 6.8814
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 123, 92, 1, 6.9015]
+population[i].fitness (6.9015,)
+population[i].fitness.values[0] 6.9015
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 187, 27, 2], [5, 151, 36, 2], [5, 159, 22, 2], [5, 159, 22, 2], [5, 187, 24, 2], [5, 159, 65, 1], [5, 151, 36, 2], [5, 159, 65, 1], [5, 151, 36, 2], [5, 136, 4, 2], [5, 136, 62, 2], [5, 115, 24, 1], [5, 115, 24, 1], [5, 115, 24, 1], [5, 136, 12, 2], [5, 123, 92, 2], [5, 136, 62, 2], [5, 123, 92, 1], [5, 159, 65, 1]]
+[6.7854, 6.7854, 6.8338, 6.8251, 6.8251, 6.7856, 6.8347, 6.8338, 6.8347, 6.8338, 6.8194, 6.8639, 6.8466, 6.8466, 6.8466, 6.8406, 6.8814, 6.8639, 6.9015, 6.8347]
+min: 6.7854, max:6.9015, avg:6.836129999999999
+9  	7     	6.83613	0.0286878	6.7854	6.9015
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [50, 220, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [50, 'tanh', 220, 'sigm'] 1e-06
+training network is successfully completed, time:  7.106017351150513
+val_net in rmse:  7.905
+num_neuron_lst [50, 220, 0]
+validation rmse-7.905, penalty-0.027, num_neurons-0.0001, const-270
+fitness:  7.932
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [620, 580, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [620, 'tanh', 580, 'sigm'] 1e-06
+training network is successfully completed, time:  44.87406039237976
+val_net in rmse:  6.8885
+num_neuron_lst [620, 580, 0]
+validation rmse-6.8885, penalty-0.12000000000000001, num_neurons-0.0001, const-1200
+fitness:  7.0085
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [850, 650, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 83/85, eta 0:00:01
+individual trained...evaluation in progress...
+summary:  [850, 'tanh', 650, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  64.99378728866577
+val_net in rmse:  6.7812
+num_neuron_lst [850, 650, 20]
+validation rmse-6.7812, penalty-0.152, num_neurons-0.0001, const-1520
+fitness:  6.9332
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1290, 1700, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 24/85, eta 0:02:37
+processing batch 48/85, eta 0:01:35
+processing batch 72/85, eta 0:00:33
+individual trained...evaluation in progress...
+summary:  [1290, 'tanh', 1700, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  223.3083975315094
+val_net in rmse:  6.6849
+num_neuron_lst [1290, 1700, 20]
+validation rmse-6.6849, penalty-0.301, num_neurons-0.0001, const-3010
+fitness:  6.9859
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 159, 22, 2, 6.8251]
+population[i].fitness (6.8251,)
+population[i].fitness.values[0] 6.8251
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 115, 24, 1, 6.8466]
+population[i].fitness (6.8466,)
+population[i].fitness.values[0] 6.8466
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 123, 92, 2, 6.8814]
+population[i].fitness (6.8814,)
+population[i].fitness.values[0] 6.8814
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 159, 22, 2], [5, 187, 24, 2], [5, 151, 36, 2], [5, 151, 36, 2], [5, 151, 36, 2], [5, 151, 36, 2], [5, 136, 4, 2], [5, 159, 65, 1], [5, 136, 12, 2], [5, 115, 24, 1], [5, 115, 24, 1], [5, 136, 12, 2], [5, 136, 62, 2], [5, 136, 62, 2], [5, 123, 92, 2], [5, 159, 65, 1]]
+[6.7854, 6.7854, 6.7856, 6.8194, 6.8251, 6.7856, 6.8338, 6.8338, 6.8338, 6.8338, 6.8194, 6.8347, 6.8406, 6.8466, 6.8466, 6.8406, 6.8639, 6.8639, 6.8814, 6.8347]
+min: 6.7854, max:6.8814, avg:6.829704999999999
+10 	4     	6.8297 	0.0264445	6.7854	6.8814
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [230, 270, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [230, 'tanh', 270, 'sigm'] 1e-06
+training network is successfully completed, time:  13.175805807113647
+val_net in rmse:  7.5905
+num_neuron_lst [230, 270, 0]
+validation rmse-7.5905, penalty-0.05, num_neurons-0.0001, const-500
+fitness:  7.6405
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1930, 270, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 43/85, eta 0:00:59
+individual trained...evaluation in progress...
+summary:  [1930, 'tanh', 270, 'sigm'] 1e-06
+training network is successfully completed, time:  122.51660394668579
+val_net in rmse:  6.6097
+num_neuron_lst [1930, 270, 0]
+validation rmse-6.6097, penalty-0.22, num_neurons-0.0001, const-2200
+fitness:  6.8297
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1210, 240, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 83/85, eta 0:00:01
+individual trained...evaluation in progress...
+summary:  [1210, 'tanh', 240, 'sigm'] 1e-06
+training network is successfully completed, time:  63.79685378074646
+val_net in rmse:  6.6853
+num_neuron_lst [1210, 240, 0]
+validation rmse-6.6853, penalty-0.14500000000000002, num_neurons-0.0001, const-1450
+fitness:  6.8303
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 1750, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 20/85, eta 0:03:17
+processing batch 40/85, eta 0:02:16
+processing batch 60/85, eta 0:01:16
+processing batch 80/85, eta 0:00:15
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 1750, 'sigm'] 1e-06
+training network is successfully completed, time:  262.1374623775482
+val_net in rmse:  6.6071
+num_neuron_lst [1590, 1750, 0]
+validation rmse-6.6071, penalty-0.334, num_neurons-0.0001, const-3340
+fitness:  6.9411
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 360, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 67/85, eta 0:00:16
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 360, 'sigm'] 1e-06
+training network is successfully completed, time:  79.49270820617676
+val_net in rmse:  6.6897
+num_neuron_lst [1360, 360, 0]
+validation rmse-6.6897, penalty-0.17200000000000001, num_neurons-0.0001, const-1720
+fitness:  6.8617
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 650, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 43/85, eta 0:00:58
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 650, 'sigm'] 1e-06
+training network is successfully completed, time:  121.9315938949585
+val_net in rmse:  6.6313
+num_neuron_lst [1590, 650, 0]
+validation rmse-6.6313, penalty-0.224, num_neurons-0.0001, const-2240
+fitness:  6.8553
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1360, 240, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 72/85, eta 0:00:10
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 240, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  73.60964012145996
+val_net in rmse:  6.6656
+num_neuron_lst [1360, 240, 20]
+validation rmse-6.6656, penalty-0.162, num_neurons-0.0001, const-1620
+fitness:  6.8276
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1150, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1150, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  51.625542640686035
+val_net in rmse:  6.7369
+num_neuron_lst [1150, 120, 0]
+validation rmse-6.7369, penalty-0.127, num_neurons-0.0001, const-1270
+fitness:  6.8639
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 620, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 36/85, eta 0:01:23
+processing batch 72/85, eta 0:00:22
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 620, 'sigm'] 1e-06
+training network is successfully completed, time:  147.19293522834778
+val_net in rmse:  6.6013
+num_neuron_lst [1850, 620, 0]
+validation rmse-6.6013, penalty-0.24700000000000003, num_neurons-0.0001, const-2470
+fitness:  6.8483
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 136, 24, 1, 6.8276]
+population[i].fitness (6.8276,)
+population[i].fitness.values[0] 6.8276
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 136, 62, 2, 6.8639]
+population[i].fitness (6.8639,)
+population[i].fitness.values[0] 6.8639
+population[i] [5, 185, 62, 2, 6.8483]
+population[i].fitness (6.8483,)
+population[i].fitness.values[0] 6.8483
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 187, 24, 2], [5, 151, 36, 2], [5, 151, 36, 2], [5, 151, 36, 2], [5, 151, 36, 2], [5, 136, 4, 2], [5, 151, 36, 2], [5, 159, 65, 1], [5, 136, 12, 2], [5, 136, 24, 1], [5, 136, 12, 2], [5, 136, 62, 2], [5, 136, 62, 2], [5, 185, 62, 2], [5, 159, 65, 1]]
+[6.7854, 6.7854, 6.7856, 6.8194, 6.8194, 6.7856, 6.8338, 6.8338, 6.8338, 6.8338, 6.8194, 6.8338, 6.8347, 6.8406, 6.8276, 6.8406, 6.8639, 6.8639, 6.8483, 6.8347]
+min: 6.7854, max:6.8639, avg:6.826174999999999
+11 	9     	6.82618	0.0233941	6.7854	6.8639
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 2000, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 16/85, eta 0:04:34
+processing batch 31/85, eta 0:03:35
+processing batch 47/85, eta 0:02:31
+processing batch 63/85, eta 0:01:27
+processing batch 79/85, eta 0:00:23
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 2000, 'sigm'] 1e-06
+training network is successfully completed, time:  342.3428204059601
+val_net in rmse:  6.5795
+num_neuron_lst [1870, 2000, 0]
+validation rmse-6.5795, penalty-0.387, num_neurons-0.0001, const-3870
+fitness:  6.9665
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1510, 50, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 77/85, eta 0:00:06
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 50, 'sigm'] 1e-06
+training network is successfully completed, time:  68.02970767021179
+val_net in rmse:  6.6235
+num_neuron_lst [1510, 50, 0]
+validation rmse-6.6235, penalty-0.156, num_neurons-0.0001, const-1560
+fitness:  6.7795
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1510, 360, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 56/85, eta 0:00:31
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 360, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  93.71821856498718
+val_net in rmse:  6.6718
+num_neuron_lst [1510, 360, 20]
+validation rmse-6.6718, penalty-0.189, num_neurons-0.0001, const-1890
+fitness:  6.8608
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1950, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 48/85, eta 0:00:46
+individual trained...evaluation in progress...
+summary:  [1950, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  109.4783046245575
+val_net in rmse:  6.5778
+num_neuron_lst [1950, 120, 0]
+validation rmse-6.5778, penalty-0.20700000000000002, num_neurons-0.0001, const-2070
+fitness:  6.7848
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1020, 620, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 72/85, eta 0:00:10
+individual trained...evaluation in progress...
+summary:  [1020, 'tanh', 620, 'sigm'] 1e-06
+training network is successfully completed, time:  73.98895072937012
+val_net in rmse:  6.722
+num_neuron_lst [1020, 620, 0]
+validation rmse-6.722, penalty-0.164, num_neurons-0.0001, const-1640
+fitness:  6.886
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 24, 1, 6.8276]
+population[i].fitness (6.8276,)
+population[i].fitness.values[0] 6.8276
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 151, 36, 2, 6.8338]
+population[i].fitness (6.8338,)
+population[i].fitness.values[0] 6.8338
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 185, 62, 2, 6.8483]
+population[i].fitness (6.8483,)
+population[i].fitness.values[0] 6.8483
+population[i] [5, 185, 62, 2, 6.8483]
+population[i].fitness (6.8483,)
+population[i].fitness.values[0] 6.8483
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 187, 27, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 136, 24, 1], [5, 151, 36, 2], [5, 151, 36, 2], [5, 136, 4, 2], [5, 151, 5, 2], [5, 159, 65, 1], [5, 136, 12, 2], [5, 195, 12, 2], [5, 159, 65, 1], [5, 136, 12, 2], [5, 185, 62, 2], [5, 185, 62, 2], [5, 159, 65, 1]]
+[6.7854, 6.7854, 6.7856, 6.7856, 6.8194, 6.7856, 6.8194, 6.8276, 6.8338, 6.8338, 6.8194, 6.7795, 6.8347, 6.8406, 6.7848, 6.8347, 6.8406, 6.8483, 6.8483, 6.8347]
+min: 6.7795, max:6.8483, avg:6.816359999999999
+12 	5     	6.81636	0.0245939	6.7795	6.8483
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1960, 270, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 44/85, eta 0:00:56
+individual trained...evaluation in progress...
+summary:  [1960, 'tanh', 270, 'sigm'] 1e-06
+training network is successfully completed, time:  120.4087655544281
+val_net in rmse:  6.5756
+num_neuron_lst [1960, 270, 0]
+validation rmse-6.5756, penalty-0.223, num_neurons-0.0001, const-2230
+fitness:  6.7986
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 350, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 43/85, eta 0:00:58
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 350, 'sigm'] 1e-06
+training network is successfully completed, time:  122.57586407661438
+val_net in rmse:  6.6158
+num_neuron_lst [1870, 350, 0]
+validation rmse-6.6158, penalty-0.222, num_neurons-0.0001, const-2220
+fitness:  6.8378
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 450, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 50/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 450, 'sigm'] 1e-06
+training network is successfully completed, time:  106.69889616966248
+val_net in rmse:  6.6351
+num_neuron_lst [1590, 450, 0]
+validation rmse-6.6351, penalty-0.20400000000000001, num_neurons-0.0001, const-2040
+fitness:  6.8391
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 1660, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 19/85, eta 0:03:36
+processing batch 38/85, eta 0:02:34
+processing batch 57/85, eta 0:01:32
+processing batch 76/85, eta 0:00:29
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 1660, 'sigm'] 1e-06
+training network is successfully completed, time:  282.40996193885803
+val_net in rmse:  6.5719
+num_neuron_lst [1850, 1660, 0]
+validation rmse-6.5719, penalty-0.35100000000000003, num_neurons-0.0001, const-3510
+fitness:  6.9229
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 159, 45, 2, 6.8391]
+population[i].fitness (6.8391,)
+population[i].fitness.values[0] 6.8391
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 185, 62, 2, 6.8483]
+population[i].fitness (6.8483,)
+population[i].fitness.values[0] 6.8483
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population saved
+population [[5, 151, 5, 2], [5, 195, 12, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 187, 24, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 151, 5, 2], [5, 159, 65, 1], [5, 159, 45, 2], [5, 195, 12, 2], [5, 159, 65, 1], [5, 136, 12, 2], [5, 136, 12, 2], [5, 185, 62, 2], [5, 159, 65, 1]]
+[6.7795, 6.7848, 6.7854, 6.7856, 6.8194, 6.7856, 6.7856, 6.8194, 6.8194, 6.8194, 6.8194, 6.7795, 6.8347, 6.8391, 6.7848, 6.8347, 6.8406, 6.8406, 6.8483, 6.8347]
+min: 6.7795, max:6.8483, avg:6.812025
+13 	4     	6.81202	0.0243909	6.7795	6.8483
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [330, 1560, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 55/85, eta 0:00:32
+individual trained...evaluation in progress...
+summary:  [330, 'tanh', 1560, 'sigm'] 1e-06
+training network is successfully completed, time:  96.69638776779175
+val_net in rmse:  6.8521
+num_neuron_lst [330, 1560, 0]
+validation rmse-6.8521, penalty-0.189, num_neurons-0.0001, const-1890
+fitness:  7.0411
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 900, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 35/85, eta 0:01:25
+processing batch 70/85, eta 0:00:25
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 900, 'sigm'] 1e-06
+training network is successfully completed, time:  149.44145846366882
+val_net in rmse:  6.607
+num_neuron_lst [1590, 900, 0]
+validation rmse-6.607, penalty-0.249, num_neurons-0.0001, const-2490
+fitness:  6.856
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 54/85, eta 0:00:34
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  98.24076008796692
+val_net in rmse:  6.6004
+num_neuron_lst [1850, 120, 0]
+validation rmse-6.6004, penalty-0.197, num_neurons-0.0001, const-1970
+fitness:  6.7974
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 159, 45, 2, 6.8391]
+population[i].fitness (6.8391,)
+population[i].fitness.values[0] 6.8391
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 159, 45, 2, 6.8391]
+population[i].fitness (6.8391,)
+population[i].fitness.values[0] 6.8391
+population[i] [5, 136, 12, 2, 6.8406]
+population[i].fitness (6.8406,)
+population[i].fitness.values[0] 6.8406
+population[i] [5, 185, 62, 2, 6.8483]
+population[i].fitness (6.8483,)
+population[i].fitness.values[0] 6.8483
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 187, 24, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 151, 5, 2], [5, 136, 4, 2], [5, 159, 45, 2], [5, 195, 12, 2], [5, 159, 65, 1], [5, 159, 45, 2], [5, 136, 12, 2], [5, 185, 62, 2], [5, 185, 12, 2]]
+[6.7795, 6.7848, 6.7848, 6.7848, 6.7854, 6.7856, 6.7856, 6.7856, 6.8194, 6.8194, 6.8194, 6.7795, 6.8194, 6.8391, 6.7848, 6.8347, 6.8391, 6.8406, 6.8483, 6.7974]
+min: 6.7795, max:6.8483, avg:6.805860000000001
+14 	3     	6.80586	0.024154 	6.7795	6.8483
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 1990, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 15/85, eta 0:04:40
+processing batch 30/85, eta 0:03:40
+processing batch 45/85, eta 0:02:40
+processing batch 60/85, eta 0:01:40
+processing batch 76/85, eta 0:00:36
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 1990, 'sigm'] 1e-06
+training network is successfully completed, time:  344.18873620033264
+val_net in rmse:  6.5794
+num_neuron_lst [1870, 1990, 0]
+validation rmse-6.5794, penalty-0.386, num_neurons-0.0001, const-3860
+fitness:  6.9654
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1050, 40, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1050, 'tanh', 40, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  41.439045906066895
+val_net in rmse:  6.7794
+num_neuron_lst [1050, 40, 20]
+validation rmse-6.7794, penalty-0.111, num_neurons-0.0001, const-1110
+fitness:  6.8904
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [980, 1020, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 50/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [980, 'tanh', 1020, 'sigm'] 1e-06
+training network is successfully completed, time:  105.98380136489868
+val_net in rmse:  6.7444
+num_neuron_lst [980, 1020, 0]
+validation rmse-6.7444, penalty-0.2, num_neurons-0.0001, const-2000
+fitness:  6.9444
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 130, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 54/85, eta 0:00:34
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 130, 'sigm'] 1e-06
+training network is successfully completed, time:  97.2971670627594
+val_net in rmse:  6.6055
+num_neuron_lst [1850, 130, 0]
+validation rmse-6.6055, penalty-0.198, num_neurons-0.0001, const-1980
+fitness:  6.8035
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 159, 65, 1, 6.8347]
+population[i].fitness (6.8347,)
+population[i].fitness.values[0] 6.8347
+population[i] [5, 159, 45, 2, 6.8391]
+population[i].fitness (6.8391,)
+population[i].fitness.values[0] 6.8391
+population[i] [5, 159, 45, 2, 6.8391]
+population[i].fitness (6.8391,)
+population[i].fitness.values[0] 6.8391
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 187, 24, 2], [5, 136, 4, 2], [5, 151, 5, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 195, 12, 2], [5, 159, 65, 1], [5, 159, 45, 2], [5, 159, 45, 2], [5, 185, 13, 2], [5, 185, 12, 2]]
+[6.7795, 6.7795, 6.7848, 6.7848, 6.7848, 6.7848, 6.7854, 6.7856, 6.8194, 6.7856, 6.8194, 6.7795, 6.8194, 6.8194, 6.7848, 6.8347, 6.8391, 6.8391, 6.8035, 6.7974]
+min: 6.7795, max:6.8391, avg:6.800525
+15 	4     	6.80053	0.0210053	6.7795	6.8391
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1500, 50, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 77/85, eta 0:00:06
+individual trained...evaluation in progress...
+summary:  [1500, 'tanh', 50, 'sigm'] 1e-06
+training network is successfully completed, time:  68.74835419654846
+val_net in rmse:  6.6631
+num_neuron_lst [1500, 50, 0]
+validation rmse-6.6631, penalty-0.155, num_neurons-0.0001, const-1550
+fitness:  6.8181
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1060, 1870, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 52/85, eta 0:01:16
+processing batch 78/85, eta 0:00:16
+individual trained...evaluation in progress...
+summary:  [1060, 'tanh', 1870, 'sigm'] 1e-06
+training network is successfully completed, time:  200.33554553985596
+val_net in rmse:  6.7031
+num_neuron_lst [1060, 1870, 0]
+validation rmse-6.7031, penalty-0.29300000000000004, num_neurons-0.0001, const-2930
+fitness:  6.9961
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1110, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1110, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  51.00559115409851
+val_net in rmse:  6.7656
+num_neuron_lst [1110, 120, 0]
+validation rmse-6.7656, penalty-0.12300000000000001, num_neurons-0.0001, const-1230
+fitness:  6.8886
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1950, 400, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 39/85, eta 0:01:11
+processing batch 78/85, eta 0:00:10
+individual trained...evaluation in progress...
+summary:  [1950, 'tanh', 400, 'sigm'] 1e-06
+training network is successfully completed, time:  134.98850083351135
+val_net in rmse:  6.5942
+num_neuron_lst [1950, 400, 0]
+validation rmse-6.5942, penalty-0.23500000000000001, num_neurons-0.0001, const-2350
+fitness:  6.8292
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 410, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 42/85, eta 0:01:02
+processing batch 84/85, eta 0:00:01
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 410, 'sigm'] 1e-06
+training network is successfully completed, time:  126.08416962623596
+val_net in rmse:  6.5815
+num_neuron_lst [1870, 410, 0]
+validation rmse-6.5815, penalty-0.228, num_neurons-0.0001, const-2280
+fitness:  6.8095
+######################################################################################
+l2_params:  1e-06
+lin_check:  1
+num_neuron_lst:  [1360, 40, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 40, 'sigm', 20, 'lin'] 1e-06
+training network is successfully completed, time:  62.135618448257446
+val_net in rmse:  6.6873
+num_neuron_lst [1360, 40, 20]
+validation rmse-6.6873, penalty-0.14200000000000002, num_neurons-0.0001, const-1420
+fitness:  6.8293
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 187, 41, 2, 6.8095]
+population[i].fitness (6.8095,)
+population[i].fitness.values[0] 6.8095
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 1, 6.8293]
+population[i].fitness (6.8293,)
+population[i].fitness.values[0] 6.8293
+population[i] [5, 159, 45, 2, 6.8391]
+population[i].fitness (6.8391,)
+population[i].fitness.values[0] 6.8391
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 187, 24, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 187, 41, 2], [5, 151, 5, 2], [5, 185, 13, 2], [5, 136, 4, 2], [5, 195, 12, 2], [5, 136, 4, 2], [5, 136, 4, 1], [5, 159, 45, 2], [5, 185, 13, 2], [5, 185, 12, 2]]
+[6.7795, 6.7795, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7856, 6.7854, 6.7856, 6.8095, 6.7795, 6.8035, 6.8194, 6.7848, 6.8194, 6.8293, 6.8391, 6.8035, 6.7974]
+min: 6.7795, max:6.8391, avg:6.796250000000001
+16 	6     	6.79625	0.017685 	6.7795	6.8391
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1510, 1310, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 53/85, eta 0:01:13
+processing batch 79/85, eta 0:00:13
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 1310, 'sigm'] 1e-06
+training network is successfully completed, time:  198.97214150428772
+val_net in rmse:  6.623
+num_neuron_lst [1510, 1310, 0]
+validation rmse-6.623, penalty-0.28200000000000003, num_neurons-0.0001, const-2820
+fitness:  6.905
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1950, 350, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 42/85, eta 0:01:02
+processing batch 83/85, eta 0:00:02
+individual trained...evaluation in progress...
+summary:  [1950, 'tanh', 350, 'sigm'] 1e-06
+training network is successfully completed, time:  126.45332264900208
+val_net in rmse:  6.5799
+num_neuron_lst [1950, 350, 0]
+validation rmse-6.5799, penalty-0.23, num_neurons-0.0001, const-2300
+fitness:  6.8099
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [970, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [970, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  40.30649471282959
+val_net in rmse:  6.7966
+num_neuron_lst [970, 120, 0]
+validation rmse-6.7966, penalty-0.109, num_neurons-0.0001, const-1090
+fitness:  6.9056
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1590, 1300, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 52/85, eta 0:01:16
+processing batch 79/85, eta 0:00:13
+individual trained...evaluation in progress...
+summary:  [1590, 'tanh', 1300, 'sigm'] 1e-06
+training network is successfully completed, time:  198.46105241775513
+val_net in rmse:  6.6078
+num_neuron_lst [1590, 1300, 0]
+validation rmse-6.6078, penalty-0.28900000000000003, num_neurons-0.0001, const-2890
+fitness:  6.8968
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 930, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 28/85, eta 0:02:04
+processing batch 56/85, eta 0:01:03
+processing batch 84/85, eta 0:00:02
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 930, 'sigm'] 1e-06
+training network is successfully completed, time:  188.27944779396057
+val_net in rmse:  6.603
+num_neuron_lst [1850, 930, 0]
+validation rmse-6.603, penalty-0.278, num_neurons-0.0001, const-2780
+fitness:  6.881
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 1440, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 21/85, eta 0:03:05
+processing batch 42/85, eta 0:02:04
+processing batch 63/85, eta 0:01:03
+processing batch 84/85, eta 0:00:02
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 1440, 'sigm'] 1e-06
+training network is successfully completed, time:  250.2011034488678
+val_net in rmse:  6.573
+num_neuron_lst [1850, 1440, 0]
+validation rmse-6.573, penalty-0.329, num_neurons-0.0001, const-3290
+fitness:  6.902
+######################################################################################
+l2_params:  0.001
+lin_check:  1
+num_neuron_lst:  [1280, 40, 20]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1280, 'tanh', 40, 'sigm', 20, 'lin'] 0.001
+training network is successfully completed, time:  51.76702117919922
+val_net in rmse:  7.5594
+num_neuron_lst [1280, 40, 20]
+validation rmse-7.5594, penalty-0.134, num_neurons-0.0001, const-1340
+fitness:  7.6934
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 24, 2, 6.7856]
+population[i].fitness (6.7856,)
+population[i].fitness.values[0] 6.7856
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 187, 24, 2], [5, 195, 12, 2], [5, 187, 27, 2], [5, 187, 24, 2], [5, 151, 5, 2], [5, 185, 13, 2], [5, 136, 4, 2], [5, 195, 12, 2], [5, 185, 13, 2], [5, 136, 4, 2], [5, 136, 4, 2], [5, 185, 13, 2], [5, 185, 12, 2]]
+[6.7795, 6.7795, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7856, 6.7848, 6.7854, 6.7856, 6.7795, 6.8035, 6.8194, 6.7848, 6.8035, 6.8194, 6.8194, 6.8035, 6.7974]
+min: 6.7795, max:6.8194, avg:6.79274
+17 	7     	6.79274	0.0134617	6.7795	6.8194
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [630, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [630, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  20.274207592010498
+val_net in rmse:  6.9894
+num_neuron_lst [630, 120, 0]
+validation rmse-6.9894, penalty-0.075, num_neurons-0.0001, const-750
+fitness:  7.0644
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1870, 820, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 30/85, eta 0:01:52
+processing batch 60/85, eta 0:00:51
+individual trained...evaluation in progress...
+summary:  [1870, 'tanh', 820, 'sigm'] 1e-06
+training network is successfully completed, time:  177.47627472877502
+val_net in rmse:  6.5944
+num_neuron_lst [1870, 820, 0]
+validation rmse-6.5944, penalty-0.269, num_neurons-0.0001, const-2690
+fitness:  6.8634
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [240, 1860, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 48/85, eta 0:00:46
+individual trained...evaluation in progress...
+summary:  [240, 'tanh', 1860, 'sigm'] 1e-06
+training network is successfully completed, time:  109.47343301773071
+val_net in rmse:  6.8638
+num_neuron_lst [240, 1860, 0]
+validation rmse-6.8638, penalty-0.21000000000000002, num_neurons-0.0001, const-2100
+fitness:  7.0738
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 460, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 60/85, eta 0:00:25
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 460, 'sigm'] 1e-06
+training network is successfully completed, time:  87.78686928749084
+val_net in rmse:  6.6403
+num_neuron_lst [1360, 460, 0]
+validation rmse-6.6403, penalty-0.182, num_neurons-0.0001, const-1820
+fitness:  6.8223
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1360, 540, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 55/85, eta 0:00:32
+individual trained...evaluation in progress...
+summary:  [1360, 'tanh', 540, 'sigm'] 1e-06
+training network is successfully completed, time:  95.14469695091248
+val_net in rmse:  6.6586
+num_neuron_lst [1360, 540, 0]
+validation rmse-6.6586, penalty-0.19, num_neurons-0.0001, const-1900
+fitness:  6.8486
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 136, 4, 2, 6.8194]
+population[i].fitness (6.8194,)
+population[i].fitness.values[0] 6.8194
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 151, 5, 2], [5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 187, 27, 2], [5, 151, 5, 2], [5, 185, 13, 2], [5, 185, 12, 2], [5, 195, 12, 2], [5, 185, 13, 2], [5, 185, 12, 2], [5, 136, 4, 2], [5, 185, 13, 2], [5, 185, 12, 2]]
+[6.7795, 6.7795, 6.7795, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7854, 6.7795, 6.8035, 6.7974, 6.7848, 6.8035, 6.7974, 6.8194, 6.8035, 6.7974]
+min: 6.7795, max:6.8194, avg:6.790194999999999
+18 	5     	6.79019	0.0106139	6.7795	6.8194
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [280, 50, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [280, 'tanh', 50, 'sigm'] 1e-06
+training network is successfully completed, time:  7.761627912521362
+val_net in rmse:  7.8993
+num_neuron_lst [280, 50, 0]
+validation rmse-7.8993, penalty-0.033, num_neurons-0.0001, const-330
+fitness:  7.9323
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [640, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [640, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  20.093527793884277
+val_net in rmse:  6.9438
+num_neuron_lst [640, 120, 0]
+validation rmse-6.9438, penalty-0.076, num_neurons-0.0001, const-760
+fitness:  7.0198
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1950, 730, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 32/85, eta 0:01:42
+processing batch 63/85, eta 0:00:42
+individual trained...evaluation in progress...
+summary:  [1950, 'tanh', 730, 'sigm'] 1e-06
+training network is successfully completed, time:  167.34614276885986
+val_net in rmse:  6.5793
+num_neuron_lst [1950, 730, 0]
+validation rmse-6.5793, penalty-0.268, num_neurons-0.0001, const-2680
+fitness:  6.8473
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1340, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [1340, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  62.589197874069214
+val_net in rmse:  6.6999
+num_neuron_lst [1340, 120, 0]
+validation rmse-6.6999, penalty-0.14600000000000002, num_neurons-0.0001, const-1460
+fitness:  6.8459
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1600, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 66/85, eta 0:00:17
+individual trained...evaluation in progress...
+summary:  [1600, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  80.44480276107788
+val_net in rmse:  6.6378
+num_neuron_lst [1600, 120, 0]
+validation rmse-6.6378, penalty-0.17200000000000001, num_neurons-0.0001, const-1720
+fitness:  6.8098
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1850, 1010, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 52/85, eta 0:01:16
+processing batch 79/85, eta 0:00:13
+individual trained...evaluation in progress...
+summary:  [1850, 'tanh', 1010, 'sigm'] 1e-06
+training network is successfully completed, time:  199.85135507583618
+val_net in rmse:  6.6082
+num_neuron_lst [1850, 1010, 0]
+validation rmse-6.6082, penalty-0.28600000000000003, num_neurons-0.0001, const-2860
+fitness:  6.8942
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 151, 5, 2], [5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 187, 27, 2], [5, 151, 5, 2], [5, 187, 27, 2], [5, 185, 12, 2], [5, 195, 12, 2], [5, 185, 12, 2], [5, 185, 12, 2], [5, 185, 13, 2], [5, 185, 13, 2], [5, 185, 12, 2]]
+[6.7795, 6.7795, 6.7795, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7854, 6.7795, 6.7854, 6.7974, 6.7848, 6.7974, 6.7974, 6.8035, 6.8035, 6.7974]
+min: 6.7795, max:6.8035, avg:6.788189999999998
+19 	6     	6.78819	0.00780275	6.7795	6.8035
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1730, 50, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 63/85, eta 0:00:21
+individual trained...evaluation in progress...
+summary:  [1730, 'tanh', 50, 'sigm'] 1e-06
+training network is successfully completed, time:  84.67127966880798
+val_net in rmse:  6.635
+num_neuron_lst [1730, 50, 0]
+validation rmse-6.635, penalty-0.17800000000000002, num_neurons-0.0001, const-1780
+fitness:  6.813
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1950, 960, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 26/85, eta 0:02:16
+processing batch 52/85, eta 0:01:16
+processing batch 78/85, eta 0:00:16
+individual trained...evaluation in progress...
+summary:  [1950, 'tanh', 960, 'sigm'] 1e-06
+training network is successfully completed, time:  199.72102308273315
+val_net in rmse:  6.5758
+num_neuron_lst [1950, 960, 0]
+validation rmse-6.5758, penalty-0.29100000000000004, num_neurons-0.0001, const-2910
+fitness:  6.8668
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [400, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+individual trained...evaluation in progress...
+summary:  [400, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  14.69212794303894
+val_net in rmse:  7.2651
+num_neuron_lst [400, 120, 0]
+validation rmse-7.2651, penalty-0.052000000000000005, num_neurons-0.0001, const-520
+fitness:  7.3171
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1550, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 66/85, eta 0:00:17
+individual trained...evaluation in progress...
+summary:  [1550, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  80.10016918182373
+val_net in rmse:  6.6387
+num_neuron_lst [1550, 120, 0]
+validation rmse-6.6387, penalty-0.167, num_neurons-0.0001, const-1670
+fitness:  6.8057
+######################################################################################
+l2_params:  1e-06
+lin_check:  2
+num_neuron_lst:  [1320, 120, 0]
+type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+Initializing network...
+processing batch 83/85, eta 0:00:01
+individual trained...evaluation in progress...
+summary:  [1320, 'tanh', 120, 'sigm'] 1e-06
+training network is successfully completed, time:  64.24400234222412
+val_net in rmse:  6.7352
+num_neuron_lst [1320, 120, 0]
+validation rmse-6.7352, penalty-0.14400000000000002, num_neurons-0.0001, const-1440
+fitness:  6.8792
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 151, 5, 2, 6.7795]
+population[i].fitness (6.7795,)
+population[i].fitness.values[0] 6.7795
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 187, 27, 2, 6.7854]
+population[i].fitness (6.7854,)
+population[i].fitness.values[0] 6.7854
+population[i] [5, 195, 12, 2, 6.7848]
+population[i].fitness (6.7848,)
+population[i].fitness.values[0] 6.7848
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 13, 2, 6.8035]
+population[i].fitness (6.8035,)
+population[i].fitness.values[0] 6.8035
+population[i] [5, 185, 12, 2, 6.7974]
+population[i].fitness (6.7974,)
+population[i].fitness.values[0] 6.7974
+population saved
+population [[5, 151, 5, 2], [5, 151, 5, 2], [5, 151, 5, 2], [5, 151, 5, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 195, 12, 2], [5, 151, 5, 2], [5, 187, 27, 2], [5, 187, 27, 2], [5, 195, 12, 2], [5, 185, 12, 2], [5, 185, 12, 2], [5, 185, 13, 2], [5, 185, 13, 2], [5, 185, 12, 2]]
+[6.7795, 6.7795, 6.7795, 6.7795, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7848, 6.7795, 6.7854, 6.7854, 6.7848, 6.7974, 6.7974, 6.8035, 6.8035, 6.7974]
+min: 6.7795, max:6.8035, avg:6.7872949999999985
+20 	5     	6.7873 	0.00772117	6.7795	6.8035
+pickle dump
+log saved
+Best individual:
+[5, 151, 5, 2]
+Best individual is saved
+EA time:  19424.768320560455
+####################  EA COMPLETE / HOF TEST   ##############################
+HoF l2_params:  1e-06
+HoF lin_check:  2
+HoF num_neuron_lst:  [1510, 50, 0]
+HoF type_neuron_lst:  ['tanh', 'sigm', 'lin']
+Using CUDA GPU acceleration with Scikit-CUDA
+sample_array.shape (5263446, 20)
+label_array.shape (5263446,)
+processing batch 77/106, eta 0:00:22
+individual trained...evaluation in progress...
+summary:  [1510, 'tanh', 50, 'sigm'] 1e-06
+test idx:  11.0
+sample_array.shape (663495, 1, 20)
+label_array.shape (663495,)
+sub sample_array.shape (663495, 1, 20)
+sub label_array.shape (663495,)
+sample_array_reshape.shape (663495, 20)
+label_array_reshape.shape (663495,)
+test idx:  14.0
+sample_array.shape (156778, 1, 20)
+label_array.shape (156778,)
+sub sample_array.shape (156778, 1, 20)
+sub label_array.shape (156778,)
+sample_array_reshape.shape (156778, 20)
+label_array_reshape.shape (156778,)
+test idx:  15.0
+sample_array.shape (433470, 1, 20)
+label_array.shape (433470,)
+sub sample_array.shape (433470, 1, 20)
+sub label_array.shape (433470,)
+sample_array_reshape.shape (433470, 20)
+label_array_reshape.shape (433470,)
+(663495, 1)
+(663495,)
+(1253743, 1)
+(1253743,)
+(1253743,)
+(1253743,)
+(1253743,)
+(1253743,)
+score:  5.728656807441402e+33
+7.19774072757126
+[[62.39008129]
+ [63.02783257]
+ [62.41060083]
+ ...
+ [-1.6479873 ]
+ [-1.88981138]
+ [-1.58268315]]
+[58. 58. 58. ...  0.  0.  0.]
+[[ 60.317575  ]
+ [ 60.4592061 ]
+ [ 60.06103684]
+ ...
+ [-15.51521189]
+ [  0.70064124]
+ [ -5.54419522]]
+[75. 75. 75. ...  0.  0.  0.]
+[[59.6227494 ]
+ [59.50515059]
+ [60.10552733]
+ ...
+ [ 7.9895732 ]
+ [ 8.29146395]
+ [ 8.2309155 ]]
+[66. 66. 66. ...  0.  0.  0.]
+BEST model training time:  83.03255248069763
+HOF phenotype:  [1e-06, 1510, 50, 2]
+ test RMSE:  7.2
+ test Score:  5.728656807441402e+33
+
