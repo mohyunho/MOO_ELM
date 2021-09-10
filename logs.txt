@@ -652,7 +652,10 @@ python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 --pop 1 --gen 1
 
 python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 --pop 3 --gen 3 -bs 50000
 
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 2 --gen 2 -bs 50000
 
 python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 30 --gen 30 -bs 50000
+
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 20 --gen 20 -bs 50000
 
 
