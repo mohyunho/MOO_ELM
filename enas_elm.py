@@ -286,7 +286,7 @@ def main():
     def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
         for i in range(len(population)):
             indiv = population[i]
-            lin_check = indiv.params_4.values[0]
+            lin_check = indiv[3]
             if  indiv == []:
                 "non_mutated empty"
                 pass
@@ -304,7 +304,7 @@ def main():
                     lin_nrn = 0
 
 
-                num_nrn = indiv.params_2.values[0]*10 + indiv.params_3.values[0]*10 + lin_nrn
+                num_nrn = indiv[1]*10 + indiv[2]*10 + lin_nrn
                 penalty = num_nrn * cs
                 val_rmse = indiv.fitness.values[0] - penalty
 
