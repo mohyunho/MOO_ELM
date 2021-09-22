@@ -120,7 +120,7 @@ class network_fit(object):
 
         rms = sqrt(mean_squared_error(pred_test, val_label_array))
         # print(rms)
-        rms = round(rms, 4)
+        rms = round(rms, 8)
         val_net = (rms,)
         end_itr = time.time()
         print("training network is successfully completed, time: ", end_itr - start_itr)

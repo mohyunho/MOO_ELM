@@ -34,7 +34,7 @@ class SimpleNeuroEvolutionTask(Task):
     TODO: Consider hyperparameters of ELM instead of the number of neurons in hidden layers of MLPs.
     Class for EA Task
     '''
-    def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array, constant, batch, model_path, device):
+    def __init__(self, train_sample_array, train_label_array, val_sample_array, val_label_array, constant, batch, model_path, device, obj):
         self.train_sample_array = train_sample_array
         self.train_label_array = train_label_array
         self.val_sample_array = val_sample_array
@@ -43,6 +43,7 @@ class SimpleNeuroEvolutionTask(Task):
         self.batch = batch
         self.model_path = model_path
         self.device = device
+        self.obj = obj
 
     def get_n_parameters(self):
         return 4
@@ -98,13 +99,19 @@ class SimpleNeuroEvolutionTask(Task):
         print ("num_neuron_lst", num_neuron_lst)
         penalty = self.constant * sum(num_neuron_lst)
 
-        fitness = val_value + penalty
-        fitness = round(fitness, 4)
+        val_penalty = val_value + penalty
+        val_penalty = round(val_penalty, 8)
 
         print ("validation rmse-%s, penalty-%s, num_neurons-%s, const-%s" %(str(val_value), str(penalty),
                                                                             str(self.constant), str(sum(num_neuron_lst))))
-        print ("fitness: ", fitness)
-        fitness = (fitness,)
+
+
+        if self.obj == "soo":
+            fitness = (val_penalty,)
+        elif self.obj == "moo":
+            fitness = (val_value, sum(num_neuron_lst))
+
+        print("fitness: ", fitness)
 
         elm_class = None
         elm_net  = None

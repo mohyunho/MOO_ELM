@@ -34,7 +34,7 @@ from utils.elm_network import network_fit
 
 from utils.hpelm import ELM, HPELM
 from utils.elm_task import SimpleNeuroEvolutionTask
-from utils.ea import GeneticAlgorithm
+from utils.ea_multi import GeneticAlgorithm
 
 
 # random seed predictable
@@ -171,6 +171,7 @@ def main():
     parser.add_argument('--pop', type=int, default=50, required=False, help='population size of EA')
     parser.add_argument('--gen', type=int, default=50, required=False, help='generations of evolution')
     parser.add_argument('--device', type=str, default="GPU", help='Use "basic" if GPU with cuda is not available')
+    parser.add_argument('--obj', type=str, default="moo", help='Use "soo" for single objective and "moo" for multiobjective')
 
     args = parser.parse_args()
 
@@ -186,6 +187,7 @@ def main():
     sub = args.sub
 
     device = args.device
+    obj = args.obj
 
 
 
@@ -251,7 +253,7 @@ def main():
     mut_prob = 0.5  # 0.7
     cx_op = "one_point"
     mut_op = "uniform"
-    sel_op = "best"
+    sel_op = "nsga2"
     other_args = {
         'mut_gene_probability': 0.3  # 0.1
     }
@@ -327,7 +329,8 @@ def main():
         constant = cs,
         batch=bs,
         model_path = model_temp_path,
-        device = device
+        device = device,
+        obj = obj
     )
 
     # aic = task.evaluate(individual_seed)
