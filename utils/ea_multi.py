@@ -199,8 +199,8 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
                 individual_map[str(ind)] = fit
 
 
-            # Replace the current population by the offspring
-            population = toolbox.select(offspring + population, len(population))
+            # Merge population and offspring (nsga2)
+            population = toolbox.select(population + offspring, len(population))
 
             # Update the hall of fame with the generated individuals
             if halloffame is not None:
@@ -208,6 +208,8 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
             if paretofront is not None:
                 paretofront.update(population)
+
+            print ("paretofront for each gen: ", paretofront)
 
             population_temp = copy.deepcopy(population)
             log_function(population_temp, gen, cs)
@@ -234,8 +236,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if verbose:
                 print(logbook.stream)
 
-    else:
-
+    else: # single objective condition statement
         # Begin the generational process
         for gen in range(1, ngen + 1):
             # Select the next generation individuals
@@ -298,10 +299,6 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             logbook.record(gen=gen, nevals=len(invalid_ind), **record)
             if verbose:
                 print(logbook.stream)
-
-
-
-
 
 
     print ("pickle dump")
@@ -518,9 +515,9 @@ class GeneticAlgorithm:
             sel_op = self.selection_operator,
             stats=stats,
             halloffame=hof,
-            paretofront = prtf,
+            paretofront=prtf,
             verbose=True,
             log_function=self.log_function
         )
 
-        return pop, log, hof
+        return pop, log, hof, prtf

@@ -350,10 +350,11 @@ def main():
         **other_args
     )
 
-    pop, log, hof = ga.run()
+    pop, log, hof, prtf = ga.run()
 
     print("Best individual:")
     print(hof[0])
+    print(prtf)
 
     # Save to the txt file
     # hof_filepath = tmp_path + "hof/best_params_fn-%s_ps-%s_ng-%s.txt" % (csv_filename, pop_size, n_generations)
