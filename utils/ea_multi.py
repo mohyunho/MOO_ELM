@@ -10,6 +10,7 @@ import numpy as np
 from utils.elm_task import Task
 from functools import partial
 from deap import base, algorithms, creator, tools
+from deap.benchmarks.tools import diversity, convergence, hypervolume
 import pickle
 import os
 import pandas as pd
@@ -177,7 +178,16 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
         for gen in range(1, ngen + 1):
 
             # Vary the pool of individuals
-            offspring, unmodified = varAnd(population, toolbox, cxpb, mutpb)
+            offspring = tools.selTournamentDCD(population, len(population))
+            offspring = [toolbox.clone(ind) for ind in offspring]
+
+            for ind1, ind2 in zip(offspring[::2], offspring[1::2]):
+                if random.random() <= cxpb:
+                    toolbox.mate(ind1, ind2)
+
+                toolbox.mutate(ind1)
+                toolbox.mutate(ind2)
+                del ind1.fitness.values, ind2.fitness.values
 
             # Evaluate the individuals with an invalid fitness (among offspring)
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
@@ -235,6 +245,8 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             logbook.record(gen=gen, nevals=len(invalid_ind), **record)
             if verbose:
                 print(logbook.stream)
+
+        print("Final population hypervolume is %f" % hypervolume(population, [11.0, 11.0]))
 
     else: # single objective condition statement
         # Begin the generational process
@@ -299,6 +311,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             logbook.record(gen=gen, nevals=len(invalid_ind), **record)
             if verbose:
                 print(logbook.stream)
+
 
 
     print ("pickle dump")
