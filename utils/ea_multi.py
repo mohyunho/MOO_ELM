@@ -329,7 +329,7 @@ class GeneticAlgorithm:
     def _define_supported_operators(self):
         self.supported_mutations = {"uniform": "mut_gene_probability", "shuffle": "mut_gene_probability"}
         self.supported_crossovers = {"one_point": None, "two_points": None, "uniform": "cx_gene_probability"}
-        self.supported_selections = {"best": None, "tournament": "sel_tournament_size"}
+        self.supported_selections = {"best": None, "nsga2": None, "tournament": "sel_tournament_size"}
 
     def _get_mutation_operator(self):
         mutate = None
