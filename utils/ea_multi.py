@@ -88,8 +88,8 @@ def varAnd(population, toolbox, cxpb, mutpb):
     return offspring, unmodified
 
 
-def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, stats=None,
-             halloffame=None, verbose=__debug__, log_function=None):
+def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
+             halloffame=None, paretofront = None, verbose=__debug__, log_function=None):
     """This algorithm reproduce the simplest evolutionary algorithm as
     presented in chapter 7 of [Back2000]_.
 
@@ -151,7 +151,6 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, stats=None,
     logbook = tools.Logbook()
     logbook.header = ['gen', 'nevals'] + (stats.fields if stats else [])
 
-
     individual_map = {}
 
     # Evaluate the individuals with an invalid fitness
@@ -164,80 +163,146 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, stats=None,
     if halloffame is not None:
         halloffame.update(population)
 
+    if paretofront is not None:
+        paretofront.update(population)
+
     record = stats.compile(population) if stats else {}
     logbook.record(gen=0, nevals=len(invalid_ind), **record)
     if verbose:
         print(logbook.stream)
 
-    # Begin the generational process
-    for gen in range(1, ngen + 1):
-        # Select the next generation individuals
-        offspring = toolbox.select(population, len(population))
 
-        # Vary the pool of individuals
-        offspring, unmodified = varAnd(offspring, toolbox, cxpb, mutpb)
+    if sel_op == "nsga2":
+        # Begin the generational process
+        for gen in range(1, ngen + 1):
 
-        # Evaluate the individuals with an invalid fitness
-        invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
+            # Vary the pool of individuals
+            offspring, unmodified = varAnd(population, toolbox, cxpb, mutpb)
 
-        to_evaluate = []
-        redundant = []
-        for ind in invalid_ind:
-            key = str(ind)
-            if key in individual_map:
-                ind.fitness.values = individual_map[key]
-                redundant.append(ind)
-            else:
-                to_evaluate.append(ind)
-        invalid_ind = to_evaluate
+            # Evaluate the individuals with an invalid fitness (among offspring)
+            invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
 
-        fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
-        for ind, fit in zip(invalid_ind, fitnesses):
-            ind.fitness.values = fit
-            individual_map[str(ind)] = fit
+            to_evaluate = []
+            redundant = []
+            for ind in invalid_ind:
+                key = str(ind)
+                if key in individual_map:
+                    ind.fitness.values = individual_map[key]
+                    redundant.append(ind)
+                else:
+                    to_evaluate.append(ind)
+            invalid_ind = to_evaluate
 
-        # Update the hall of fame with the generated individuals
-        if halloffame is not None:
-            halloffame.update(offspring)
-
-        # Replace the current population by the offspring
-        for o in offspring:
-            argmin = np.argmin(map(lambda x: population[x].fitness.values[0], o.parents))
-
-            if o.fitness.values[0] < population[o.parents[argmin]].fitness.values[0]:
-                population[o.parents[argmin]] = o
+            fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+            for ind, fit in zip(invalid_ind, fitnesses):
+                ind.fitness.values = fit
+                individual_map[str(ind)] = fit
 
 
-        population_temp = copy.deepcopy(population)
-        log_function(population_temp, gen, cs)
-        # not_mutated = [population_temp[u] for u in unmodified]
-        # if len(unmodified) > 0 and log_function is not None:
-        #     # print ([population_temp[u] for u in unmodified])
-        #     log_function(not_mutated, gen)
+            # Replace the current population by the offspring
+            population = toolbox.select(offspring + population, len(population))
 
-        # Append the current generation statistics to the logbook
-        record = stats.compile(population) if stats else {}
+            # Update the hall of fame with the generated individuals
+            if halloffame is not None:
+                halloffame.update(population)
 
-        temp_list = []
-        print ("population", population)
-        for i in range(len(population)):
-            # print("population.fitness.values", population[i].fitness.values)
-            temp_list.append(population[i].fitness.values[0])
-        print (temp_list)
-        max_value = max(temp_list)
-        min_value = min(temp_list)
-        avg_value = 0 if len(temp_list) == 0 else sum(temp_list) / len(temp_list)
-        print ("min: %s, max:%s, avg:%s"  %(min_value, max_value, avg_value))
+            if paretofront is not None:
+                paretofront.update(population)
+
+            population_temp = copy.deepcopy(population)
+            log_function(population_temp, gen, cs)
+            # not_mutated = [population_temp[u] for u in unmodified]
+            # if len(unmodified) > 0 and log_function is not None:
+            #     # print ([population_temp[u] for u in unmodified])
+            #     log_function(not_mutated, gen)
+
+            # Append the current generation statistics to the logbook
+            record = stats.compile(population) if stats else {}
+
+            temp_list = []
+            print ("population", population)
+            for i in range(len(population)):
+                # print("population.fitness.values", population[i].fitness.values)
+                temp_list.append(population[i].fitness.values[0])
+            print (temp_list)
+            max_value = max(temp_list)
+            min_value = min(temp_list)
+            avg_value = 0 if len(temp_list) == 0 else sum(temp_list) / len(temp_list)
+            print ("min: %s, max:%s, avg:%s"  %(min_value, max_value, avg_value))
+
+            logbook.record(gen=gen, nevals=len(invalid_ind), **record)
+            if verbose:
+                print(logbook.stream)
+
+    else:
+
+        # Begin the generational process
+        for gen in range(1, ngen + 1):
+            # Select the next generation individuals
+            offspring = toolbox.select(population, len(population))
+
+            # Vary the pool of individuals
+            offspring, unmodified = varAnd(offspring, toolbox, cxpb, mutpb)
+
+            # Evaluate the individuals with an invalid fitness
+            invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
+
+            to_evaluate = []
+            redundant = []
+            for ind in invalid_ind:
+                key = str(ind)
+                if key in individual_map:
+                    ind.fitness.values = individual_map[key]
+                    redundant.append(ind)
+                else:
+                    to_evaluate.append(ind)
+            invalid_ind = to_evaluate
+
+            fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+            for ind, fit in zip(invalid_ind, fitnesses):
+                ind.fitness.values = fit
+                individual_map[str(ind)] = fit
+
+            # Update the hall of fame with the generated individuals
+            if halloffame is not None:
+                halloffame.update(offspring)
+
+            # Replace the current population by the offspring
+            for o in offspring:
+                argmin = np.argmin(map(lambda x: population[x].fitness.values[0], o.parents))
+
+                if o.fitness.values[0] < population[o.parents[argmin]].fitness.values[0]:
+                    population[o.parents[argmin]] = o
+
+            population_temp = copy.deepcopy(population)
+            log_function(population_temp, gen, cs)
+            # not_mutated = [population_temp[u] for u in unmodified]
+            # if len(unmodified) > 0 and log_function is not None:
+            #     # print ([population_temp[u] for u in unmodified])
+            #     log_function(not_mutated, gen)
+
+            # Append the current generation statistics to the logbook
+            record = stats.compile(population) if stats else {}
+
+            temp_list = []
+            print("population", population)
+            for i in range(len(population)):
+                # print("population.fitness.values", population[i].fitness.values)
+                temp_list.append(population[i].fitness.values[0])
+            print(temp_list)
+            max_value = max(temp_list)
+            min_value = min(temp_list)
+            avg_value = 0 if len(temp_list) == 0 else sum(temp_list) / len(temp_list)
+            print("min: %s, max:%s, avg:%s" % (min_value, max_value, avg_value))
+
+            logbook.record(gen=gen, nevals=len(invalid_ind), **record)
+            if verbose:
+                print(logbook.stream)
 
 
 
-        logbook.record(gen=gen, nevals=len(invalid_ind), **record)
-        if verbose:
-            print(logbook.stream)
 
 
-    # with open("EA_log/logbook.pkl", "w") as lb_file:
-    #     pickle.dump(logbook, lb_file)
 
     print ("pickle dump")
     pickle.dump(logbook, open("EA_log/logbook.pkl", "wb"))
@@ -434,11 +499,13 @@ class GeneticAlgorithm:
                         break
 
         hof = tools.HallOfFame(1)
-        stats = tools.Statistics(lambda ind: ind.fitness.values)
-        stats.register("avg", np.mean)
-        stats.register("std", np.std)
-        stats.register("min", np.min)
-        stats.register("max", np.max)
+        prtf = tools.ParetoFront()
+
+        stats = tools.Statistics(key=lambda ind: ind.fitness.values)
+        stats.register("avg", np.mean, axis=0)
+        stats.register("std", np.std, axis=0)
+        stats.register("min", np.min, axis=0)
+        stats.register("max", np.max, axis=0)
 
 
         pop, log = eaSimple(
@@ -448,8 +515,10 @@ class GeneticAlgorithm:
             mutpb=self.mut_probability,
             ngen=self.n_generations,
             cs=self.cs,
+            sel_op = self.selection_operator,
             stats=stats,
             halloffame=hof,
+            paretofront = prtf,
             verbose=True,
             log_function=self.log_function
         )
