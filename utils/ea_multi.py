@@ -454,11 +454,11 @@ class GeneticAlgorithm:
         This method sets up the required components of the DEAP library
         """
         if self.selection_operator == "best":
-            creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-            creator.create("IndiviIndividual", list, fitness=creator.FitnessMax)
+            creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+            creator.create("Individual", list, fitness=creator.FitnessMin)
         elif self.selection_operator == "nsga2":
-            creator.create("FitnessMulti", base.Fitness, weights=(-1.0, -1.0))
-            creator.create("Individual", list, fitness=creator.FitnessMulti)
+            creator.create("FitnessMin", base.Fitness, weights=(-1.0, -1.0))
+            creator.create("Individual", list, fitness=creator.FitnessMin)
 
         self.creator = creator
 
