@@ -9,6 +9,7 @@ import pathos
 import numpy as np
 from utils.elm_task import Task
 from functools import partial
+import array
 from deap import base, algorithms, creator, tools
 from deap.benchmarks.tools import diversity, convergence, hypervolume
 import pickle
@@ -458,7 +459,8 @@ class GeneticAlgorithm:
             creator.create("Individual", list, fitness=creator.FitnessMin)
         elif self.selection_operator == "nsga2":
             creator.create("FitnessMin", base.Fitness, weights=(-1.0, -1.0))
-            creator.create("Individual", list, fitness=creator.FitnessMin)
+            creator.create("Individual", array.array, typecode='d', fitness=creator.FitnessMin)
+            # creator.create("Individual", list, fitness=creator.FitnessMin)
 
         self.creator = creator
 
