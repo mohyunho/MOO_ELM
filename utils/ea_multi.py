@@ -155,12 +155,21 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
     individual_map = {}
 
+
+
     # Evaluate the individuals with an invalid fitness
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
     fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
     for ind, fit in zip(invalid_ind, fitnesses):
         ind.fitness.values = fit
         individual_map[str(ind)] = fit
+
+    if sel_op == "nsga2":
+        # This is just to assign the crowding distance to the individuals
+        # no actual selection is done
+        population = toolbox.select(population, len(population))
+    else:
+        pass
 
     if halloffame is not None:
         halloffame.update(population)
@@ -459,8 +468,8 @@ class GeneticAlgorithm:
             creator.create("Individual", list, fitness=creator.FitnessMin)
         elif self.selection_operator == "nsga2":
             creator.create("FitnessMin", base.Fitness, weights=(-1.0, -1.0))
-            creator.create("Individual", array.array, typecode='d', fitness=creator.FitnessMin)
-            # creator.create("Individual", list, fitness=creator.FitnessMin)
+            # creator.create("Individual", array.array, typecode='d', fitness=creator.FitnessMin)
+            creator.create("Individual", list, fitness=creator.FitnessMin)
 
         self.creator = creator
 
