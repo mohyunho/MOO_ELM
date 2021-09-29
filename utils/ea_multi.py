@@ -187,21 +187,26 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
         # Begin the generational process
         for gen in range(1, ngen + 1):
 
-            # Vary the pool of individuals
+            # Vary the population
             offspring = tools.selTournamentDCD(population, len(population))
             offspring = [toolbox.clone(ind) for ind in offspring]
 
-            for ind1, ind2 in zip(offspring[::2], offspring[1::2]):
-                if random.random() <= cxpb:
-                    toolbox.mate(ind1, ind2)
 
-                toolbox.mutate(ind1)
-                toolbox.mutate(ind2)
-                del ind1.fitness.values, ind2.fitness.values
+            # Vary the pool of individuals
+            offspring, unmodified = varAnd(offspring, toolbox, cxpb, mutpb)
+
+            # for ind1, ind2 in zip(offspring[::2], offspring[1::2]):
+            #     if random.random() <= cxpb:
+            #         toolbox.mate(ind1, ind2)
+            #
+            #     toolbox.mutate(ind1)
+            #     toolbox.mutate(ind2)
+            #     del ind1.fitness.values, ind2.fitness.values
 
             # Evaluate the individuals with an invalid fitness (among offspring)
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
 
+            # Avoid redundant evaluation
             to_evaluate = []
             redundant = []
             for ind in invalid_ind:
@@ -229,7 +234,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if paretofront is not None:
                 paretofront.update(population)
 
-            print ("paretofront for each gen: ", paretofront)
+            print ("paretofront: ", paretofront)
 
             population_temp = copy.deepcopy(population)
             log_function(population_temp, gen, cs)
@@ -258,7 +263,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
         print("Final population hypervolume is %f" % hypervolume(population, [11.0, 11.0]))
 
-    else: # single objective condition statement
+    else: # single objective main loop
         # Begin the generational process
         for gen in range(1, ngen + 1):
             # Select the next generation individuals
@@ -468,7 +473,6 @@ class GeneticAlgorithm:
             creator.create("Individual", list, fitness=creator.FitnessMin)
         elif self.selection_operator == "nsga2":
             creator.create("FitnessMin", base.Fitness, weights=(-1.0, -1.0))
-            # creator.create("Individual", array.array, typecode='d', fitness=creator.FitnessMin)
             creator.create("Individual", list, fitness=creator.FitnessMin)
 
         self.creator = creator

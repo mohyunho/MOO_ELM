@@ -658,4 +658,6 @@ python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 30 --gen 
 
 python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 20 --gen 20 -bs 50000
 
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 10 --gen 10 -bs 50000 --obj "moo"
+
 
