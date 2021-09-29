@@ -11,11 +11,13 @@ from utils.elm_task import Task
 from functools import partial
 import array
 from deap import base, algorithms, creator, tools
-from deap.benchmarks.tools import diversity, convergence, hypervolume
+# from deap.benchmarks.tools import diversity, convergence, hypervolume
+from deap.benchmarks.tools import diversity, convergence
 import pickle
 import os
 import pandas as pd
 import copy
+from utils.hypervolume import pyhv
 
 # os.remove("logbook.pkl")
 
