@@ -285,7 +285,7 @@ def main():
 
 
 
-    def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
+    def log_function(population, gen, cs, hv, mutate_log_path = mutate_log_path):
         for i in range(len(population)):
             indiv = population[i]
             if  indiv == []:
@@ -296,6 +296,7 @@ def main():
                 indiv.append(indiv.fitness.values[0])
                 indiv.append(indiv.fitness.values[1])
                 # append val_rmse
+                indiv.append(hv)
                 indiv.append(gen)
 
         temp_df = pd.DataFrame(np.array(population), index=None)

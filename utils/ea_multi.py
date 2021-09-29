@@ -154,7 +154,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
     logbook.header = ['gen', 'nevals'] + (stats.fields if stats else [])
 
     individual_map = {}
-    prft_map = {}
+
 
 
 
@@ -237,25 +237,41 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if paretofront is not None:
                 paretofront.update(population)
 
-            print ("paretofront: ", paretofront)
-            print("paretofront: ", type(paretofront))
+            # print ("paretofront: ", paretofront)
+            # print("paretofront: ", type(paretofront))
 
             paretofront_temp = copy.deepcopy(paretofront)
-
+            prft_map = {}
+            # prft_fit_lst = []
             prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
-            print ("prft_fit", prft_fit)
-            print ("type(prft_fit)", type(prft_fit))
+            # print ("prft_fit", prft_fit)
+            # print ("type(prft_fit)", type(prft_fit))
 
             for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
                 print ("prt_fit", prt_fit)
                 prt_ind.fitness.values = prt_fit
                 prft_map[str(prt_ind)] = prt_fit
+                # prft_fit_lst.append(prt_fit)
 
             print ("prft_map", prft_map)
-            print ("paretofront_temp.fitness.values", paretofront_temp.fitness.values)
+            # print ("prft_fit_lst", prft_fit_lst)
+
+            prft_fit_arr = np.asarray(list(prft_map.values()))
+            nadir_x = max(prft_fit_arr[:,0])
+            nadir_y = max(prft_fit_arr[:,1])
+            print (nadir_x)
+            print (nadir_y)
+            ref_point = [nadir_x, nadir_y]
+            hv = hypervolume(paretofront, ref_point)
+
+
+
+
+
+
 
             population_temp = copy.deepcopy(population)
-            log_function(population_temp, gen, cs)
+            log_function(population_temp, gen, cs, hv)
             # not_mutated = [population_temp[u] for u in unmodified]
             # if len(unmodified) > 0 and log_function is not None:
             #     # print ([population_temp[u] for u in unmodified])
