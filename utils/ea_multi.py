@@ -161,6 +161,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
     print ("invalid_ind",invalid_ind)
     fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+    print ("fitnesses", fitnesses)
     for ind, fit in zip(invalid_ind, fitnesses):
         ind.fitness.values = fit
         individual_map[str(ind)] = fit
@@ -237,6 +238,10 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
             print ("paretofront: ", paretofront)
             print("paretofront: ", type(paretofront))
+
+            prft_fit = toolbox.map(toolbox.evaluate, paretofront)
+            print ("prft_fit", prft_fit)
+            print ("type(prft_fit)", type(prft_fit))
 
             population_temp = copy.deepcopy(population)
             log_function(population_temp, gen, cs)
