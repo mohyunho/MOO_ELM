@@ -17,7 +17,7 @@ import pickle
 import os
 import pandas as pd
 import copy
-from utils.hypervolume import pyhv
+from utils.hypervolume import hypervolume
 
 # os.remove("logbook.pkl")
 
