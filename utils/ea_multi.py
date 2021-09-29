@@ -263,6 +263,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             print (nadir_y)
             ref_point = [nadir_x, nadir_y]
             hv = hypervolume(paretofront, ref_point)
+            print ("hv",hv)
 
 
 

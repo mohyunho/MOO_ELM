@@ -278,7 +278,7 @@ def main():
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
     mutate_log_path = 'EA_log/mute_log_%s_%s.csv' % (pop_size, n_generations)
-    mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'fitness_1', 'fitness_2', 'gen']
+    mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'fitness_1', 'fitness_2', 'hypervolume', 'gen']
     mutate_log_df = pd.DataFrame(columns=mutate_log_col, index=None)
     mutate_log_df.to_csv(mutate_log_path, index=False)
 
