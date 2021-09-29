@@ -235,6 +235,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
                 paretofront.update(population)
 
             print ("paretofront: ", paretofront)
+            print("paretofront: ", type(paretofront))
 
             population_temp = copy.deepcopy(population)
             log_function(population_temp, gen, cs)
