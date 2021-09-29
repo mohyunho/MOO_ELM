@@ -284,6 +284,7 @@ def main():
 
     prft_path = os.path.join(directory_path, 'prft_out_%s_%s.csv' % (pop_size, n_generations))
 
+
     def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
         for i in range(len(population)):
             indiv = population[i]
@@ -346,7 +347,6 @@ def main():
         jobs=jobs,
         log_function=log_function,
         cs = cs,
-        prft_path = prft_path,
         **other_args
     )
 
