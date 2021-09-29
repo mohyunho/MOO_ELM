@@ -159,6 +159,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
     # Evaluate the individuals with an invalid fitness
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
+    print ("invalid_ind",invalid_ind)
     fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
     for ind, fit in zip(invalid_ind, fitnesses):
         ind.fitness.values = fit
@@ -205,7 +206,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
             # Evaluate the individuals with an invalid fitness (among offspring)
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-
+            print ("invalid_ind",invalid_ind)
             # Avoid redundant evaluation
             to_evaluate = []
             redundant = []
