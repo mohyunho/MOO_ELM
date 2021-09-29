@@ -11,14 +11,12 @@ from utils.elm_task import Task
 from functools import partial
 import array
 from deap import base, algorithms, creator, tools
-# from deap.benchmarks.tools import diversity, convergence, hypervolume
-from deap.benchmarks.tools import diversity, convergence
+from deap.benchmarks.tools import diversity, convergence, hypervolume
 import pickle
 import os
 import pandas as pd
 import copy
-from utils.hypervolume.pyhv import _HyperVolume
-from utils.hypervolume.pyhv import hypervolume
+
 
 # os.remove("logbook.pkl")
 
@@ -244,6 +242,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             # print("paretofront: ", type(paretofront))
 
             paretofront_temp = copy.deepcopy(paretofront)
+            paretofront_hv = copy.deepcopy(paretofront)
             prft_map = {}
             # prft_fit_lst = []
             prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
@@ -265,7 +264,8 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             print (nadir_x)
             print (nadir_y)
             ref_point = [nadir_x, nadir_y]
-            hv = hypervolume(paretofront, ref_point)
+            # hv = hypervolume(paretofront, ref_point)
+            hv = hypervolume(paretofront_hv)
             print ("hv",hv)
 
 
