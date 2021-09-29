@@ -242,36 +242,25 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
             paretofront_temp = copy.deepcopy(paretofront)
             paretofront_hv = copy.deepcopy(paretofront)
-            prft_map = {}
-            # prft_fit_lst = []
-            prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
-            # print ("prft_fit", prft_fit)
-            # print ("type(prft_fit)", type(prft_fit))
 
-            for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
-                print ("prt_fit", prt_fit)
-                prt_ind.fitness.values = prt_fit
-                prft_map[str(prt_ind)] = prt_fit
-                # prft_fit_lst.append(prt_fit)
+            # for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
+            #     print ("prt_fit", prt_fit)
+            #     prt_ind.fitness.values = prt_fit
+            #     prft_map[str(prt_ind)] = prt_fit
+            #     # prft_fit_lst.append(prt_fit)
+            # print ("prft_map", prft_map)
+            # # print ("prft_fit_lst", prft_fit_lst)
+            # prft_fit_arr = np.asarray(list(prft_map.values()))
+            # nadir_x = max(prft_fit_arr[:,0])
+            # nadir_y = max(prft_fit_arr[:,1])
+            # print (nadir_x)
+            # print (nadir_y)
+            # ref_point = [nadir_x, nadir_y]
 
-            print ("prft_map", prft_map)
-            # print ("prft_fit_lst", prft_fit_lst)
 
-            prft_fit_arr = np.asarray(list(prft_map.values()))
-            nadir_x = max(prft_fit_arr[:,0])
-            nadir_y = max(prft_fit_arr[:,1])
-            print (nadir_x)
-            print (nadir_y)
-            ref_point = [nadir_x, nadir_y]
             # hv = hypervolume(paretofront, ref_point)
             hv = hypervolume(paretofront_hv)
             print ("hv",hv)
-
-
-
-
-
-
 
             population_temp = copy.deepcopy(population)
             log_function(population_temp, gen, cs, hv)
@@ -297,6 +286,15 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             logbook.record(gen=gen, nevals=len(invalid_ind), **record)
             if verbose:
                 print(logbook.stream)
+
+        prft_map = {}
+        # prft_fit_lst = []
+        prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
+        for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
+            print ("prt_fit", prt_fit)
+            prt_ind.fitness.values = prt_fit
+            prft_map[str(prt_ind)] = prt_fit
+            # prft_fit_lst.append(prt_fit)
 
         prft_df = pd.DataFrame(prft_map)
         prft_df_trans = prft_df.T
