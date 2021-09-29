@@ -20,7 +20,6 @@ import copy
 
 # os.remove("logbook.pkl")
 
-
 class ListWithParents(list):
     def __init__(self, *iterable):
         super(ListWithParents, self).__init__(*iterable)
@@ -92,7 +91,7 @@ def varAnd(population, toolbox, cxpb, mutpb):
 
 
 def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
-             halloffame=None, paretofront = None, verbose=__debug__, log_function=None):
+             halloffame=None, paretofront = None, verbose=__debug__, log_function=None, prft_path = None):
     """This algorithm reproduce the simplest evolutionary algorithm as
     presented in chapter 7 of [Back2000]_.
 
@@ -299,7 +298,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if verbose:
                 print(logbook.stream)
 
-        print("Final population hypervolume is %f" % hypervolume(population, [11.0, 11.0]))
+
 
     else: # single objective main loop
         # Begin the generational process
@@ -365,6 +364,10 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if verbose:
                 print(logbook.stream)
 
+    prft_df = pd.DataFrame(prft_map)
+    prft_df_trans = prft_df.T
+    prft_df_trans.to_csv(prft_path)
+
 
 
     print ("pickle dump")
@@ -391,7 +394,7 @@ def checkBounds(bounds):
 class GeneticAlgorithm:
     def __init__(self, task: Task, population_size: int, n_generations: int, cx_probability: float,
                  mut_probability: float, crossover_operator: str = "one_point", mutation_operator: str = "uniform",
-                 selection_operator: str = "best", seed=None, jobs=1, log_function=None, cs = 0.0001, **kwargs):
+                 selection_operator: str = "best", seed=None, jobs=1, log_function=None, cs = 0.0001, prft_path = None, **kwargs):
         """
         Initializes an instance of the genetic algorithm.
         Parameters:
@@ -451,7 +454,7 @@ class GeneticAlgorithm:
         self.kwargs = kwargs
         self.log_function = log_function
         self.cs = cs
-
+        self.prft_path = prft_path
         self._initialize_deap()
 
     def _define_supported_operators(self):
@@ -583,7 +586,8 @@ class GeneticAlgorithm:
             halloffame=hof,
             paretofront=prtf,
             verbose=True,
-            log_function=self.log_function
+            log_function=self.log_function,
+            prft_path = self.prft_path
         )
 
         return pop, log, hof, prtf

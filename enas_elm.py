@@ -56,8 +56,8 @@ pic_dir = os.path.join(current_dir, 'Figures')
 
 
 # Log file path of EA in csv
-directory_path = current_dir + '/EA_log'
-
+# directory_path = current_dir + '/EA_log'
+directory_path = os.path.join(current_dir, 'EA_log')
 '''
 load array from npz files
 '''
@@ -282,8 +282,7 @@ def main():
     mutate_log_df = pd.DataFrame(columns=mutate_log_col, index=None)
     mutate_log_df.to_csv(mutate_log_path, index=False)
 
-
-
+    prft_path = os.path.join(directory_path, 'prft_out_%s_%s.csv' % (pop_size, n_generations))
 
     def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
         for i in range(len(population)):
@@ -347,6 +346,7 @@ def main():
         jobs=jobs,
         log_function=log_function,
         cs = cs,
+        prft_path = prft_path,
         **other_args
     )
 
