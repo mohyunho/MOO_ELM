@@ -154,6 +154,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
     logbook.header = ['gen', 'nevals'] + (stats.fields if stats else [])
 
     individual_map = {}
+    prft_map = {}
 
 
 
@@ -239,9 +240,19 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             print ("paretofront: ", paretofront)
             print("paretofront: ", type(paretofront))
 
-            prft_fit = toolbox.map(toolbox.evaluate, paretofront)
+            paretofront_temp = copy.deepcopy(paretofront)
+
+            prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
             print ("prft_fit", prft_fit)
             print ("type(prft_fit)", type(prft_fit))
+
+            for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
+                print ("prt_fit", prt_fit)
+                prt_ind.fitness.values = prt_fit
+                prft_map[str(prt_ind)] = prt_fit
+
+            print ("prft_map", prft_map)
+            print ("paretofront_temp.fitness.values", paretofront_temp.fitness.values)
 
             population_temp = copy.deepcopy(population)
             log_function(population_temp, gen, cs)
