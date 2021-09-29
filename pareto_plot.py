@@ -103,13 +103,13 @@ for box in archives.boxes:
     ll = [box[0] * resolution, box[1] * resolution]
 
     # make a rectangle in the Y direction
-    rect = matplotlib.patches.Rectangle((ll[0], ll[1] + resolution), 1.4 - ll[0], 1.4 - ll[1], lw=0,
+    rect = matplotlib.patches.Rectangle((ll[0], ll[1] + resolution), 3500 - ll[0], 3500 - ll[1], lw=0,
                                         facecolor=(1.0, 0.8, 0.8), zorder=-10)
     ax.add_patch(rect)
 
     # make a rectangle in the X direction
-    rect = matplotlib.patches.Rectangle((ll[0] + resolution, ll[1]), 1.4 - ll[0], 1.4 - ll[1], lw=0,
-                                        facecolor=(1.0, 0.8, 0.8), zorder=-10)
+    # rect = matplotlib.patches.Rectangle((ll[0] + resolution, ll[1]), 1.4 - ll[0], 1.4 - ll[1], lw=0,
+    #                                     facecolor=(1.0, 0.8, 0.8), zorder=-10)
     ax.add_patch(rect)
 if resolution < 1e-3:
     spacing = 0.2
@@ -147,3 +147,5 @@ ax.set_xlabel(r'$f_1$')
 ax.set_ylabel(r'$f_2$')
 
 fig.savefig("unsorted")
+
+
