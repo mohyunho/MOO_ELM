@@ -298,6 +298,12 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if verbose:
                 print(logbook.stream)
 
+        prft_df = pd.DataFrame(prft_map)
+        prft_df_trans = prft_df.T
+        print ("prft_df_trans", prft_df_trans)
+        print ("prft_path", prft_path)
+        prft_df_trans.to_csv(prft_path)
+
 
 
     else: # single objective main loop
@@ -364,9 +370,9 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if verbose:
                 print(logbook.stream)
 
-    prft_df = pd.DataFrame(prft_map)
-    prft_df_trans = prft_df.T
-    prft_df_trans.to_csv(prft_path)
+
+
+
 
 
 
