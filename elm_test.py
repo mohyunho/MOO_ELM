@@ -227,7 +227,7 @@ def main():
 
     prft_log_file_path = os.path.join(ea_log_path, 'prft_out_%s_%s.csv' % (pop, gen))
     # ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
-    prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["ind", col_a, col_b])
+    prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["ind", col_a, col_b], dtype=int64)
 
     hof = prft_log_df["ind"]
 
