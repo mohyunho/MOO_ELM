@@ -227,7 +227,7 @@ def main():
 
     prft_log_file_path = os.path.join(ea_log_path, 'prft_out_%s_%s.csv' % (pop, gen))
     # ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
-    prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["ind", col_a, col_b], dtype='int64')
+    prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["ind", col_a, col_b])
 
     hof = prft_log_df["ind"]
 
@@ -235,6 +235,8 @@ def main():
 
     for i in range(len(hof)):
         print ("hof[i]", hof[i])
+        print ("hof[i][0]",hof[i][0])
+        print ("type",type(hof[i][0]))
         l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
         l2_parm = l2_parms_lst[hof[i][0] - 1]
         type_neuron_lst = ["tanh", "sigm", "lin"]
