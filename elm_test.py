@@ -231,8 +231,11 @@ def main():
     print ("meidan", np.median(prft_log_df[col_b]))
     hof = []
     hof_1 = [5, 174, 109, 2]
-    hof_2 = [5, 200, 45, 1]
-    hof.append(hof_1,hof_2)
+    hof_2 = [5, 102, 14, 2]
+    hof_3 = [5, 5, 6, 2]
+    hof.append(hof_1)
+    hof.append(hof_2)
+    hof.append(hof_3)
 
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
 
