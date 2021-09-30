@@ -61,16 +61,18 @@ pd.options.mode.chained_assignment = None  # default='warn'
 mute_log_file_path = os.path.join(ea_log_path, 'mute_log_%s_%s.csv' % (pop_size, n_generations))
 # ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
 mute_log_df = pd.read_csv(mute_log_file_path)
-solutions_df = mute_log_df[['val_rmse', 'penalty']]
-solutions_df['penalty'] = solutions_df['penalty'] * 1e4
+
+# solutions_df = mute_log_df[['val_rmse', 'penalty']]
+# solutions_df['penalty'] = solutions_df['penalty'] * 1e4
+# print (solutions_df)
+col_a = 'fitness_1'
+col_b = 'fitness_2'
+solutions_df = mute_log_df[['fitness_1', 'fitness_2']]
 print (solutions_df)
-
-
 
 #############################à
 data = solutions_df
-col_a = 'val_rmse'
-col_b = 'penalty'
+
 
 sets = {}
 archives = {}
@@ -89,30 +91,35 @@ sets = pd.DataFrame(data=archives.archive)
 # print ("archives", archives)
 # print ("sets", sets)
 
-spacing_x = 0.1
+spacing_x = 0.2
 spacing_y = 500
 
-fig = matplotlib.figure.Figure(figsize=(5, 5))
+fig = matplotlib.figure.Figure(figsize=(8, 8))
 agg.FigureCanvasAgg(fig)
 
 ax = fig.add_subplot(1, 1, 1)
 ax.scatter(data[col_a], data[col_b], lw=0, facecolor=(0.7, 0.7, 0.7), zorder=-1)
-ax.scatter(sets[col_a], sets[col_b], facecolor=(1.0, 1.0, 0.4), zorder=1, s=50)
+ax.scatter(sets[col_a], sets[col_b], facecolor=(1.0, 1.0, 0.4), edgecolors =(0.0, 0.0, 0.0), zorder=1, s=50)
+
+x_max = round(max(data[col_a]), 1)
+y_max = roundup(max(data[col_b])+200,100)
 
 for box in archives.boxes:
     ll = [box[0] * resolution, box[1] * resolution]
 
     # make a rectangle in the Y direction
-    rect = matplotlib.patches.Rectangle((ll[0], ll[1] + resolution), 3500 - ll[0], 3500 - ll[1], lw=0,
+    # rect = matplotlib.patches.Rectangle((ll[0], ll[1] + resolution), y_max - ll[0], y_max - ll[1], lw=1,
+    #                                     facecolor=(1.0, 0.8, 0.8), edgecolor=  (0.0,0.0,0.0), zorder=-10)
+    rect = matplotlib.patches.Rectangle((ll[0], ll[1] + resolution), y_max - ll[0], y_max - ll[1], lw=1,
                                         facecolor=(1.0, 0.8, 0.8), zorder=-10)
     ax.add_patch(rect)
 
     # make a rectangle in the X direction
-    # rect = matplotlib.patches.Rectangle((ll[0] + resolution, ll[1]), 1.4 - ll[0], 1.4 - ll[1], lw=0,
+    # rect = matplotlib.patches.Rectangle((ll[0] + resolution, ll[1]), x_max - ll[0], x_max - ll[1], lw=0,
     #                                     facecolor=(1.0, 0.8, 0.8), zorder=-10)
     ax.add_patch(rect)
 if resolution < 1e-3:
-    spacing = 0.2
+    spacing = 0.1
 else:
     spacing = resolution
     while spacing < 0.2:
@@ -126,9 +133,9 @@ ax.set_yticks(np.arange(rounddown(min(data[col_b])-100,scale), roundup(max(data[
 #     ax.vlines(np.arange(0, 1.4, resolution), 0, 1.4, colors=(0.1, 0.1, 0.1, 0.1), zorder=2)
 ax.set_xlim(round(min(data[col_a]), 1)-0.2, round(max(data[col_a]), 1)+0.2)
 ax.set_ylim(rounddown(min(data[col_b])-200, 100), roundup(max(data[col_b])+200,100))
-ax.set_title("Epsilon resolution: {0:.2g}".format(resolution))
-ax.set_xlabel(r'$f_1$')
-ax.set_ylabel(r'$f_2$')
+ax.set_title("Solutions and pareto front", fontsize=15)
+ax.set_xlabel('Validation RMSE', fontsize=13)
+ax.set_ylabel('Trainable parameters', fontsize=13)
 
 fig.savefig("example")
 
@@ -148,4 +155,23 @@ ax.set_ylabel(r'$f_2$')
 
 fig.savefig("unsorted")
 
+####################
+hv_lst = []
+for gen in mute_log_df['gen'].unique():
+  hv_temp = mute_log_df.loc[mute_log_df['gen']==gen]['hypervolume'].values
+  hv_value = sum(hv_temp)/len(hv_temp)
+  hv_lst.append(hv_value)
+
+print (hv_lst)
+
+norm_hv = [x / (max(hv_lst)+1) for x in hv_lst]
+print (norm_hv)
+x_ref = range(1,n_generations+1)
+
+fig_verify = plt.figure(figsize=(8, 5))
+plt.plot(x_ref, norm_hv)
+plt.xticks(x_ref)
+plt.ylabel("Normalized hypervolume", fontsize=13)
+plt.xlabel("Generations", fontsize=13)
+fig_verify.savefig(os.path.join(ea_log_path, 'hv_plot.png'))
 
