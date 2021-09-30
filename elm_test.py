@@ -236,6 +236,9 @@ def main():
     for i in range(len(hof)):
         print ("hof[i]", hof[i])
         print ("hof[i][0]",hof[i][0])
+        print("hof[i][1]", hof[i][1])
+        print("hof[i][2]", hof[i][2])
+        print("hof[i][3]", hof[i][3])
         print ("type",type(hof[i][0]))
         l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
         l2_parm = l2_parms_lst[hof[i][0] - 1]
