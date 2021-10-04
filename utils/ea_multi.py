@@ -302,11 +302,11 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
         # print ("prft_path", prft_path)
         # prft_df_trans.to_csv(prft_path)
 
-        prft_df = pd.DataFrame(paretofront_temp, index=False)
+        prft_df = pd.DataFrame(paretofront_temp)
 
         print ("prft_df_trans", prft_df)
         print ("prft_path", prft_path)
-        prft_df.to_csv(prft_path)
+        prft_df.to_csv(prft_path, index=False)
 
 
 
