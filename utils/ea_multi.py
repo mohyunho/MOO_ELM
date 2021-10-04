@@ -287,16 +287,22 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
             if verbose:
                 print(logbook.stream)
 
-        prft_map = {}
-        # prft_fit_lst = []
-        prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
-        for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
-            print ("prt_fit", prt_fit)
-            prt_ind.fitness.values = prt_fit
-            prft_map[str(prt_ind)] = prt_fit
-            # prft_fit_lst.append(prt_fit)
+        # prft_map = {}
+        # # prft_fit_lst = []
+        # prft_fit = toolbox.map(toolbox.evaluate, paretofront_temp)
+        # for prt_ind, prt_fit in zip(paretofront_temp, prft_fit):
+        #     print ("prt_fit", prt_fit)
+        #     prt_ind.fitness.values = prt_fit
+        #     prft_map[str(prt_ind)] = prt_fit
+        #     # prft_fit_lst.append(prt_fit)
+        #
+        # prft_df = pd.DataFrame(prft_map)
+        # prft_df_trans = prft_df.T
+        # print ("prft_df_trans", prft_df_trans)
+        # print ("prft_path", prft_path)
+        # prft_df_trans.to_csv(prft_path)
 
-        prft_df = pd.DataFrame(prft_map)
+        prft_df = pd.DataFrame(paretofront_temp)
         prft_df_trans = prft_df.T
         print ("prft_df_trans", prft_df_trans)
         print ("prft_path", prft_path)
