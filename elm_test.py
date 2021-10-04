@@ -391,6 +391,7 @@ def main():
         rms = round(rms, 2)
         score = round(score, 2)
 
+        train_time = end - start
 
         for idx in range(len(units_index_test)):
             print(output_lst[idx])
@@ -406,11 +407,11 @@ def main():
             plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
             plt.ylim([-20, 80])
             plt.show()
-            fig_verify.savefig(pic_dir + "/moo_elm_unit%s_test_%s_pop%s_gen%s_rmse-%s_score-%s.png" %(hof_ref,
+            fig_verify.savefig(pic_dir + "/moo_elm_%s_unit_test_%s_pop%s_gen%s_rmse-%s_score-%s_time-%s.png" %(hof_ref,
                                                                                                        str(int(units_index_test[idx])),
-                                                                                  str(args.pop), str(args.gen), str(rms), str(score)))
+                                                                                  str(args.pop), str(args.gen), str(rms), str(score), str(train_time)))
 
-        print("BEST model training time: ", end - start)
+        print("BEST model training time: ", train_time)
         print("HOF phenotype: ", [l2_parms_lst[hof[i][0] - 1], hof[i][1] * 10, hof[i][2] * 10, hof[i][3]])
         print(" test RMSE: ", rms)
         print(" test Score: ", score)
