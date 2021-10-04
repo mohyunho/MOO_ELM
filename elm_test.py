@@ -281,8 +281,16 @@ def main():
     hof = []
     hof_1 = [min_prft_ind['p1'].values[0], min_prft_ind['p2'].values[0], min_prft_ind['p3'].values[0], min_prft_ind['p4'].values[0]]
     hof_2 = [med_prft_ind['p1'].values[0], med_prft_ind['p2'].values[0], med_prft_ind['p3'].values[0], med_prft_ind['p4'].values[0]]
+    hof_1 = list(map(int, hof_1))
+    hof_2 = list(map(int, hof_2))
     hof.append(hof_1)
     hof.append(hof_2)
+
+
+
+    print ("hof_1",hof_1)
+    print ("hof_2", hof_2)
+    print ("hof", hof)
 
 
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
