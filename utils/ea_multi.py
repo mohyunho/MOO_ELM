@@ -239,7 +239,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
             # print ("paretofront: ", paretofront)
             # print("paretofront: ", type(paretofront))
-
+            print ("paretofront", paretofront)
             paretofront_temp = copy.deepcopy(paretofront)
             paretofront_hv = copy.deepcopy(paretofront)
 
@@ -302,11 +302,11 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
         # print ("prft_path", prft_path)
         # prft_df_trans.to_csv(prft_path)
 
-        prft_df = pd.DataFrame(paretofront_temp)
-        prft_df_trans = prft_df.T
-        print ("prft_df_trans", prft_df_trans)
+        prft_df = pd.DataFrame(paretofront_temp, index=False)
+
+        print ("prft_df_trans", prft_df)
         print ("prft_path", prft_path)
-        prft_df_trans.to_csv(prft_path)
+        prft_df.to_csv(prft_path)
 
 
 
