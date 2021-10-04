@@ -58,6 +58,10 @@ pic_dir = os.path.join(current_dir, 'Figures')
 # directory_path = current_dir + '/EA_log'
 ea_log_path = os.path.join(current_dir, 'EA_log')
 
+
+
+
+
 '''
 load array from npz files
 '''
@@ -225,21 +229,70 @@ def main():
     col_a = 'fitness_1'
     col_b = 'fitness_2'
 
+    mute_log_file_path = os.path.join(ea_log_path, 'mute_log_%s_%s.csv' % (pop, gen))
+    # ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
+    mute_log_df = pd.read_csv(mute_log_file_path)
+    print(mute_log_df)
     prft_log_file_path = os.path.join(ea_log_path, 'prft_out_%s_%s.csv' % (pop, gen))
     # ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
-    prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["ind", col_a, col_b])
-    print ("meidan", np.median(prft_log_df[col_b]))
+    prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["p1", 'p2', 'p3', 'p4'])
+    # prft_log_df = pd.read_csv(prft_log_file_path)
+    print(prft_log_df)
+
+    fit1_lst = []
+    fit2_lst = []
+
+    for index, p_ind in prft_log_df.iterrows():
+        # print ("index", index)
+        # print ("p_ind", p_ind)
+        # print ("p_ind['p1']", p_ind['p1'])
+        log_prft_ind = mute_log_df.loc[(mute_log_df['params_1'] == p_ind['p1']) &
+                                       (mute_log_df['params_2'] == p_ind['p2']) &
+                                       (mute_log_df['params_3'] == p_ind['p3']) &
+                                       (mute_log_df['params_4'] == p_ind['p4'])]
+
+        print("log_prft_ind", log_prft_ind)
+        fit1_lst.append(log_prft_ind[col_a].values[0])
+        fit2_lst.append(log_prft_ind[col_b].values[0])
+
+
+    prft_log_df[col_a] = fit1_lst
+    prft_log_df[col_b] = fit2_lst
+
+    print("prft_log_df", prft_log_df)
+
+    min_fit1 = np.min(prft_log_df[col_a])
+    print("min_fit1", min_fit1)
+    min_prft_ind = prft_log_df.loc[(prft_log_df[col_a] == min_fit1)]
+    print("min_prft_ind", min_prft_ind)
+
+    med_fit2 = np.median(prft_log_df[col_b])
+    print("med_fit2", med_fit2)
+    fit2_diff = abs(prft_log_df[col_b].values - med_fit2)
+    print(fit2_diff)
+    prft_log_df['fit2_diff'] = fit2_diff
+    med_prft_ind = prft_log_df.loc[(prft_log_df['fit2_diff'] == prft_log_df['fit2_diff'].min())]
+    print("med_prft_ind", med_prft_ind)
+    print(len(med_prft_ind))
+    if len(med_prft_ind) > 1:
+        med_prft_ind = med_prft_ind.loc[(med_prft_ind[col_b] == med_prft_ind[col_b].min())]
+        print("med_prft_ind", med_prft_ind)
+
     hof = []
-    hof_1 = [5, 174, 109, 2]
-    hof_2 = [5, 102, 14, 2]
-    hof_3 = [5, 5, 6, 2]
+    hof_1 = [min_prft_ind['p1'].values[0], min_prft_ind['p2'].values[0], min_prft_ind['p3'].values[0], min_prft_ind['p4'].values[0]]
+    hof_2 = [med_prft_ind['p1'].values[0], med_prft_ind['p2'].values[0], med_prft_ind['p3'].values[0], med_prft_ind['p4'].values[0]]
     hof.append(hof_1)
     hof.append(hof_2)
-    hof.append(hof_3)
+
 
     """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
 
     for i in range(len(hof)):
+
+        if i == 0:
+            hof_ref = "min"
+        else:
+            hof_ref = "med"
 
         l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
         l2_parm = l2_parms_lst[hof[i][0] - 1]
@@ -345,7 +398,8 @@ def main():
             plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
             plt.ylim([-20, 80])
             plt.show()
-            fig_verify.savefig(pic_dir + "/best_elm_unit%s_test_pop%s_gen%s_rmse-%s_score-%s.png" %(str(int(units_index_test[idx])),
+            fig_verify.savefig(pic_dir + "/moo_elm_unit%s_test_%s_pop%s_gen%s_rmse-%s_score-%s.png" %(hof_ref,
+                                                                                                       str(int(units_index_test[idx])),
                                                                                   str(args.pop), str(args.gen), str(rms), str(score)))
 
         print("BEST model training time: ", end - start)

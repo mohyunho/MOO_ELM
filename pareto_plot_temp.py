@@ -39,8 +39,8 @@ import matplotlib.figure
 import matplotlib.backends.backend_agg as agg
 import matplotlib.backends.backend_svg as svg
 
-pop_size = 20
-n_generations = 20
+pop_size = 4
+n_generations = 5
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -56,24 +56,81 @@ def roundup(x, scale):
 def rounddown(x, scale):
     return int(math.floor(x / float(scale))) * scale
 
+
 col_a = 'fitness_1'
 col_b = 'fitness_2'
 pd.options.mode.chained_assignment = None  # default='warn'
+
+mute_log_file_path = os.path.join(ea_log_path, 'mute_log_%s_%s.csv' % (pop_size, n_generations))
+# ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
+mute_log_df = pd.read_csv(mute_log_file_path)
+print (mute_log_df)
+
+
 prft_log_file_path = os.path.join(ea_log_path, 'prft_out_%s_%s.csv' % (pop_size, n_generations))
 # ea_log_path + 'mute_log_%s_%s.csv' % (pop_size, n_generations)
-prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["ind",col_a,col_b])
+prft_log_df = pd.read_csv(prft_log_file_path, header=0, names=["p1",'p2','p3','p4'])
+# prft_log_df = pd.read_csv(prft_log_file_path)
+print (prft_log_df)
+
+fit1_lst = []
+fit2_lst = []
+
+for index, p_ind in prft_log_df.iterrows():
+    # print ("index", index)
+    # print ("p_ind", p_ind)
+    # print ("p_ind['p1']", p_ind['p1'])
+    log_prft_ind = mute_log_df.loc[(mute_log_df['params_1'] == p_ind['p1']) &
+                                   (mute_log_df['params_2'] == p_ind['p2']) &
+                                   (mute_log_df['params_3'] == p_ind['p3']) &
+                                   (mute_log_df['params_4'] == p_ind['p4'])]
+
+    print ("log_prft_ind", log_prft_ind)
+    fit1_lst.append(log_prft_ind[col_a].values[0])
+    fit2_lst.append(log_prft_ind[col_b].values[0])
+
+print ("fit1_lst", fit1_lst)
+print ("fit2_lst", fit2_lst)
+
+prft_log_df[col_a] = fit1_lst
+prft_log_df[col_b] = fit2_lst
+
+print ("prft_log_df", prft_log_df)
+
 
 # solutions_df = mute_log_df[['val_rmse', 'penalty']]
 # solutions_df['penalty'] = solutions_df['penalty'] * 1e4
 # print (solutions_df)
 
 # solutions_df = mute_log_df[['fitness_1', 'fitness_2']]
-print (prft_log_df)
+
+min_fit1 = np.min(prft_log_df[col_a])
+print ("min_fit1", min_fit1)
+
+min_prft_ind = prft_log_df.loc[(prft_log_df[col_a] == min_fit1)]
+print ("min_prft_ind", min_prft_ind)
+
+med_fit2 = np.median(prft_log_df[col_b])
+print ("med_fit2", med_fit2)
+
+fit2_diff = abs(prft_log_df[col_b].values - med_fit2)
+print (fit2_diff)
+
+prft_log_df['fit2_diff'] = fit2_diff
 
 
 
+med_prft_ind = prft_log_df.loc[(prft_log_df['fit2_diff'] == prft_log_df['fit2_diff'].min())]
+print ("med_prft_ind", med_prft_ind)
+print (len(med_prft_ind))
 
+if len(med_prft_ind) > 1:
+    med_prft_ind = med_prft_ind.loc[(med_prft_ind[col_b] == med_prft_ind[col_b].min())]
 
+print ("med_prft_ind", med_prft_ind)
+
+print ("med_prft_ind['p1']", type(med_prft_ind['p1'].values[0]))
+print ("med_prft_ind['p2']", med_prft_ind['p2'].values[0])
 #
 #
 #
