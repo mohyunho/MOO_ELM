@@ -265,6 +265,8 @@ def main():
         print ("dtype(num_neuron_lst[0])", type(num_neuron_lst[0]))
         print("HoF type_neuron_lst: ", type_neuron_lst)
 
+        num_neuron_lst = [int(s) for s in num_neuron_lst]
+
         feat_len = train_sample_array.shape[1]
         best_elm_class = network_fit(feat_len,
                               l2_parm, lin_check,
