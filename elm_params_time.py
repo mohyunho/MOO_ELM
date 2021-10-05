@@ -218,7 +218,7 @@ def main():
     corr_log_df = pd.DataFrame(columns=corr_log_col, index=None)
     corr_log_df.to_csv(corr_log_path, index=False)
 
-    num_params = np.arange(5, 205, 5)
+    num_params = np.arange(5, 205, 5, dtype=int)
     lin_vec = np.ones(int(len(num_params)), dtype=int) * 2
     lr_lst = np.ones(int(len(num_params)), dtype=int)*5
 
