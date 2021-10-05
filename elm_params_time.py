@@ -220,7 +220,7 @@ def main():
 
     num_params = np.arange(5, 205, 5)
     lin_vec = np.ones(int(len(num_params)), dtype=int) * 2
-    lr_lst = np.ones(int(len(num_params)), dtype=int)
+    lr_lst = np.ones(int(len(num_params)), dtype=int)*5
 
     print(lr_lst)
     corr_log_df['params_1'] = lr_lst
