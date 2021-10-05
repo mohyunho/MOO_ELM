@@ -262,7 +262,7 @@ def main():
         print("HoF l2_params: ", l2_parm)
         print("HoF lin_check: ", lin_check)
         print("HoF num_neuron_lst: ", num_neuron_lst)
-        print ("dtype(num_neuron_lst[0])", "dtype(num_neuron_lst[0])")
+        print ("dtype(num_neuron_lst[0])", dtype(num_neuron_lst[0]))
         print("HoF type_neuron_lst: ", type_neuron_lst)
 
         feat_len = train_sample_array.shape[1]
