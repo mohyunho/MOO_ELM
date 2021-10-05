@@ -241,10 +241,10 @@ def main():
 
     for i in range(len(hof)):
 
-        if i == 0:
-            hof_ref = "min"
-        else:
-            hof_ref = "med"
+        # if i == 0:
+        #     hof_ref = "min"
+        # else:
+        #     hof_ref = "med"
 
         l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
         l2_parm = l2_parms_lst[hof[i][0] - 1]
@@ -262,6 +262,7 @@ def main():
         print("HoF l2_params: ", l2_parm)
         print("HoF lin_check: ", lin_check)
         print("HoF num_neuron_lst: ", num_neuron_lst)
+        print ("dtype(num_neuron_lst[0])", "dtype(num_neuron_lst[0])")
         print("HoF type_neuron_lst: ", type_neuron_lst)
 
         feat_len = train_sample_array.shape[1]
