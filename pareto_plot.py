@@ -39,8 +39,8 @@ import matplotlib.figure
 import matplotlib.backends.backend_agg as agg
 import matplotlib.backends.backend_svg as svg
 
-pop_size = 4
-n_generations = 5
+pop_size = 32
+n_generations = 30
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
