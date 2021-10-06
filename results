@@ -1,0 +1,23 @@
+32-30
+
+BEST model training time:  145.64320158958435
+BEST model testtime:  11.824772357940674
+HOF phenotype:  [1e-06, 1870, 350, 2]
+ test RMSE:  7.2
+ test Score:  5.955730435114794e+39
+
+
+BEST model training time:  25.34338641166687
+BEST model testtime:  10.395253896713257
+HOF phenotype:  [1e-06, 790, 20, 2]
+ test RMSE:  7.37
+ test Score:  3.5305949868035623e+44
+
+
+BEST model training time:  28.19454336166382
+BEST model testtime:  9.734333038330078
+HOF phenotype:  [1e-06, 760, 120, 2]
+ test RMSE:  7.3
+ test Score:  3.933414301326824e+38
+
+

@@ -163,12 +163,12 @@ ax.set_yticks(np.arange(rounddown(min(data[col_b])-100,scale), roundup(max(data[
 #     ax.vlines(np.arange(0, 1.4, resolution), 0, 1.4, colors=(0.1, 0.1, 0.1, 0.1), zorder=2)
 ax.set_xlim(round(min(data[col_a]), 1)-0.2, round(max(data[col_a]), 1)+0.2)
 ax.set_ylim(rounddown(min(data[col_b])-200, 100), roundup(max(data[col_b])+200,100))
-ax.set_title("Solutions and pareto front", fontsize=15)
-ax.set_xlabel('Validation RMSE', fontsize=13)
-ax.set_ylabel('Trainable parameters', fontsize=13)
+# ax.set_title("Solutions and pareto front", fontsize=15)
+ax.set_xlabel('Validation RMSE', fontsize=15)
+ax.set_ylabel('Trainable parameters', fontsize=15)
 
 fig.savefig(os.path.join(pic_dir, 'prft_manual_%s_%s.png' % (pop_size, n_generations)))
-
+fig.savefig(os.path.join(pic_dir, 'prft_manual_%s_%s.eps' % (pop_size, n_generations)), dpi=1200 ,bbox_inches='tight')
 ##########
 # fig = matplotlib.figure.Figure(figsize=(8, 8))
 # agg.FigureCanvasAgg(fig)
@@ -208,12 +208,12 @@ archives = pareto.eps_sort([data.itertuples(False)], [0, 1], [resolution] * 2)
 spacing_x = 0.2
 spacing_y = 500
 
-fig = matplotlib.figure.Figure(figsize=(8, 8))
+fig = matplotlib.figure.Figure(figsize=(6, 6))
 agg.FigureCanvasAgg(fig)
 
 ax = fig.add_subplot(1, 1, 1)
-ax.scatter(data[col_a], data[col_b], lw=0, facecolor=(0.7, 0.7, 0.7), zorder=-1)
-ax.scatter(prft_log_df[col_a], prft_log_df[col_b], facecolor=(1.0, 1.0, 0.4), edgecolors =(0.0, 0.0, 0.0), zorder=1, s=50)
+ax.scatter(data[col_a], data[col_b], lw=0, facecolor=(0.7, 0.7, 0.7), zorder=-1, label= "All solutions")
+ax.scatter(prft_log_df[col_a], prft_log_df[col_b], facecolor=(1.0, 1.0, 0.4), edgecolors =(0.0, 0.0, 0.0), zorder=1, s=50, label= "Pareto front")
 
 x_max = round(max(data[col_a]), 1)
 y_max = roundup(max(data[col_b])+200,100)
@@ -247,12 +247,12 @@ ax.set_yticks(np.arange(rounddown(min(data[col_b])-100,scale), roundup(max(data[
 #     ax.vlines(np.arange(0, 1.4, resolution), 0, 1.4, colors=(0.1, 0.1, 0.1, 0.1), zorder=2)
 ax.set_xlim(round(min(data[col_a]), 1)-0.2, round(max(data[col_a]), 1)+0.2)
 ax.set_ylim(rounddown(min(data[col_b])-200, 100), roundup(max(data[col_b])+200,100))
-ax.set_title("Solutions and pareto front", fontsize=15)
-ax.set_xlabel('Validation RMSE', fontsize=13)
-ax.set_ylabel('Trainable parameters', fontsize=13)
-
-fig.savefig(os.path.join(pic_dir, 'prft_auto_%s_%s.png' % (pop_size, n_generations)))
-
+# ax.set_title("Solutions and pareto front", fontsize=15)
+ax.set_xlabel('Validation RMSE', fontsize=15)
+ax.set_ylabel('Trainable parameters', fontsize=15)
+ax.legend(fontsize=11)
+fig.savefig(os.path.join(pic_dir, 'prft_auto_%s_%s.png' % (pop_size, n_generations)), dpi=1500 ,bbox_inches='tight')
+fig.savefig(os.path.join(pic_dir, 'prft_auto_%s_%s.eps' % (pop_size, n_generations)), dpi=1500 ,bbox_inches='tight')
 
 ####################
 hv_lst = []
@@ -267,10 +267,11 @@ norm_hv = [x / (max(hv_lst)+1) for x in hv_lst]
 print (norm_hv)
 x_ref = range(1,n_generations+1)
 
-fig_verify = plt.figure(figsize=(8, 5))
-plt.plot(x_ref, norm_hv)
-plt.xticks(x_ref)
-plt.ylabel("Normalized hypervolume", fontsize=13)
-plt.xlabel("Generations", fontsize=13)
-fig_verify.savefig(os.path.join(pic_dir, 'hv_plot_%s_%s.png' % (pop_size, n_generations)))
-
+fig_verify = plt.figure(figsize=(6, 4))
+plt.plot(x_ref, norm_hv, '-o')
+plt.xticks(x_ref, fontsize=10, rotation=60)
+plt.yticks(fontsize=11)
+plt.ylabel("Normalized hypervolume", fontsize=15)
+plt.xlabel("Generations", fontsize=15)
+fig_verify.savefig(os.path.join(pic_dir, 'hv_plot_%s_%s.png' % (pop_size, n_generations)), dpi=1500 ,bbox_inches='tight')
+fig_verify.savefig(os.path.join(pic_dir, 'hv_plot_%s_%s.eps' % (pop_size, n_generations)), dpi=1500 ,bbox_inches='tight')
