@@ -666,3 +666,5 @@ python3 -W ignore elm_test.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 32 --gen 
 
 python3 -W ignore enas_elm_moo.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 32 --gen 30 -bs 50000 --obj "moo"
 
+
+python3 elm_params_time.py -w 1 -s 1 -vs 0.2 -constant 0.0001 -bs 50000
