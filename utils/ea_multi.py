@@ -259,7 +259,7 @@ def eaSimple(population, toolbox, cxpb, mutpb, ngen, cs, sel_op, stats=None,
 
 
             # hv = hypervolume(paretofront, ref_point)
-            hv = hypervolume(paretofront_hv)
+            hv = hypervolume(paretofront_hv,[10.0, 4000.0])
             print ("hv",hv)
 
             population_temp = copy.deepcopy(population)
