@@ -37,11 +37,6 @@ from utils.elm_task import SimpleNeuroEvolutionTask
 from utils.ea_multi import GeneticAlgorithm
 
 
-# random seed predictable
-jobs = 1
-seed = 0
-random.seed(seed)
-np.random.seed(seed)
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -190,7 +185,11 @@ def main():
     obj = args.obj
     trial = args.t
 
-
+    # random seed predictable
+    jobs = 1
+    seed = trial
+    random.seed(seed)
+    np.random.seed(seed)
 
     train_units_samples_lst =[]
     train_units_labels_lst = []
