@@ -165,7 +165,7 @@ def main():
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
     parser.add_argument('-sub', type=int, default=1, help='subsampling stride')
 
-
+    parser.add_argument('-t', type=int, required=True, help='trial')
 
 
     parser.add_argument('--pop', type=int, default=50, required=False, help='population size of EA')
@@ -188,6 +188,7 @@ def main():
 
     device = args.device
     obj = args.obj
+    trial = args.t
 
 
 
@@ -274,15 +275,15 @@ def main():
 
 
     # Save log file of EA in csv
-    recursive_clean(directory_path)
-    if not os.path.exists(directory_path):
-        os.makedirs(directory_path)
-    mutate_log_path = 'EA_log/mute_log_%s_%s.csv' % (pop_size, n_generations)
+    # recursive_clean(directory_path)
+    # if not os.path.exists(directory_path):
+    #     os.makedirs(directory_path)
+    mutate_log_path = 'EA_log/mute_log_%s_%s_%s.csv' % (pop_size, n_generations, trial)
     mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'fitness_1', 'fitness_2', 'hypervolume', 'gen']
     mutate_log_df = pd.DataFrame(columns=mutate_log_col, index=None)
     mutate_log_df.to_csv(mutate_log_path, index=False)
 
-    prft_path = os.path.join(directory_path, 'prft_out_%s_%s.csv' % (pop_size, n_generations))
+    prft_path = os.path.join(directory_path, 'prft_out_%s_%s_%s.csv' % (pop_size, n_generations, trial))
 
 
     def log_function(population, gen, cs, hv, mutate_log_path = mutate_log_path):

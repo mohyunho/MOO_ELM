@@ -39,7 +39,7 @@ import matplotlib.figure
 import matplotlib.backends.backend_agg as agg
 import matplotlib.backends.backend_svg as svg
 
-pop_size = 32
+pop_size = 28
 n_generations = 30
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -205,7 +205,7 @@ archives = pareto.eps_sort([data.itertuples(False)], [0, 1], [resolution] * 2)
 # print ("archives", archives)
 # print ("sets", sets)
 
-spacing_x = 0.2
+spacing_x = 0.3
 spacing_y = 500
 
 fig = matplotlib.figure.Figure(figsize=(6, 6))
@@ -241,7 +241,7 @@ else:
 
 ax.set_xticks(np.arange(round(min(data[col_a]), 1)-0.2, round(max(data[col_a]), 1)+0.2, spacing_x))
 ax.set_yticks(np.arange(rounddown(min(data[col_b])-100,scale), roundup(max(data[col_b])+100,scale), spacing_y))
-
+# ax.set_xticklabels(np.arange(round(min(data[col_a]), 1)-0.2, round(max(data[col_a]), 1)+0.2, spacing_x), rotation=60)
 # if resolution > 0.001:
 #     ax.hlines(np.arange(0, 1.4, resolution), 0, 1.4, colors=(0.1, 0.1, 0.1, 0.1), zorder=2)
 #     ax.vlines(np.arange(0, 1.4, resolution), 0, 1.4, colors=(0.1, 0.1, 0.1, 0.1), zorder=2)
@@ -263,7 +263,9 @@ for gen in mute_log_df['gen'].unique():
 
 print (hv_lst)
 
-norm_hv = [x / (max(hv_lst)+1) for x in hv_lst]
+offset_hv = [x - min(hv_lst) for x in hv_lst]
+
+norm_hv = [x / (max(offset_hv)+1) for x in offset_hv]
 print (norm_hv)
 x_ref = range(1,n_generations+1)
 
