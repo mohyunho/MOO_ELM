@@ -279,10 +279,6 @@ def main():
     y_sp = 200
 
 
-
-
-
-
     # Define any condition here
     fit_hist_array = np.zeros(int((x_max - x_min) / x_sp) * int((y_max - y_min) / y_sp))
     # print (prft_trial_lst[0])
@@ -327,57 +323,11 @@ def main():
     print (len(selected_prft))
 
     #####################################################################à
-    #
-    # min_fit1 = np.min(prft_log_df[col_a])
-    # print("min_fit1", min_fit1)
-    # min_prft_ind = prft_log_df.loc[(prft_log_df[col_a] == min_fit1)]
-    # print("min_prft_ind", min_prft_ind)
-    #
-    # med_fit2 = np.median(prft_log_df[col_b])
-    # print("med_fit2", med_fit2)
-    # fit2_diff = abs(prft_log_df[col_b].values - med_fit2)
-    # print(fit2_diff)
-    # prft_log_df['fit2_diff'] = fit2_diff
-    # med_prft_ind = prft_log_df.loc[(prft_log_df['fit2_diff'] == prft_log_df['fit2_diff'].min())]
-    # print("med_prft_ind", med_prft_ind)
-    # print(len(med_prft_ind))
-    # if len(med_prft_ind) > 1:
-    #     med_prft_ind = med_prft_ind.loc[(med_prft_ind[col_b] == med_prft_ind[col_b].min())]
-    #     print("med_prft_ind", med_prft_ind)
-    #
-    #
-    #
-    # mean_fit2 = np.mean(prft_log_df[col_b])
-    # print("med_fit2", mean_fit2)
-    # fit2_diff = abs(prft_log_df[col_b].values - mean_fit2)
-    # print(fit2_diff)
-    # prft_log_df['fit2_diff'] = fit2_diff
-    # mean_prft_ind = prft_log_df.loc[(prft_log_df['fit2_diff'] == prft_log_df['fit2_diff'].min())]
-    # print("mean_prft_ind", mean_prft_ind)
-    # print(len(mean_prft_ind))
-    # if len(mean_prft_ind) > 1:
-    #     mean_prft_ind = mean_prft_ind.loc[(mean_prft_ind[col_b] == mean_prft_ind[col_b].min())]
-    #     print("mean_prft_ind", mean_prft_ind)
-    #
-    #
-    #
-    # hof = []
-    # hof_1 = [min_prft_ind['p1'].values[0], min_prft_ind['p2'].values[0], min_prft_ind['p3'].values[0], min_prft_ind['p4'].values[0]]
-    # hof_2 = [med_prft_ind['p1'].values[0], med_prft_ind['p2'].values[0], med_prft_ind['p3'].values[0], med_prft_ind['p4'].values[0]]
-    # hof_3 = [mean_prft_ind['p1'].values[0], mean_prft_ind['p2'].values[0], mean_prft_ind['p3'].values[0], mean_prft_ind['p4'].values[0]]
-    # hof_1 = list(map(int, hof_1))
-    # hof_2 = list(map(int, hof_2))
-    # hof_3 = list(map(int, hof_3))
-    # hof.append(hof_1)
-    # hof.append(hof_2)
-    # hof.append(hof_3)
-    #
-    #
-    #
-    # print ("hof_1",hof_1)
-    # print ("hof_2", hof_2)
-    # print("hof_3", hof_3)
-    # print ("hof", hof)
+    hof = []
+    for index, p_ind in selected_prft.iterrows():
+        hof.append([p_ind['p1'],p_ind['p2'],p_ind['p3'],p_ind['p4']])
+
+    print (hof)
     #
     #
     # """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
