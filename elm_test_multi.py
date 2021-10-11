@@ -328,140 +328,146 @@ def main():
         hof.append([int(p_ind['p1']),int(p_ind['p2']),int(p_ind['p3']),int(p_ind['p4'])])
 
     print (hof)
-    #
-    #
-    # """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
-    #
-    # for i in range(len(hof)):
-    #
-    #     if i == 0:
-    #         hof_ref = "min"
-    #     else:
-    #         hof_ref = "med"
-    #
-    #     l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
-    #     l2_parm = l2_parms_lst[hof[i][0] - 1]
-    #     type_neuron_lst = ["tanh", "sigm", "lin"]
-    #
-    #     lin_check = hof[i][3]
-    #     num_neuron_lst = []
-    #     for n in range(2):
-    #         num_neuron_lst.append(hof[i][n + 1] * 10)
-    #     if lin_check == 1:
-    #         num_neuron_lst.append(20)
-    #     else:
-    #         num_neuron_lst.append(0)
-    #
-    #     print("HoF l2_params: ", l2_parm)
-    #     print("HoF lin_check: ", lin_check)
-    #     print("HoF num_neuron_lst: ", num_neuron_lst)
-    #     print("dtype(num_neuron_lst[0])", type(num_neuron_lst[0]))
-    #     print("HoF type_neuron_lst: ", type_neuron_lst)
-    #
-    #     feat_len = train_sample_array.shape[1]
-    #     best_elm_class = network_fit(feat_len,
-    #                           l2_parm, lin_check,
-    #                           num_neuron_lst, type_neuron_lst, model_temp_path, device, bs)
-    #     best_elm_net = best_elm_class.trained_model()
-    #
-    #     # Train the best network
-    #     sample_array = np.concatenate((train_sample_array, val_sample_array))
-    #     label_array = np.concatenate((train_label_array, val_label_array))
-    #
-    #     start = time.time()
-    #
-    #     print ("sample_array.shape", sample_array.shape)
-    #     print("label_array.shape", label_array.shape)
-    #     best_elm_net.train(sample_array, label_array, "R")
-    #     print("individual trained...evaluation in progress...")
-    #     neurons_lst, norm_check = best_elm_net.summary()
-    #     print("summary: ", neurons_lst, norm_check)
-    #
-    #     end = time.time()
-    #
-    #     train_time = end - start
-    #
-    #     output_lst = []
-    #     truth_lst = []
-    #
-    #     start = time.time()
-    #     # Test
-    #     for index in units_index_test:
-    #         print ("test idx: ", index)
-    #         sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
-    #         # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
-    #         print("sample_array.shape", sample_array.shape)
-    #         print("label_array.shape", label_array.shape)
-    #         sample_array = sample_array[::sub]
-    #         label_array = label_array[::sub]
-    #         print("sub sample_array.shape", sample_array.shape)
-    #         print("sub label_array.shape", label_array.shape)
-    #         sample_array = sample_array.reshape(sample_array.shape[0], sample_array.shape[2])
-    #         print("sample_array_reshape.shape", sample_array.shape)
-    #         print("label_array_reshape.shape", label_array.shape)
-    #
-    #         sample_array = sample_array.astype(np.float32)
-    #         label_array = label_array.astype(np.float32)
-    #
-    #         # estimator = load_model(model_temp_path)
-    #
-    #         y_pred_test = best_elm_net.predict(sample_array)
-    #         output_lst.append(y_pred_test)
-    #         truth_lst.append(label_array)
-    #
-    #     print(output_lst[0].shape)
-    #     print(truth_lst[0].shape)
-    #
-    #     print(np.concatenate(output_lst).shape)
-    #     print(np.concatenate(truth_lst).shape)
-    #
-    #     output_array = np.concatenate(output_lst)[:, 0]
-    #     trytg_array = np.concatenate(truth_lst)
-    #     print(output_array.shape)
-    #     print(trytg_array.shape)
-    #
-    #     output_array = output_array.flatten()
-    #     print(output_array.shape)
-    #     print(trytg_array.shape)
-    #     score = score_calculator(output_array, trytg_array)
-    #     print("score: ", score)
-    #
-    #     rms = sqrt(mean_squared_error(output_array, trytg_array))
-    #     print(rms)
-    #     rms = round(rms, 2)
-    #     score = round(score, 2)
-    #
-    #
-    #
-    #     for idx in range(len(units_index_test)):
-    #         print(output_lst[idx])
-    #         print(truth_lst[idx])
-    #         fig_verify = plt.figure(figsize=(24, 10))
-    #         plt.plot(output_lst[idx], color="green")
-    #         plt.plot(truth_lst[idx], color="red", linewidth=2.0)
-    #         plt.title('Unit%s inference' %str(int(units_index_test[idx])), fontsize=30)
-    #         plt.yticks(fontsize=20)
-    #         plt.xticks(fontsize=20)
-    #         plt.ylabel('RUL', fontdict={'fontsize': 24})
-    #         plt.xlabel('Timestamps', fontdict={'fontsize': 24})
-    #         plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
-    #         plt.ylim([-20, 80])
-    #         plt.show()
-    #         fig_verify.savefig(pic_dir + "/moo_elm_%s_unit_test_%s_pop%s_gen%s_rmse-%s_score-%s_time-%s.png" %(hof_ref,
-    #                                                                                                    str(int(units_index_test[idx])),
-    #                                                                               str(args.pop), str(args.gen), str(rms), str(score), str(train_time)))
-    #
-    #     end = time.time()
-    #
-    #     test_time = end - start
-    #
-    #     print("BEST model training time: ", train_time)
-    #     print("BEST model testtime: ", test_time)
-    #     print("HOF phenotype: ", [l2_parms_lst[hof[i][0] - 1], hof[i][1] * 10, hof[i][2] * 10, hof[i][3]])
-    #     print(" test RMSE: ", rms)
-    #     print(" test Score: ", score)
+
+    train_time_lst = []
+    test_time_lst = []
+    rmse_lst =[]
+    pheno_lst = []
+
+    """ Creates a new instance of the training-validation task and computes the fitness of the current individual """
+
+    for i in range(len(hof)):
+
+        l2_parms_lst = [1e-2, 1e-3, 1e-4, 1e-5, 1e-6]
+        l2_parm = l2_parms_lst[hof[i][0] - 1]
+        type_neuron_lst = ["tanh", "sigm", "lin"]
+
+        lin_check = hof[i][3]
+        num_neuron_lst = []
+        for n in range(2):
+            num_neuron_lst.append(hof[i][n + 1] * 10)
+        if lin_check == 1:
+            num_neuron_lst.append(20)
+        else:
+            num_neuron_lst.append(0)
+
+        print("HoF l2_params: ", l2_parm)
+        print("HoF lin_check: ", lin_check)
+        print("HoF num_neuron_lst: ", num_neuron_lst)
+        print("dtype(num_neuron_lst[0])", type(num_neuron_lst[0]))
+        print("HoF type_neuron_lst: ", type_neuron_lst)
+
+        feat_len = train_sample_array.shape[1]
+        best_elm_class = network_fit(feat_len,
+                              l2_parm, lin_check,
+                              num_neuron_lst, type_neuron_lst, model_temp_path, device, bs)
+        best_elm_net = best_elm_class.trained_model()
+
+        # Train the best network
+        sample_array = np.concatenate((train_sample_array, val_sample_array))
+        label_array = np.concatenate((train_label_array, val_label_array))
+
+        start = time.time()
 
 
+        best_elm_net.train(sample_array, label_array, "R")
+        print("individual trained...evaluation in progress...")
+        neurons_lst, norm_check = best_elm_net.summary()
+        print("summary: ", neurons_lst, norm_check)
+
+        end = time.time()
+
+        train_time = end - start
+
+        output_lst = []
+        truth_lst = []
+
+        start = time.time()
+        # Test
+        for index in units_index_test:
+            print ("test idx: ", index)
+            sample_array, label_array = load_array(sample_dir_path, index, win_len, win_stride)
+            # estimator = load_model(tf_temp_path, custom_objects={'rmse':rmse})
+
+            sample_array = sample_array[::sub]
+            label_array = label_array[::sub]
+
+            sample_array = sample_array.reshape(sample_array.shape[0], sample_array.shape[2])
+            print("sample_array_reshape.shape", sample_array.shape)
+            print("label_array_reshape.shape", label_array.shape)
+
+            sample_array = sample_array.astype(np.float32)
+            label_array = label_array.astype(np.float32)
+
+            # estimator = load_model(model_temp_path)
+
+            y_pred_test = best_elm_net.predict(sample_array)
+            output_lst.append(y_pred_test)
+            truth_lst.append(label_array)
+
+        print(output_lst[0].shape)
+        print(truth_lst[0].shape)
+
+        print(np.concatenate(output_lst).shape)
+        print(np.concatenate(truth_lst).shape)
+
+        output_array = np.concatenate(output_lst)[:, 0]
+        trytg_array = np.concatenate(truth_lst)
+        print(output_array.shape)
+        print(trytg_array.shape)
+
+        output_array = output_array.flatten()
+        print(output_array.shape)
+        print(trytg_array.shape)
+        score = score_calculator(output_array, trytg_array)
+        print("score: ", score)
+
+        rms = sqrt(mean_squared_error(output_array, trytg_array))
+        print(rms)
+        rms = round(rms, 2)
+        score = round(score, 2)
+
+
+
+        for idx in range(len(units_index_test)):
+            # print(output_lst[idx])
+            # print(truth_lst[idx])
+            fig_verify = plt.figure(figsize=(24, 10))
+            plt.plot(output_lst[idx], color="green")
+            plt.plot(truth_lst[idx], color="red", linewidth=2.0)
+            plt.title('Unit%s inference' %str(int(units_index_test[idx])), fontsize=30)
+            plt.yticks(fontsize=20)
+            plt.xticks(fontsize=20)
+            plt.ylabel('RUL', fontdict={'fontsize': 24})
+            plt.xlabel('Timestamps', fontdict={'fontsize': 24})
+            plt.legend(['Predicted', 'Truth'], loc='upper right', fontsize=28)
+            plt.ylim([-20, 80])
+            plt.show()
+            fig_verify.savefig(pic_dir + "/moo_elm_sol%s_unit_test_%s_pop%s_gen%s_rmse-%s_score-%s_time-%s.png" %(i,
+                                                                                                       str(int(units_index_test[idx])),
+                                                                                  str(args.pop), str(args.gen), str(rms), str(score), str(train_time)))
+
+        end = time.time()
+
+        test_time = end - start
+
+        print("BEST model training time: ", train_time)
+        print("BEST model testtime: ", test_time)
+        print("HOF phenotype: ", [l2_parms_lst[hof[i][0] - 1], hof[i][1] * 10, hof[i][2] * 10, hof[i][3]])
+        print(" test RMSE: ", rms)
+        print(" test Score: ", score)
+
+        train_time_lst.append(train_time)
+        test_time_lst.append(test_time)
+        rmse_lst.append(rms)
+        pheno_lst.append([l2_parms_lst[hof[i][0] - 1], hof[i][1] * 10, hof[i][2] * 10, hof[i][3]])
+
+
+    results_df = pd.DataFrame([], index=None)
+    results_df["train_time"] = train_time_lst
+    results_df["test_time"] = test_time_lst
+    results_df["rmse"] = rmse_lst
+    results_df.to_csv(os.path.join(ea_log_path, 'results.csv'), index=False)
 
 
 if __name__ == '__main__':
