@@ -325,7 +325,7 @@ def main():
     #####################################################################à
     hof = []
     for index, p_ind in selected_prft.iterrows():
-        hof.append([p_ind['p1'],p_ind['p2'],p_ind['p3'],p_ind['p4']])
+        hof.append([int(p_ind['p1']),int(p_ind['p2']),int(p_ind['p3']),int(p_ind['p4'])])
 
     print (hof)
     #
