@@ -241,8 +241,35 @@ def main():
             prft_log_df = pd.read_csv(os.path.join(ea_log_path, file), header=0, names=["p1", 'p2', 'p3', 'p4'])
             prft_lst.append(prft_log_df)
 
-    col_a = 'fitness_1'
-    col_b = 'fitness_2'
+    for loop_idx in range(len(results_lst)):
+        print("file %s in progress..." % loop_idx)
+        mute_log_df = results_lst[loop_idx]
+        prft_log_df = prft_lst[loop_idx]
+
+        col_a = 'fitness_1'
+        col_b = 'fitness_2'
+        solutions_df = mute_log_df[['fitness_1', 'fitness_2']]
+        prft_trial_lst.append(prft_log_df)
+
+        fit1_lst = []
+        fit2_lst = []
+
+        for index, p_ind in prft_log_df.iterrows():
+            # print ("index", index)
+            # print ("p_ind", p_ind)
+            # print ("p_ind['p1']", p_ind['p1'])
+            log_prft_ind = mute_log_df.loc[(mute_log_df['params_1'] == p_ind['p1']) &
+                                           (mute_log_df['params_2'] == p_ind['p2']) &
+                                           (mute_log_df['params_3'] == p_ind['p3']) &
+                                           (mute_log_df['params_4'] == p_ind['p4'])]
+
+            fit1_lst.append(log_prft_ind[col_a].values[0])
+            fit2_lst.append(log_prft_ind[col_b].values[0])
+
+        prft_log_df[col_a] = fit1_lst
+        prft_log_df[col_b] = fit2_lst
+
+
 
     x_max = 13
     x_min = 6
@@ -251,27 +278,10 @@ def main():
     x_sp = 0.2
     y_sp = 200
 
-    prft_trial_lst.append(prft_log_df)
-
-    fit1_lst = []
-    fit2_lst = []
 
 
-    for index, p_ind in prft_log_df.iterrows():
-        # print ("index", index)
-        # print ("p_ind", p_ind)
-        # print ("p_ind['p1']", p_ind['p1'])
-        log_prft_ind = mute_log_df.loc[(mute_log_df['params_1'] == p_ind['p1']) &
-                                       (mute_log_df['params_2'] == p_ind['p2']) &
-                                       (mute_log_df['params_3'] == p_ind['p3']) &
-                                       (mute_log_df['params_4'] == p_ind['p4'])]
-
-        fit1_lst.append(log_prft_ind[col_a].values[0])
-        fit2_lst.append(log_prft_ind[col_b].values[0])
 
 
-    prft_log_df[col_a] = fit1_lst
-    prft_log_df[col_b] = fit2_lst
 
     # Define any condition here
     fit_hist_array = np.zeros(int((x_max - x_min) / x_sp) * int((y_max - y_min) / y_sp))
