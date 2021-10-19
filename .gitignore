@@ -5,7 +5,7 @@ bin-release/
 [Bb]in/
 
 # Data files
-N-CMAPSS/
+
 *.h5
 *.npy
 *.npz
