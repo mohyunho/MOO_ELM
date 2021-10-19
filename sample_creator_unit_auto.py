@@ -73,16 +73,16 @@ data_filepath = os.path.join(current_dir, 'N-CMAPSS', 'N-CMAPSS_DS02-006.h5')
 def main():
     # current_dir = os.path.dirname(os.path.abspath(__file__))
     parser = argparse.ArgumentParser(description='sample creator')
-    parser.add_argument('-w', type=int, default=10, help='Input sources', required=True)
-    parser.add_argument('-s', type=int, default=10, help='sequence length')
-    parser.add_argument('--index', type=int, default='non', help='data representation:non, sfa or pca')
+    parser.add_argument('-w', type=int, default=10, help='window length', required=True)
+    parser.add_argument('-s', type=int, default=10, help='stride of window')
+    parser.add_argument('--test', type=int, default='non', help='select train or test, if it is zero, then extract samples from the engines used for training')
 
 
     args = parser.parse_args()
 
     sequence_length = args.w
     stride = args.s
-    selector = args.index
+    selector = args.test
 
 
 
@@ -139,6 +139,10 @@ def main():
     gc.collect()
     df_all = pd.DataFrame()
     sample_dir_path = os.path.join(data_filedir, 'Samples_whole')
+    sample_folder = os.path.isdir(sample_dir_path)
+    if not sample_folder:
+        os.makedirs(sample_dir_path)
+        print("created folder : ", sample_dir_path)
 
     cols_normalize = df_train.columns.difference(['RUL', 'unit'])
     sequence_cols = df_train.columns.difference(['RUL', 'unit'])
