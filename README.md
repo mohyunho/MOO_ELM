@@ -1,7 +1,7 @@
 # N-CMAPSS_DL
 DL evaluation on N-CMAPSS
-Sol            |  S
-:-------------------------:|:-------------------------:
+Turbo fan engine           |  CMAPSS [[1]](#1)
+:----------------------------:|:----------------------:
 ![](turbo_engine.jpg)  |  ![](cmapss.png)
 
 ## Prerequisites
@@ -9,7 +9,7 @@ Sol            |  S
 
 ## Sample creator
 Following the below instruction, you can create training/test sample arrays for machine learning model from N-CMAPSS datafile. <br/>
-Please download Turbofan Engine Degradation Simulation Data Set-2, so called N-CMAPSS dataset [[1]](#1), from [NASA's prognostic data repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/) <br/>
+Please download Turbofan Engine Degradation Simulation Data Set-2, so called N-CMAPSS dataset [[2]](#2), from [NASA's prognostic data repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/) <br/>
 In the downloaded dataset, dataset DS01 has been used for the application of model-based diagnostics and dataset DS02 has been used for data-driven prognostics.   Therefore, we need only dataset DS02. <br/> 
 Please locate "N-CMAPSS_DS02-006.h5"file to /N-CMAPSS folder. <br/>
 Then, you can get npz files for each of 9 engines by running the python codes below. 
@@ -24,7 +24,7 @@ python3 sample_creator_unit_auto.py -w 50 -s 1 --test 1
 &ndash;  s : stride of window <br/>
 &ndash;  test : select train or test, if it is zero, then the code extracts samples from the engines used for training. Otherwise, it creates samples from test engines<br/>
 
-Please note that we used N = 6 units (u = 2, 5, 10, 16, 18 & 20) for training and M = 3  units (u = 11, 14 & 15) for test, same as for the setting used in [[2]](#2). <br/>
+Please note that we used N = 6 units (u = 2, 5, 10, 16, 18 & 20) for training and M = 3  units (u = 11, 14 & 15) for test, same as for the setting used in [[3]](#3). <br/>
 
 Please note that the data type of the original data is 'np.float64' but we set the data type as 'np.float32' to reduce the size of the data considering memory when we load and create the samples. If you want to change the type, please check 'data_preparation_unit.py' file in /utils folder.  <br/>
 
@@ -54,9 +54,12 @@ The shape of your sample array should be (# of samples from all the units, windo
 
 ## References
 <a id="1">[1]</a> 
-Arias Chao, Manuel & Kulkarni, Chetan & Goebel, Kai & Fink, Olga. (2021). Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions for Prognostics and Diagnostics. Data. 6. 5. 10.3390/data6010005.
+Frederick, Dean & DeCastro, Jonathan & Litt, Jonathan. (2007). User's Guide for the Commercial Modular Aero-Propulsion System Simulation (C-MAPSS). NASA Technical Manuscript. 2007–215026. 
 
 <a id="2">[2]</a> 
+Arias Chao, Manuel & Kulkarni, Chetan & Goebel, Kai & Fink, Olga. (2021). Aircraft Engine Run-to-Failure Dataset under Real Flight Conditions for Prognostics and Diagnostics. Data. 6. 5. 10.3390/data6010005.
+
+<a id="3">[3]</a> 
 Arias Chao, Manuel & Kulkarni, Chetan & Goebel, Kai & Fink, Olga. (2020). Fusing Physics-based and Deep Learning Models for Prognostics. 
 
 
