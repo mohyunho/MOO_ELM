@@ -40,7 +40,7 @@ At first, you should load each of the npy files created in /Samples_whole folder
 def load_part_array_merge (npz_units):
     sample_array_lst = []
     label_array_lst = []
-    for npz_unit in range(npz_units):
+    for npz_unit in npz_units:
       loaded = np.load(npz_unit)
       sample_array_lst.append(loaded['sample'])
       label_array_lst.append(loaded['label'])
