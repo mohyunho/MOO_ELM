@@ -1,5 +1,8 @@
 # N-CMAPSS_DL
 DL evaluation on N-CMAPSS
+Sol            |  S
+:-------------------------:|:-------------------------:
+![turbo_engine](.png)  |  ![](cmapss.png)
 
 ## Prerequisites
 
@@ -25,7 +28,7 @@ Please note that we used N = 6 units (u = 2, 5, 10, 16, 18 & 20) for training an
 
 Please note that the data type of the original data is 'np.float64' but we set the data type as 'np.float32' to reduce the size of the data considering memory when we load and create the samples. If you want to change the type, please check 'data_preparation_unit.py' file in /utils folder.  <br/>
 
-Finally, you can have 9 npz file in /N-CMAPSS/Samples_whole. <br/>
+Finally, you can have 9 npz file in /N-CMAPSS/Samples_whole folder. <br/>
 
 Each compressed file contains two arrays with different labels: 'sample' and 'label'. In the case of the test units, 'label' indicates the ground truth RUL of the test units for evaluation. 
 
