@@ -2,7 +2,7 @@
 DL evaluation on N-CMAPSS
 Sol            |  S
 :-------------------------:|:-------------------------:
-![turbo_engine](.png)  |  ![](cmapss.png)
+![](turbo_engine.jpg)  |  ![](cmapss.png)
 
 ## Prerequisites
 
