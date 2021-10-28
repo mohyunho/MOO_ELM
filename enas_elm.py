@@ -39,9 +39,7 @@ from utils.ea_multi import GeneticAlgorithm
 
 # random seed predictable
 jobs = 1
-seed = 0
-random.seed(seed)
-np.random.seed(seed)
+
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -165,7 +163,7 @@ def main():
     parser.add_argument('-lr', type=float, default=0.001, help='learning rate')
     parser.add_argument('-sub', type=int, default=1, help='subsampling stride')
 
-
+    parser.add_argument('-t', type=int, required=True, help='trial')
 
 
     parser.add_argument('--pop', type=int, default=50, required=False, help='population size of EA')
@@ -189,7 +187,10 @@ def main():
     device = args.device
     obj = args.obj
 
-
+    trial = args.t
+    seed = trial
+    random.seed(seed)
+    np.random.seed(seed)
 
     train_units_samples_lst =[]
     train_units_labels_lst = []

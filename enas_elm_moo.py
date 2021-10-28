@@ -255,7 +255,7 @@ def main():
     mut_op = "uniform"
     sel_op = "nsga2"
     other_args = {
-        'mut_gene_probability': 0.3  # 0.1
+        'mut_gene_probability': 0.4  # 0.1
     }
 
 

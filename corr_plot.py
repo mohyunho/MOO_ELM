@@ -52,7 +52,7 @@ ydata = ydata.astype(np.float64)
 print (xdata)
 print (ydata)
 
-fig = plt.figure(figsize=(7, 4.5))
+fig = plt.figure(figsize=(7.2, 4.2))
 
 plt.plot(xdata, ydata, 'go', label='Data')
 
@@ -64,11 +64,12 @@ popt, pcov = curve_fit(func_sqr, xdata, ydata)
 # print (pcov)
 print (popt)
 plt.plot(xdata, func_sqr(xdata, *popt), 'r-', label='Best-fit curve, quadratic: a=%5.2e, b=%5.2e, c=%5.2e' % tuple(popt))
-plt.legend(fontsize=9)
-plt.ylabel("Training time(s)", fontsize=15)
+plt.legend(fontsize=10)
+plt.ylabel("Training time", fontsize=15)
 plt.xlabel("Trainable parameters", fontsize=15)
 plt.xticks(fontsize=13)
 plt.yticks(fontsize=13)
+plt.ylim([0,500])
 
 fig.savefig(os.path.join(pic_dir, 'corr_plot.png' ), dpi=1500 ,bbox_inches='tight')
 fig.savefig(os.path.join(pic_dir, 'corr_plot.eps' ), dpi=1500 ,bbox_inches='tight')
