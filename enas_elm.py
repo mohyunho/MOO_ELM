@@ -278,12 +278,12 @@ def main():
     recursive_clean(directory_path)
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
-    mutate_log_path = 'EA_log/mute_log_%s_%s.csv' % (pop_size, n_generations)
+    mutate_log_path = 'EA_log/mute_log_t-%s_%s_%s.csv' % (trial, pop_size, n_generations)
     mutate_log_col = ['idx', 'params_1', 'params_2', 'params_3', 'params_4', 'fitness', 'penalty', 'val_rmse', 'gen']
     mutate_log_df = pd.DataFrame(columns=mutate_log_col, index=None)
     mutate_log_df.to_csv(mutate_log_path, index=False)
 
-    prft_path = os.path.join(directory_path, 'prft_out_%s_%s.csv' % (pop_size, n_generations))
+    # prft_path = os.path.join(directory_path, 'prft_out_%s_%s.csv' % (pop_size, n_generations))
 
 
     def log_function(population, gen, cs, mutate_log_path = mutate_log_path):
