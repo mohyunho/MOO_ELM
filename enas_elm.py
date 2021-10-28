@@ -254,7 +254,7 @@ def main():
     mut_prob = 0.5  # 0.7
     cx_op = "one_point"
     mut_op = "uniform"
-    sel_op = "nsga2"
+    sel_op = "best"
     other_args = {
         'mut_gene_probability': 0.3  # 0.1
     }

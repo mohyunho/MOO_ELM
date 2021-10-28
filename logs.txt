@@ -673,6 +673,8 @@ python3 elm_params_time.py -w 1 -s 1 -vs 0.2 -constant 0.0001 -bs 50000
 
 python3 -W ignore enas_elm_moo.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 28 --gen 30 -bs 50000 --obj "moo" -t 1
 
+python3 -W ignore enas_elm.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 30 --gen 30 -bs 50000 --obj "soo" -t 2
+
 
 python3 -W ignore elm_test_multi.py -w 1 -s 1 -vs 0.2 -constant 0.0001 --pop 28 --gen 30 -bs 50000 --obj "moo"
 
