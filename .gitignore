@@ -11,7 +11,7 @@ N-CMAPSS/
 *.npz
 
 # Other files and folders
-.settings/
+
 
 # Executables
 *.swf
