@@ -233,12 +233,12 @@ def get_cmap(n, name='hsv'):
 
 
 
-x_max = 13
+x_max = 11
 x_min = 6
 y_max = 4000
 y_min = 0
-x_sp = 0.175
-y_sp = 100
+x_sp = 0.25
+y_sp = 200
 
 
 

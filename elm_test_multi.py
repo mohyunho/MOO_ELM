@@ -278,12 +278,19 @@ def main():
     # x_sp = 0.2
     # y_sp = 200
 
-    x_max = 13
+    # x_max = 13
+    # x_min = 6
+    # y_max = 4000
+    # y_min = 0
+    # x_sp = 0.175
+    # y_sp = 100
+
+    x_max = 11
     x_min = 6
     y_max = 4000
     y_min = 0
-    x_sp = 0.175
-    y_sp = 100
+    x_sp = 0.25
+    y_sp = 200
 
 
     # Define any condition here
