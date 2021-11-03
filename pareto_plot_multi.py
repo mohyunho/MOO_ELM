@@ -198,7 +198,7 @@ for loop_idx in range(len(results_lst)):
 #
 # # print (hv_gen_lst)
 # # print (len(hv_gen_lst))
-# fig_verify = plt.figure(figsize=(8, 6))
+# fig_verify = plt.figure(figsize=(7, 5))
 # mean_hv = np.array([np.mean(a) for a in hv_gen_lst])
 # std_hv = np.array([np.std(a) for a in hv_gen_lst])
 # x_ref = range(1, n_generations + 1)
@@ -211,9 +211,9 @@ for loop_idx in range(len(results_lst)):
 # plt.plot(x_ref, mean_hv+std_hv, color='black', linewidth= 0.5, linestyle='dashed', label = 'Std')
 # plt.xticks(x_ref, fontsize=10, rotation=60)
 # plt.yticks(fontsize=11)
-# plt.ylabel("Normalized hypervolume", fontsize=15)
-# plt.xlabel("Generations", fontsize=15)
-# plt.legend(loc='lower right')
+# plt.ylabel("Normalized hypervolume", fontsize=16)
+# plt.xlabel("Generations", fontsize=16)
+# plt.legend(loc='lower right', fontsize=15)
 # fig_verify.savefig(os.path.join(pic_dir, 'hv_plot_%s_%s.png' % (pop_size, n_generations)), dpi=1500,
 #                    bbox_inches='tight')
 # fig_verify.savefig(os.path.join(pic_dir, 'hv_plot_%s_%s.eps' % (pop_size, n_generations)), dpi=1500,
@@ -237,8 +237,8 @@ x_max = 13
 x_min = 6
 y_max = 4000
 y_min = 0
-x_sp = 0.2
-y_sp = 200
+x_sp = 0.175
+y_sp = 100
 
 
 
@@ -295,11 +295,11 @@ for idx, prft in enumerate(prft_trial_lst):
 ax.hlines(np.arange(y_min, y_max, y_sp), 0, 13, lw= 0.5, colors=(0.5, 0.5, 0.5, 0.5), zorder=2)
 ax.vlines(np.arange(x_min, x_max, x_sp), 0, 4000, lw= 0.5, colors=(0.5, 0.5, 0.5, 0.5), zorder=2)
 
-# rect = matplotlib.patches.Rectangle((x_bin[max_idx],y_bin[max_idx]), x_sp, y_sp, lw=1, facecolor=(1.0, 0.8, 0.8),
-#                                     alpha = 0.6, edgecolor=  (0.0,0.0,0.0), zorder=1)
+rect = matplotlib.patches.Rectangle((x_bin[max_idx],y_bin[max_idx]), x_sp, y_sp, lw=2, facecolor=(0.8, 0.8, 0.1),
+                                    alpha = 0.8, edgecolor=  (0.9,0.9,0.1), zorder=1)
 
-rect = matplotlib.patches.Rectangle((x_bin[max_idx],y_bin[max_idx]), x_sp, y_sp, lw=2, fill=None,
-                                    edgecolor=  (1.0,0.9,0.1), zorder=1)
+# rect = matplotlib.patches.Rectangle((x_bin[max_idx],y_bin[max_idx]), x_sp, y_sp, lw=2, fill=None,
+#                                     edgecolor=  (1.0,0.9,0.1), zorder=1)
 ax.add_patch(rect)
 x_range = np.arange(x_min, x_max, spacing_x)
 ax.set_xticks(x_range)
@@ -319,7 +319,7 @@ ax.legend(fontsize=11)
 # ax.set_rasterized(True)
 fig.savefig(os.path.join(pic_dir, 'prft_aggr_%s_%s.png' % (pop_size, n_generations)), dpi=1500, bbox_inches='tight')
 fig.savefig(os.path.join(pic_dir, 'prft_aggr_%s_%s.eps' % (pop_size, n_generations)), dpi=1500, bbox_inches='tight')
-
+fig.savefig(os.path.join(pic_dir, 'prft_aggr_%s_%s.pdf' % (pop_size, n_generations)), dpi=1500, bbox_inches='tight')
 
 fig_verify = plt.figure(figsize=(6, 4))
 plt.bar(x, width=0.8, color= 'r',height=fit_hist_array)
@@ -346,8 +346,8 @@ ga_elm2 = [7.22, 1790]
 selected_prft = prft_all.loc[(prft_all[col_a] > x_bin[max_idx]) & (prft_all[col_a] < x_bin[max_idx] + x_sp)
                              & (prft_all[col_b] > y_bin[max_idx])
                              & (prft_all[col_b] < y_bin[max_idx] + y_sp)]
-print (selected_prft)
-print (results_df)
+print ("selected_prft", selected_prft)
+print ("results_df", results_df)
 results_df["params"] = selected_prft["fitness_2"].values
 
 fig_results = plt.figure(figsize=(6, 4))
@@ -355,15 +355,15 @@ fig_results = plt.figure(figsize=(6, 4))
 cmap = get_cmap(2)
 ax = fig_results.add_subplot(1, 1, 1)
 
-ax.scatter(cnn_solution[0], cnn_solution[1], marker="D",facecolor=(1.0, 0.0, 0.0), edgecolors=(0.0, 0.0, 0.0), zorder=1,
+ax.scatter(cnn_solution[0], cnn_solution[1], marker="D",facecolor=(0.0, 1.0, 0.0), edgecolors=(0.0, 0.0, 0.0), zorder=1,
            s=60, label="CNN")
 ax.scatter(ga_elm1[0], ga_elm1[1], marker="^",facecolor=(0.0, 0.0, 1.0), edgecolors=(0.0, 0.0, 0.0), zorder=1,
            s=60, label="GA+ELM(1)")
 ax.scatter(ga_elm2[0], ga_elm2[1], marker="s",facecolor=(0.0, 0.0, 0.0), edgecolors=(0.0, 0.0, 0.0), zorder=1,
            s=60, label="GA+ELM(2)")
-ax.scatter(results_df["rmse"], results_df["params"], facecolor=(0.0,1.0,0.0), edgecolors=(0.0, 0.0, 0.0), zorder=1,
-           s=60, label="MOO+ELM", alpha=0.5)
-ax.scatter(results_df["rmse"].mean(), results_df["params"].mean(),  marker="x",facecolor=(1.0,0.0,0.0),  edgecolors=(1.0, 0.0, 0.0), zorder=5,
+ax.scatter(results_df["rmse"], results_df["params"], facecolor=(1.0,1.0,0.0), edgecolors=(0.7, 0.7, 0.0), zorder=1,
+           s=60, label="MOO+ELM", alpha=0.7)
+ax.scatter(results_df["rmse"].mean(), results_df["params"].mean(),  marker="x",facecolor=(1.0,0.0,0.0),  edgecolors=(0.0, 0.0, 0.0), zorder=5,
            s=80, label="MOO+ELM(avg)", alpha=1)
 
 print ("results_df.mean() rmse", results_df["rmse"].mean())
@@ -390,3 +390,4 @@ ax.set_ylabel('Trainable parameters', fontsize=15)
 ax.legend(fontsize=11)
 fig_results.savefig(os.path.join(pic_dir, 'results_%s_%s.png' % (pop_size, n_generations)), dpi=500, bbox_inches='tight')
 fig_results.savefig(os.path.join(pic_dir, 'results_%s_%s.eps' % (pop_size, n_generations)), dpi=500, bbox_inches='tight')
+fig_results.savefig(os.path.join(pic_dir, 'results_%s_%s.pdf' % (pop_size, n_generations)), dpi=500, bbox_inches='tight')
