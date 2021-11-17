@@ -1,6 +1,4 @@
-'''
 
-'''
 ## Import libraries in python
 import gc
 import argparse
