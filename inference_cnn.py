@@ -1,8 +1,5 @@
 '''
-DL models (FNN, 1D CNN and CNN-LSTM) evaluation on N-CMAPSS
-12.07.2021
-Hyunho Mo
-hyunho.mo@unitn.it
+
 '''
 ## Import libraries in python
 import gc
