@@ -15,7 +15,15 @@ that helps create numpy arrays for training/test ML&DL models from N-CMAPSS data
 
 ## MOO ELM
 <p align="center">
-  <img height="300" src="/elm.png">
+  <img height="250" src="/elm.png">
+</p>
+
+
+
+
+
+<p align="center">
+  <img height="300" src="/moo_results.png">
 </p>
 
 
