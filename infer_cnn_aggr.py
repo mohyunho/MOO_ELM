@@ -1,4 +1,9 @@
+'''
 
+Create a CNN manually &
+Train and test it on N-CMAPSS
+
+'''
 ## Import libraries in python
 import gc
 import argparse

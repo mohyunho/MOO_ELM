@@ -1,6 +1,10 @@
 '''
 Created on April , 2021
 @author:
+
+Generate an ELM defined by HOF &
+Tain and test the network on N-CMAPSS
+
 '''
 
 ## Import libraries in python

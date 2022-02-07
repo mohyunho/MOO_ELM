@@ -1,6 +1,9 @@
 '''
 Created on April , 2021
 @author:
+
+Create a pareto plot and a trade-off plot (for independent 10 runs)
+
 '''
 
 ## Import libraries in python
