@@ -18,7 +18,7 @@ that helps create numpy arrays for training/test ML&DL models from N-CMAPSS data
   <img height="250" src="/elm.png">
 </p>
 
-The objective of this study is to search for the best ELM architectures in terms of a trade-off between RUL prediction error and training time, the latter being determined by the number of trainable parameters. (In detail, we consider the optimization of the number and type of neurons (& L2 regularization prameter) in a SLFN when we train it by ELM). <br/>
+The objective of this study is to search for the best ELM architectures in terms of a trade-off between RUL prediction error and training time, the latter being determined by the number of trainable parameters. (In detail, we consider the optimization of the number and type of neurons & L2 regularization prameter in a SLFN when we train it by ELM). <br/>
 After preparing the data from the N-CMAPSS, <br/>
 you can find the trade-off solution by running the python codes below:
 ```bash
