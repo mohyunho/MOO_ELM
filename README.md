@@ -58,5 +58,12 @@ Chao, Manuel Arias, Chetan Kulkarni, Kai Goebel, and Olga Fink. "Aircraft Engine
 Chao, Manuel Arias, Chetan Kulkarni, Kai Goebel, and Olga Fink. "Fusing physics-based and deep learning models for prognostics." Reliability Engineering & System Safety 217 (2022): 107961.
 
 <a id="3">[4]</a> 
-Mo, Hyunho, and Giovanni Iacca. "Multi-Objective Optimization of Extreme Learning Machine for Remaining Useful Life Prediction." EvoApplications, part of EvoStar 2022 (2022), to appear.
+@inproceedings{mo2022multi,
+  title={Multi-Objective Optimization of Extreme Learning Machine for Remaining Useful Life Prediction},
+  author={Mo, Hyunho and Iacca, Giovanni},
+  booktitle={International Conference on the Applications of Evolutionary Computation (Part of EvoStar)},
+  pages={191--206},
+  year={2022},
+  organization={Springer}
+}
 
