@@ -38,12 +38,13 @@ Following our experiments on the N-CMAPSS dataset, the optimized ELMs perform sl
 
 To cite this code use
 ```
-@inproceedings{mo2022MOEAELM,
-	title = {Multi-Objective Optimization of Extreme Learning Machine for Remaining Useful Life Prediction},
-	booktitle = {Applications of Evolutionary Computation},
-	author = {Mo, Hyunho and Iacca, Giovanni},
-	year = {2022},
-	note = {to appear}
+@inproceedings{mo2022multi,
+  title={Multi-Objective Optimization of Extreme Learning Machine for Remaining Useful Life Prediction},
+  author={Mo, Hyunho and Iacca, Giovanni},
+  booktitle={International Conference on the Applications of Evolutionary Computation (Part of EvoStar)},
+  pages={191--206},
+  year={2022},
+  organization={Springer}
 }
 ```
 
@@ -58,12 +59,5 @@ Chao, Manuel Arias, Chetan Kulkarni, Kai Goebel, and Olga Fink. "Aircraft Engine
 Chao, Manuel Arias, Chetan Kulkarni, Kai Goebel, and Olga Fink. "Fusing physics-based and deep learning models for prognostics." Reliability Engineering & System Safety 217 (2022): 107961.
 
 <a id="3">[4]</a> 
-@inproceedings{mo2022multi,
-  title={Multi-Objective Optimization of Extreme Learning Machine for Remaining Useful Life Prediction},
-  author={Mo, Hyunho and Iacca, Giovanni},
-  booktitle={International Conference on the Applications of Evolutionary Computation (Part of EvoStar)},
-  pages={191--206},
-  year={2022},
-  organization={Springer}
-}
+Mo, Hyunho, and Giovanni Iacca. "Multi-Objective Optimization of Extreme Learning Machine for Remaining Useful Life Prediction." International Conference on the Applications of Evolutionary Computation (Part of EvoStar). Springer, Cham, 2022.
 
